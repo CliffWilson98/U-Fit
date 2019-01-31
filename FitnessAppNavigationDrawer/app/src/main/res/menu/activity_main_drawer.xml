@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_tag_faces_black_24dp"
+            android:title="View Profile" />
+        <item
+            android:id="@+id/nav_create_workouts"
+            android:icon="@drawable/ic_add_circle_black_24dp"
+            android:title="Create Workout" />
+        <item
+            android:id="@+id/nav_my_workouts"
+            android:icon="@drawable/ic_directions_run_black_24dp"
+            android:title="My Workouts" />
+    </group>
+
+</menu>
