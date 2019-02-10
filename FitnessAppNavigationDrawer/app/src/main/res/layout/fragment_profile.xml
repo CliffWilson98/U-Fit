@@ -40,7 +40,7 @@
                     android:text="@string/profile_bio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -48,16 +48,18 @@
                 android:paddingBottom="10dp">
                 <TextView
                     android:text="@string/profile_age"
+                    android:textSize="18sp"
+                    android:width="100dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
                 <TextView
+                    android:text="43"
+                    android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="43"
-                    android:textSize="24sp"/>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -65,16 +67,18 @@
                 android:paddingBottom="10dp">
                 <TextView
                     android:text="@string/profile_gender"
+                    android:textSize="18sp"
+                    android:width="100dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
                 <TextView
+                    android:text="Male"
+                    android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:textSize="24sp"/>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -82,16 +86,18 @@
                 android:paddingBottom="10dp">
                 <TextView
                     android:text="@string/profile_height"
+                    android:textSize="18sp"
+                    android:width="100dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
                 <TextView
+                    android:text="6'0"
+                    android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="6'0"
-                    android:textSize="24sp"/>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -99,16 +105,18 @@
                 android:paddingBottom="10dp">
                 <TextView
                     android:text="@string/profile_weight"
+                    android:textSize="18sp"
+                    android:width="100dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
                 <TextView
+                    android:text="150"
+                    android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="150"
-                    android:textSize="24sp"/>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
 
