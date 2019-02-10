@@ -31,7 +31,6 @@ public class FitnessAppHelper extends SQLiteOpenHelper
         //so the tables must be made for the first time
         if (oldVersion < 1)
         {
-            System.out.println("DATABASE IS BEING CREATED FOR THE FIRST TIME!");
             db.execSQL("CREATE TABLE EXERCISE (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT," +
@@ -46,6 +45,15 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "EXERCISE1 INTEGER," +
                     "EXERCISE2 INTEGER," +
                     "EXERCISE3 INTEGER);");
+
+            db.execSQL("CREATE TABLE PROFILE (" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "NAME TEXT," +
+                    "PICTURE BLOB," +
+                    "AGE INTEGER," +
+                    "GENDER TEXT," +
+                    "HEIGHT TEXT," +
+                    "WEIGHT INTEGER);");
         }
         if (oldVersion < 2)
         {
