@@ -14,6 +14,7 @@
         android:id="@+id/userPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:contentDescription="@string/profile_user_photo"
         app:srcCompat="@mipmap/ic_launcher" />
 
@@ -22,28 +23,94 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/profile_user_name"
-        android:paddingTop="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textAlignment="center"
         android:text="@string/profile_user_name" />
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:padding="10dp">
 
             <TableRow>
-
                 <TextView
                     android:text="@string/profile_bio"
-                    android:textSize="16sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:text="@string/profile_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1" />
 
                 <TextView
-                    android:/>
+                    android:width="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="43"
+                    android:textSize="24sp"/>
             </TableRow>
+
+            <TableRow
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:text="@string/profile_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:width="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:textSize="24sp"/>
+            </TableRow>
+
+            <TableRow
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:text="@string/profile_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:width="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6'0"
+                    android:textSize="24sp"/>
+            </TableRow>
+
+            <TableRow
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:text="@string/profile_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:width="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="150"
+                    android:textSize="24sp"/>
+            </TableRow>
+
 
         </TableLayout>
 
