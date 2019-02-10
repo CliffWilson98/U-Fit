@@ -27,22 +27,20 @@ import java.util.ArrayList;
 public class CreateWorkoutFragment extends Fragment implements View.OnClickListener {
 
 
-    //TODO remove this
-    //just placeholder junk for testing database
-    private ArrayList<String> exerciseNames = new ArrayList<String>();
-    private String exerciseNamesString;
+    private ArrayList<WeightExercise> exerciseList;
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        exerciseList = new ArrayList<>();
 
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
 
-        Button b = (Button) v.findViewById(R.id.add_workout_button);
+        Button b = (Button) v.findViewById(R.id.add_exercise_button);
         b.setOnClickListener(this);
 
         return v;
@@ -61,11 +59,27 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     public void onClick(View v)
     {
-        System.out.println("BUTTON PRESSED");
-
         int id = v.getId();
 
-        if (id == R.id.add_workout_button)
+        if (id == R.id.add_exercise_button)
+        {
+           //Get data from necessary fields and add it to the exercise ArrayList
+            String workoutName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
+            int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
+            int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
+            int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
+
+            WeightExercise exerciseToAdd = new WeightExercise(workoutName, reps, repCount, weight);
+            exerciseList.add(exerciseToAdd);
+
+            displayAddedWorkouts();
+        }
+        else if (id == R.id.create_workout_button)
+        {
+            //add workout to database with id's to reference the exercises that are part of it
+            //also add the exercises themselves to the database.
+        }
+        /*if (id == R.id.add_workout_button)
         {
             SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
 
@@ -108,7 +122,19 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
                 Toast toast = Toast.makeText(getActivity(), "Database Unavailabe", Toast.LENGTH_SHORT);
                 toast.show();
             }
-        }
+        }*/
     }
 
+    private void displayAddedWorkouts()
+    {
+        String exerciseNames = "";
+
+        for (int i = 0; i < exerciseList.size(); i ++)
+        {
+            exerciseNames += " " + exerciseList.get(i).getName();
+        }
+
+        TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
+        addedExercises.setText(exerciseNames);
+    }
 }
