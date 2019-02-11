@@ -7,6 +7,19 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="profile_user_photo">User Photo</string>
+    <string name="profile_user_name">User Name</string>
+    <string name="profile_bio">Bio</string>
+    <string name="profile_age">Age</string>
+    <string name="profile_gender">Gender</string>
+    <string name="profile_height">Height</string>
+    <string name="profile_weight">Weight</string>
+    <string name="profile_measurements">Measurements</string>
+    <string name="profile_neck">Neck</string>
+    <string name="profile_chest">Chest</string>
+    <string name="profile_waist">Waist</string>
+    <string name="profile_hips">Hips</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
