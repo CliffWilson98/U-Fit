@@ -55,8 +55,8 @@
                     android:layout_column="1"
                     />
 
-                <TextView
-                    android:text="43"
+                <EditText
+                    android:id="@+id/age_text_view"
                     android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
-                <TextView
+                <EditText
                     android:text="Male"
                     android:textSize="24sp"
                     android:width="200dp"
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
-                <TextView
+                <EditText
                     android:text="6'0"
                     android:textSize="24sp"
                     android:width="200dp"
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1" />
 
-                <TextView
+                <EditText
                     android:text="150"
                     android:textSize="24sp"
                     android:width="200dp"
@@ -120,7 +120,15 @@
                     android:layout_height="wrap_content" />
             </TableRow>
 
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"/>
+
 
         </TableLayout>
+
+
 
 </LinearLayout>
