@@ -7,14 +7,25 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CUSTOM_FILTER" value="THE AGE" />
+<<<<<<< HEAD
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+=======
+<<<<<<< HEAD
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+=======
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e70f3d3c-fca2-4bdd-8a68-b38685b42802" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,13 +65,29 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
+<<<<<<< HEAD
           <entry key="java" value="692" />
+=======
+<<<<<<< HEAD
+          <entry key="java" value="692" />
+=======
+          <entry key="java" value="686" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
           <entry key="xml" value="126" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+<<<<<<< HEAD
           <entry key="JAVA" value="692" />
+=======
+<<<<<<< HEAD
+          <entry key="JAVA" value="692" />
+=======
+          <entry key="JAVA" value="686" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
           <entry key="XML" value="126" />
         </counts>
       </usages-collector>
@@ -75,6 +102,8 @@
               <caret line="58" column="51" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="51" />
             </state>
           </provider>
+<<<<<<< HEAD
+=======
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
@@ -85,14 +114,36 @@
               <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
+=======
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_create_workout.xml">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="153">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+>>>>>>> dev
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="267">
               <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+<<<<<<< HEAD
+=======
+=======
+            <state relative-caret-position="486">
+              <caret line="45" column="8" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
             </state>
           </provider>
         </entry>
@@ -106,10 +157,24 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="313">
+=======
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="398">
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
               <caret line="59" column="41" selection-start-line="59" selection-start-column="41" selection-end-line="59" selection-end-column="41" />
             </state>
           </provider>
@@ -123,9 +188,21 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java" />
+=======
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java" />
+=======
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
       </list>
     </option>
   </component>
@@ -325,11 +402,27 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="0" weight="0.32897863" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49965635" weight="0.2648456" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" />
       <window_info anchor="bottom" id="Debug" order="4" />
       <window_info active="true" anchor="bottom" id="Terminal" order="5" visible="true" weight="0.32897863" />
+=======
+<<<<<<< HEAD
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49965635" weight="0.2648456" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" />
+      <window_info anchor="bottom" id="Debug" order="4" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="5" visible="true" weight="0.32897863" />
+=======
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.49965635" visible="true" weight="0.2648456" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" />
+      <window_info anchor="bottom" id="Debug" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="5" weight="0.32897863" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5003436" side_tool="true" weight="0.2648456" />
       <window_info anchor="bottom" id="Flutter Performance" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32897863" />
@@ -360,9 +453,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4">
           <caret line="83" column="74" selection-start-line="83" selection-start-column="74" selection-end-line="83" selection-end-column="74" />
+<<<<<<< HEAD
+=======
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/FitnessAppHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="59" column="41" selection-start-line="59" selection-start-column="41" selection-end-line="59" selection-end-column="41" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+        </state>
+      </provider>
+    </entry>
+>>>>>>> dev
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -373,6 +479,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cliff/fitnessapp/ProfileFragment.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> dev
         <state relative-caret-position="267">
           <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
         </state>
@@ -382,6 +492,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
           <caret line="59" column="41" selection-start-line="59" selection-start-column="41" selection-end-line="59" selection-end-column="41" />
+<<<<<<< HEAD
+=======
+=======
+        <state relative-caret-position="486">
+          <caret line="45" column="8" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+>>>>>>> 9a53fa6c6f5def3950ed1e7c9d27402c36ce1495
+>>>>>>> dev
         </state>
       </provider>
     </entry>
