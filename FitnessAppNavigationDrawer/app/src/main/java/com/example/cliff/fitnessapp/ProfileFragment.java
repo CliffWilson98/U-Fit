@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ageText = (EditText) v.findViewById(R.id.age_text_view);
         genderText = (EditText) v.findViewById(R.id.gender_text_view);
         heightText = (EditText) v.findViewById(R.id.height_text_view);
-        weightText = (EditText) v.findViewById(R.id.weight_edit_text);
+        weightText = (EditText) v.findViewById(R.id.weight_text_view);
 
         updateEditText();
 
@@ -81,7 +81,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             cursor.moveToFirst();
 
             int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
+            String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
+            String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
+            String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
+
             System.out.println("THE AGE IN DATABASE IS " + databaseAge);
+            System.out.println("The gender in the database is " + databaseGender);
+            System.out.println("The height in the database is " + databaseHeight);
+            System.out.println("The weight in the database is " + databaseWeight);
 
         }
     }
@@ -95,8 +102,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         cursor.moveToFirst();
 
         int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
+        String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
+        String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
+        String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
 
         ageText.setText(Integer.toString(databaseAge));
+        genderText.setText(databaseGender);
+        heightText.setText(databaseHeight);
+        weightText.setText(databaseWeight);
 
     }
 
