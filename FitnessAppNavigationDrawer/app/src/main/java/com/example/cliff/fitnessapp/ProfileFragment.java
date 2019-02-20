@@ -23,7 +23,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
-    private EditText ageText;
+    private EditText ageText, genderText, heightText, weightText;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -41,6 +41,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         b.setOnClickListener(this);
 
         ageText = (EditText) v.findViewById(R.id.age_text_view);
+        genderText = (EditText) v.findViewById(R.id.gender_text_view);
+        heightText = (EditText) v.findViewById(R.id.height_text_view);
+        weightText = (EditText) v.findViewById(R.id.weight_edit_text);
 
         updateEditText();
 
@@ -54,6 +57,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (id == R.id.submit)
         {
             int age = Integer.valueOf((((EditText)getView().findViewById(R.id.age_text_view)).getText().toString()));
+            String gender = (String)(((EditText)getView().findViewById(R.id.gender_text_view)).getText().toString());
+            String height = (String)(((EditText)getView().findViewById(R.id.height_text_view)).getText().toString());
+            String weight = (String)(((EditText)getView().findViewById(R.id.weight_text_view)).getText().toString());
 
             System.out.println("AGE IS " + age);
 
@@ -63,6 +69,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             ContentValues value = new ContentValues();
             value.put("AGE", age);
+            value.put("GENDER", gender);
+            value.put("HEIGHT", height);
+            value.put("WEIGHT", weight);
+
 
            // db.insert("PROFILE", null, value);
             db.update("PROFILE", value, null, null);
@@ -71,7 +81,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             cursor.moveToFirst();
 
             int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
-            System.out.println("THE AGE IN DATABSE IS " + databaseAge);
+            System.out.println("THE AGE IN DATABASE IS " + databaseAge);
 
         }
     }

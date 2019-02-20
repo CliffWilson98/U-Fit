@@ -75,7 +75,7 @@
                     android:layout_column="1" />
 
                 <EditText
-                    android:text="Male"
+                    android:id="@+id/gender_text_view"
                     android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
                     android:layout_column="1" />
 
                 <EditText
-                    android:text="6'0"
+                    android:id="@+id/height_text_view"
                     android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                     android:layout_column="1" />
 
                 <EditText
-                    android:text="150"
+                    android:id="@+id/weight_text_view"
                     android:textSize="24sp"
                     android:width="200dp"
                     android:layout_width="wrap_content"

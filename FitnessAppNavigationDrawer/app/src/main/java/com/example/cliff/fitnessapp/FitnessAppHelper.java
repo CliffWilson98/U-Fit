@@ -53,11 +53,14 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "AGE INTEGER," +
                     "GENDER TEXT," +
                     "HEIGHT TEXT," +
-                    "WEIGHT INTEGER);");
+                    "WEIGHT TEXT);");
 
             ContentValues profileValues = new ContentValues();
-            profileValues.put("NAME", "askfldjsf");
+            profileValues.put("NAME", "New User");
             profileValues.put("AGE", 23);
+            profileValues.put("GENDER", "Male");
+            profileValues.put("HEIGHT", "0.0");
+            profileValues.put("WEIGHT", "0.0");
 
             db.insert("PROFILE", null, profileValues);
 
