@@ -35,16 +35,14 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT," +
                     "REPS INTEGER," +
-                    "NUMBEROFREPS INTEGER," +
+                    "REPCOUNT INTEGER," +
                     "WEIGHT INTEGER," +
-                    "USESWEIGHT INTEGER);");
+                    "USESWEIGHT INTEGER," +
+                    "WORKOUT INTEGER);");
 
             db.execSQL("CREATE TABLE WORKOUT (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "NAME TEXT," +
-                    "EXERCISE1 INTEGER," +
-                    "EXERCISE2 INTEGER," +
-                    "EXERCISE3 INTEGER);");
+                    "NAME TEXT);");
 
             db.execSQL("CREATE TABLE PROFILE (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +

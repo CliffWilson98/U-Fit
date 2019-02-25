@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -28,6 +30,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
 
     private ArrayList<WeightExercise> exerciseList;
+    private String workoutNames = "";
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
@@ -40,8 +43,11 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
 
-        Button b = (Button) v.findViewById(R.id.add_exercise_button);
-        b.setOnClickListener(this);
+        Button addExerciseButton = (Button) v.findViewById(R.id.add_exercise_button);
+        addExerciseButton.setOnClickListener(this);
+
+        Button createWorkoutButton = (Button) v.findViewById(R.id.create_workout_button);
+        createWorkoutButton.setOnClickListener(this);
 
         return v;
     }
@@ -63,7 +69,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         if (id == R.id.add_exercise_button)
         {
-           //Get data from necessary fields and add it to the exercise ArrayList
+            //Get data from necessary fields and add it to the exercise ArrayList
             String workoutName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
             int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
             int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
@@ -72,60 +78,73 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
             WeightExercise exerciseToAdd = new WeightExercise(workoutName, reps, repCount, weight);
             exerciseList.add(exerciseToAdd);
 
-            displayAddedWorkouts();
+            displayAddedExercises();
         }
         else if (id == R.id.create_workout_button)
         {
-            //add workout to database with id's to reference the exercises that are part of it
-            //also add the exercises themselves to the database.
-        }
-        /*if (id == R.id.add_workout_button)
-        {
+            System.out.println("CREATE WORKOUT IS PRESSED");
+
             SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
+            SQLiteDatabase db = helper.getWritableDatabase();
+
+            EditText workoutNameTextView = getView().findViewById(R.id.workout_name);
+            String workoutName = workoutNameTextView.getText().toString();
+
+            ContentValues value = new ContentValues();
+            value.put("NAME", workoutName);
+
+            db.insert("WORKOUT", null, value);
+
+            Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;", null);
+            cursor.moveToFirst();
+
+            String name = cursor.getString(cursor.getColumnIndex("NAME"));
+            int workoutID = cursor.getInt(0);
+
+            System.out.println("WORKOUT ID: " + workoutID);
+
+            addExercisesToDatabase(workoutID);
+            exerciseList.clear();
+
+            Cursor workoutCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
+
+            displayAddedWorkouts(workoutCursor);
+        }
+    }
+
+    private void addExercisesToDatabase(int workoutId)
+    {
+        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
+
+        for (int i = 0; i < exerciseList.size(); i ++)
+        {
+            Exercise exercise = exerciseList.get(i);
+
+            String name = exercise.getName();
+            int reps = exercise.getReps();
+            int repCount = exercise.getNumberOfReps();
+
+            ContentValues value = new ContentValues();
+            value.put("NAME", name);
+            value.put("REPS", reps);
+            value.put("REPCOUNT", repCount);
+            value.put("WORKOUT", workoutId);
 
             try
             {
                 SQLiteDatabase db = helper.getWritableDatabase();
-
-                String workoutName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
-                int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
-                int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
-                int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
-
-                String test = String.format("Name %s reps %d repcount %d, weight %d", workoutName, reps, repCount, weight);
-                System.out.println(test);
-
-                ContentValues exerciseValues = new ContentValues();
-                exerciseValues.put("NAME", workoutName);
-                exerciseValues.put("REPS", reps);
-                exerciseValues.put("NUMBEROFREPS", repCount);
-                exerciseValues.put("WEIGHT", weight);
-
-                db.insert("EXERCISE", null, exerciseValues);
-
-                String[] columns = {"WEIGHT"};
-                Cursor cursor = db.query("EXERCISE", columns, null, null, null, null, null);
-                cursor.moveToFirst();
-
-                String weightValues = "";
-                do
-                {
-                    weightValues += " " + String.valueOf(cursor.getInt(0));
-                }
-                while (cursor.moveToNext());
-
-                TextView databaseContents = getView().findViewById(R.id.exercise_database_contents);
-                databaseContents.setText(weightValues);
+                db.insert("EXERCISE", null, value);
             }
-            catch (SQLiteException e)
+            catch(SQLiteException e)
             {
-                Toast toast = Toast.makeText(getActivity(), "Database Unavailabe", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), "Database Unavailable", Toast.LENGTH_SHORT);
                 toast.show();
             }
-        }*/
+        }
     }
 
-    private void displayAddedWorkouts()
+
+    private void displayAddedExercises()
     {
         String exerciseNames = "";
 
@@ -136,5 +155,22 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
         addedExercises.setText(exerciseNames);
+    }
+
+    private void displayAddedWorkouts(Cursor cursor)
+    {
+        cursor.moveToFirst();
+
+        do
+        {
+            workoutNames += cursor.getString(cursor.getColumnIndex("NAME"));
+        }
+        while(cursor.moveToNext());
+
+        workoutNames += "\n";
+
+        TextView workoutView = getView().findViewById(R.id.workout_database_contents);
+        workoutView.setText(workoutNames);
+
     }
 }
