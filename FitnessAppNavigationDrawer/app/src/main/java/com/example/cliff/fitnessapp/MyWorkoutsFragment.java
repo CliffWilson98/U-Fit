@@ -1,6 +1,8 @@
 package com.example.cliff.fitnessapp;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -10,8 +12,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -19,6 +29,8 @@ import android.widget.Toast;
  */
 public class MyWorkoutsFragment extends Fragment {
 
+    private ListView workoutList;
+    private ArrayList<String> workoutNameList = new ArrayList<>();
 
     public MyWorkoutsFragment() {
         // Required empty public constructor
@@ -26,22 +38,59 @@ public class MyWorkoutsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View v = inflater.inflate(R.layout.fragment_my_workouts, container, false);
+
+        workoutList = (ListView)(v.findViewById(R.id.workout_listview));
+
+        workoutList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String workoutName = (String) parent.getItemAtPosition(position);
+
+                System.out.println("Item " + workoutName + "Position " + position);
+
+                Intent intent = new Intent(getActivity(), WorkoutDetailActivity.class);
+                intent.putExtra("WorkoutPosition", position);
+                intent.putExtra("WorkoutName", workoutName);
+                startActivity(intent);
+            }
+        });
+
+        populateListView();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_workouts, container, false);
+        return v;
     }
 
     @Override
     public void onStart()
     {
-        displayWorkouts();
+        //displayWorkouts()
         super.onStart();
+    }
+
+    private void populateListView()
+    {
+        FitnessAppHelper helper = new FitnessAppHelper(getActivity());
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT NAME FROM WORKOUT", null);
+        cursor.moveToFirst();
+
+        do
+        {
+            String workoutName = cursor.getString(0);
+            workoutNameList.add(workoutName);
+        }while (cursor.moveToNext());
+
+        workoutList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, workoutNameList));
     }
 
     //TODO remove this
     //this method is just a way to make sure the database is working properly
-    private void displayWorkouts()
+    /*private void displayWorkouts()
     {
         String text = "";
 
@@ -80,6 +129,6 @@ public class MyWorkoutsFragment extends Fragment {
 
         TextView workoutText = getView().findViewById(R.id.my_workouts_text);
         workoutText.setText(text);
-    }
+    }*/
 
 }
