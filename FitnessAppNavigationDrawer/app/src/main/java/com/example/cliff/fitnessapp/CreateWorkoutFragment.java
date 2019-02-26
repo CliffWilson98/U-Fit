@@ -63,6 +63,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         super.onStart();
     }
 
+    //TODO make it where two workouts with the same name cannot be created.
     public void onClick(View v)
     {
         int id = v.getId();

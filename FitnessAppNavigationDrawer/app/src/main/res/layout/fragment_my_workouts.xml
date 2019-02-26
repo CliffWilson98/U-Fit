@@ -5,17 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".MyWorkoutsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/my_workouts_text"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="My workouts fragment" />
+        android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/workout_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/my_workouts_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My workouts fragment" />
+
+        <ListView
+            android:id="@+id/workout_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 
 </FrameLayout>

@@ -31,6 +31,7 @@ public class MyWorkoutsFragment extends Fragment {
 
     private ListView workoutList;
     private ArrayList<String> workoutNameList = new ArrayList<>();
+    private ArrayList<Integer> workoutIDList = new ArrayList<>();
 
     public MyWorkoutsFragment() {
         // Required empty public constructor
@@ -49,11 +50,12 @@ public class MyWorkoutsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String workoutName = (String) parent.getItemAtPosition(position);
+                int workoutID = workoutIDList.get(position);
 
-                System.out.println("Item " + workoutName + "Position " + position);
+                System.out.println("Item " + workoutName + "ID " + workoutID);
 
                 Intent intent = new Intent(getActivity(), WorkoutDetailActivity.class);
-                intent.putExtra("WorkoutPosition", position);
+                intent.putExtra("WorkoutID", workoutID);
                 intent.putExtra("WorkoutName", workoutName);
                 startActivity(intent);
             }
@@ -68,7 +70,7 @@ public class MyWorkoutsFragment extends Fragment {
     @Override
     public void onStart()
     {
-        //displayWorkouts()
+        displayWorkouts();
         super.onStart();
     }
 
@@ -76,12 +78,14 @@ public class MyWorkoutsFragment extends Fragment {
     {
         FitnessAppHelper helper = new FitnessAppHelper(getActivity());
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT NAME FROM WORKOUT", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT", null);
         cursor.moveToFirst();
 
         do
         {
-            String workoutName = cursor.getString(0);
+            int workoutID = cursor.getInt(0);
+            workoutIDList.add(workoutID);
+            String workoutName = cursor.getString(1);
             workoutNameList.add(workoutName);
         }while (cursor.moveToNext());
 
@@ -90,7 +94,7 @@ public class MyWorkoutsFragment extends Fragment {
 
     //TODO remove this
     //this method is just a way to make sure the database is working properly
-    /*private void displayWorkouts()
+    private void displayWorkouts()
     {
         String text = "";
 
@@ -127,8 +131,9 @@ public class MyWorkoutsFragment extends Fragment {
             Toast.makeText(getActivity(), "DATABASE UNAVAILABLE", Toast.LENGTH_SHORT).show();
         }
 
-        TextView workoutText = getView().findViewById(R.id.my_workouts_text);
+        TextView workoutText = (TextView)(getView().findViewById(R.id.my_workouts_text));
+        //System.out.println("WORKOUT " + workoutText);
         workoutText.setText(text);
-    }*/
+    }
 
 }

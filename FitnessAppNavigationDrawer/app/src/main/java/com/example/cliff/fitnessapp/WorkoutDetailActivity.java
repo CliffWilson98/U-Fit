@@ -1,9 +1,12 @@
 package com.example.cliff.fitnessapp;
 
 import android.app.ActionBar;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 public class WorkoutDetailActivity extends AppCompatActivity {
 
@@ -13,7 +16,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_detail);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.workout_toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -21,14 +24,37 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         if (getIntent() != null)
         {
             String workoutName = (String)getIntent().getStringExtra("WorkoutName");
-            int position = getIntent().getIntExtra("WorkoutPosition", 0);
+            int workoutId = getIntent().getIntExtra("WorkoutID", 0);
 
-            System.out.println("Intent is not null! Name = " + workoutName + "ID = " + position);
+            System.out.println("Intent is not null! Name = " + workoutName + "ID = " + workoutId);
+
+            displayWorkoutDetails(workoutName, workoutId);
         }
-
-
     }
 
+    private void displayWorkoutDetails(String workoutName, int workoutID)
+    {
+        TextView workoutNameTextView = findViewById(R.id.workout_name);
+        workoutNameTextView.setText(workoutName);
+
+        TextView exerciseNamesTextView = findViewById(R.id.exercise_names);
+
+        FitnessAppHelper helper = new FitnessAppHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
+        cursor.moveToFirst();
+
+        String exerciseNames = "";
+
+        do
+        {
+            exerciseNames += cursor.getString(1) + "\n";
+        }while (cursor.moveToNext());
+
+        exerciseNamesTextView.setText(exerciseNames);
+    }
+
+    //Necessary for the back button to work
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
