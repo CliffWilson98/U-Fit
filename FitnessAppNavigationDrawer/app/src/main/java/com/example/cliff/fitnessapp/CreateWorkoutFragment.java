@@ -71,46 +71,59 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         if (id == R.id.add_exercise_button)
         {
             //Get data from necessary fields and add it to the exercise ArrayList
-            String workoutName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
+            String exerciseName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
             int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
             int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
             int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
 
-            WeightExercise exerciseToAdd = new WeightExercise(workoutName, reps, repCount, weight);
+            WeightExercise exerciseToAdd = new WeightExercise(exerciseName, reps, repCount, weight);
             exerciseList.add(exerciseToAdd);
 
             displayAddedExercises();
         }
         else if (id == R.id.create_workout_button)
         {
-            System.out.println("CREATE WORKOUT IS PRESSED");
-
-            SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
-            SQLiteDatabase db = helper.getWritableDatabase();
-
             EditText workoutNameTextView = getView().findViewById(R.id.workout_name);
             String workoutName = workoutNameTextView.getText().toString();
 
-            ContentValues value = new ContentValues();
-            value.put("NAME", workoutName);
+            System.out.println("EXERCSIE LIST: " + exerciseList.size());
 
-            db.insert("WORKOUT", null, value);
-
-            Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;", null);
-            cursor.moveToFirst();
-
-            String name = cursor.getString(cursor.getColumnIndex("NAME"));
-            int workoutID = cursor.getInt(0);
-
-            System.out.println("WORKOUT ID: " + workoutID);
-
-            addExercisesToDatabase(workoutID);
-            exerciseList.clear();
-
-            Cursor workoutCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
-
-            displayAddedWorkouts(workoutCursor);
+            //the workout will not be created unless the workout has a name
+            //and there are exercises in the list
+            if(!(workoutName.equals("")) && exerciseList.size() != 0)
+            {
+                System.out.println("Creating workout");
+                createWorkout(workoutName);
+            }
         }
+    }
+
+    private void createWorkout(String workoutName)
+    {
+        System.out.println("CREATE WORKOUT IS PRESSED");
+
+        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues value = new ContentValues();
+        value.put("NAME", workoutName);
+
+        db.insert("WORKOUT", null, value);
+
+        Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;", null);
+        cursor.moveToFirst();
+
+        String name = cursor.getString(cursor.getColumnIndex("NAME"));
+        int workoutID = cursor.getInt(0);
+
+        System.out.println("WORKOUT ID: " + workoutID);
+
+        addExercisesToDatabase(workoutID);
+        exerciseList.clear();
+
+        Cursor workoutCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
+
+        displayAddedWorkouts(workoutCursor);
     }
 
     private void addExercisesToDatabase(int workoutId)
