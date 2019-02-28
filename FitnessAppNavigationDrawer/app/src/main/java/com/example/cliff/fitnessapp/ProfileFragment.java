@@ -40,11 +40,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Button b = (Button) v.findViewById(R.id.submit);
         b.setOnClickListener(this);
 
-        userNameText = (EditText) v.findViewById(R.id.userName_text_view);
-        ageText = (EditText) v.findViewById(R.id.age_text_view);
-        genderText = (EditText) v.findViewById(R.id.gender_text_view);
-        heightText = (EditText) v.findViewById(R.id.height_text_view);
-        weightText = (EditText) v.findViewById(R.id.weight_text_view);
+        userNameText = (EditText) v.findViewById(R.id.userName_edit_text);
+        ageText = (EditText) v.findViewById(R.id.age_edit_text);
+        genderText = (EditText) v.findViewById(R.id.gender_edit_text);
+        heightText = (EditText) v.findViewById(R.id.height_edit_text);
+        weightText = (EditText) v.findViewById(R.id.weight_edit_text);
 
         updateEditText();
 
@@ -57,11 +57,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         if (id == R.id.submit)
         {
-            String userName = (String)(((EditText)getView().findViewById(R.id.userName_text_view)).getText().toString());
-            int age = Integer.valueOf((((EditText)getView().findViewById(R.id.age_text_view)).getText().toString()));
-            String gender = (String)(((EditText)getView().findViewById(R.id.gender_text_view)).getText().toString());
-            String height = (String)(((EditText)getView().findViewById(R.id.height_text_view)).getText().toString());
-            String weight = (String)(((EditText)getView().findViewById(R.id.weight_text_view)).getText().toString());
+            String userName = (String)(((EditText)getView().findViewById(R.id.userName_edit_text)).getText().toString());
+            int age = Integer.valueOf((((EditText)getView().findViewById(R.id.age_edit_text)).getText().toString()));
+            String gender = (String)(((EditText)getView().findViewById(R.id.gender_edit_text)).getText().toString());
+            String height = (String)(((EditText)getView().findViewById(R.id.height_edit_text)).getText().toString());
+            String weight = (String)(((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString());
 
             System.out.println("AGE IS " + age);
 
