@@ -6,9 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 public class WorkoutDetailActivity extends AppCompatActivity {
+
+    private int workoutId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,7 +27,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         if (getIntent() != null)
         {
             String workoutName = (String)getIntent().getStringExtra("WorkoutName");
-            int workoutId = getIntent().getIntExtra("WorkoutID", 0);
+            workoutId = getIntent().getIntExtra("WorkoutID", 0);
 
             System.out.println("Intent is not null! Name = " + workoutName + "ID = " + workoutId);
 
@@ -59,5 +62,23 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void deleteWorkout(View v)
+    {
+        FitnessAppHelper helper = new FitnessAppHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        //String whereClause = "_id=?";
+        //String[] whereArgs = new String[] { String.valueOf(row) };
+        //db.delete("WORKOUT", whereClause, whereArgs);
+
+        db.delete("WORKOUT", "_id = " + workoutId, null);
+        db.delete("EXERCISE", "WORKOUT = " + workoutId, null);
+    }
+
+    public void performWorkout(View v)
+    {
+        System.out.println("perform workout pressed");
     }
 }

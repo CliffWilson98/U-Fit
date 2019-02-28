@@ -35,12 +35,16 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/delete_workout_button"
+            android:onClick="deleteWorkout"
             android:text="Delete"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/perform_workout_button"
+            android:onClick="performWorkout"
             android:text="Perform Workout"
             android:layout_weight="1"
             android:layout_width="match_parent"

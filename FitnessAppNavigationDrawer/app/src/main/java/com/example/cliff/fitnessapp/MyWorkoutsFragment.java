@@ -61,8 +61,6 @@ public class MyWorkoutsFragment extends Fragment {
             }
         });
 
-        populateListView();
-
         // Inflate the layout for this fragment
         return v;
     }
@@ -70,7 +68,8 @@ public class MyWorkoutsFragment extends Fragment {
     @Override
     public void onStart()
     {
-        displayWorkouts();
+        populateListView();
+        //displayWorkouts();
         super.onStart();
     }
 
@@ -81,13 +80,21 @@ public class MyWorkoutsFragment extends Fragment {
         Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT", null);
         cursor.moveToFirst();
 
-        do
+        int workoutCount = cursor.getCount();
+
+        System.out.println("NUMBER OF WORKOUTS: " + workoutCount);
+
+        if (cursor.getCount() != 0)
         {
-            int workoutID = cursor.getInt(0);
-            workoutIDList.add(workoutID);
-            String workoutName = cursor.getString(1);
-            workoutNameList.add(workoutName);
-        }while (cursor.moveToNext());
+            do
+            {
+                int workoutID = cursor.getInt(0);
+                workoutIDList.add(workoutID);
+                String workoutName = cursor.getString(1);
+                workoutNameList.add(workoutName);
+            }while (cursor.moveToNext());
+        }
+
 
         workoutList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, workoutNameList));
     }
@@ -107,6 +114,11 @@ public class MyWorkoutsFragment extends Fragment {
             Cursor workoutCursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id", null);
             workoutCursor.moveToFirst();
 
+            //TODO delete this!
+            Cursor testCursor = db.rawQuery("SELECT * FROM EXERCISE", null);
+            testCursor.moveToFirst();
+            System.out.println("Total exercises " + testCursor.getCount());
+
             do
             {
                 int workoutID = workoutCursor.getInt(0);
@@ -115,6 +127,8 @@ public class MyWorkoutsFragment extends Fragment {
 
                 Cursor exerciseCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
                 exerciseCursor.moveToFirst();
+
+                System.out.println("Exercise Count: " + exerciseCursor.getCount());
 
                 do
                 {
