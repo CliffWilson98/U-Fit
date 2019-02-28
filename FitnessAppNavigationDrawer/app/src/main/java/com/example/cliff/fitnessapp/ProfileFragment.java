@@ -23,7 +23,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
-    private EditText userNameText, ageText, genderText, heightText, weightText;
+    private EditText userNameText, ageText, genderText, heightText, weightText, neckText, chestText, waistText, hipsText;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -40,11 +40,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Button b = (Button) v.findViewById(R.id.submit);
         b.setOnClickListener(this);
 
-        userNameText = (EditText) v.findViewById(R.id.userName_text_view);
-        ageText = (EditText) v.findViewById(R.id.age_text_view);
-        genderText = (EditText) v.findViewById(R.id.gender_text_view);
-        heightText = (EditText) v.findViewById(R.id.height_text_view);
-        weightText = (EditText) v.findViewById(R.id.weight_text_view);
+        userNameText = (EditText) v.findViewById(R.id.userName_edit_text);
+        ageText = (EditText) v.findViewById(R.id.age_edit_text);
+        genderText = (EditText) v.findViewById(R.id.gender_edit_text);
+        heightText = (EditText) v.findViewById(R.id.height_edit_text);
+        weightText = (EditText) v.findViewById(R.id.weight_edit_text);
+        neckText = (EditText) v.findViewById(R.id.neck_edit_text);
+        chestText = (EditText) v.findViewById(R.id.chest_edit_text);
+        waistText = (EditText) v.findViewById(R.id.waist_edit_text);
+        hipsText = (EditText) v.findViewById(R.id.hips_edit_text);
+
 
         updateEditText();
 
@@ -57,11 +62,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         if (id == R.id.submit)
         {
-            String userName = (String)(((EditText)getView().findViewById(R.id.userName_text_view)).getText().toString());
-            int age = Integer.valueOf((((EditText)getView().findViewById(R.id.age_text_view)).getText().toString()));
-            String gender = (String)(((EditText)getView().findViewById(R.id.gender_text_view)).getText().toString());
-            String height = (String)(((EditText)getView().findViewById(R.id.height_text_view)).getText().toString());
-            String weight = (String)(((EditText)getView().findViewById(R.id.weight_text_view)).getText().toString());
+            String userName = (String)(((EditText)getView().findViewById(R.id.userName_edit_text)).getText().toString());
+            int age = Integer.valueOf((((EditText)getView().findViewById(R.id.age_edit_text)).getText().toString()));
+            String gender = (String)(((EditText)getView().findViewById(R.id.gender_edit_text)).getText().toString());
+            String height = (String)(((EditText)getView().findViewById(R.id.height_edit_text)).getText().toString());
+            String weight = (String)(((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString());
+            String neck = (String)(((EditText)getView().findViewById(R.id.neck_edit_text)).getText().toString());
+            String chest = (String)(((EditText)getView().findViewById(R.id.chest_edit_text)).getText().toString());
+            String waist = (String)(((EditText)getView().findViewById(R.id.waist_edit_text)).getText().toString());
+            String hips = (String)(((EditText)getView().findViewById(R.id.hips_edit_text)).getText().toString());
 
             System.out.println("AGE IS " + age);
 
@@ -75,6 +84,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             value.put("GENDER", gender);
             value.put("HEIGHT", height);
             value.put("WEIGHT", weight);
+            value.put("NECK", neck);
+            value.put("CHEST", chest);
+            value.put("WAIST", waist);
+            value.put("HIPS", hips);
 
 
            // db.insert("PROFILE", null, value);
@@ -88,11 +101,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
             String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
             String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
-
-            System.out.println("THE AGE IN DATABASE IS " + databaseAge);
-            System.out.println("The gender in the database is " + databaseGender);
-            System.out.println("The height in the database is " + databaseHeight);
-            System.out.println("The weight in the database is " + databaseWeight);
+            String databaseNeck = cursor.getString(cursor.getColumnIndex("NECK"));
+            String databaseChest = cursor.getString(cursor.getColumnIndex("CHEST"));
+            String databaseWaist = cursor.getString(cursor.getColumnIndex("WAIST"));
+            String databaseHips = cursor.getString(cursor.getColumnIndex("HIPS"));
 
         }
     }
@@ -110,12 +122,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
         String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
         String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
+        String databaseNeck = cursor.getString(cursor.getColumnIndex("NECK"));
+        String databaseChest = cursor.getString(cursor.getColumnIndex("CHEST"));
+        String databaseWaist = cursor.getString(cursor.getColumnIndex("WAIST"));
+        String databaseHips = cursor.getString(cursor.getColumnIndex("HIPS"));
 
         userNameText.setText((databaseUserName));
         ageText.setText(Integer.toString(databaseAge));
         genderText.setText(databaseGender);
         heightText.setText(databaseHeight);
         weightText.setText(databaseWeight);
+        neckText.setText(databaseNeck);
+        chestText.setText(databaseChest);
+        waistText.setText(databaseWaist);
+        hipsText.setText(databaseHips);
 
     }
 
