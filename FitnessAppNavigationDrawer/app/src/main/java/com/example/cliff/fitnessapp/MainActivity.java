@@ -18,6 +18,9 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //a string needed to manage the intent in the onCreate method
+    public static final String MY_WORKOUT_FRAGMENT = "MyWorkouts";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +38,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fragmentTransactionManager(new ProfileFragment());
+        //If the intent contains an extra then that means there is a fragment to be loaded
+        if (getIntent().getExtras() != null)
+        {
+            String intentFragment = getIntent().getExtras().getString("fragmentToLoad");
+
+            if (intentFragment.equals(MY_WORKOUT_FRAGMENT))
+            {
+                fragmentTransactionManager(new MyWorkoutsFragment());
+            }
+        }
+        else
+        {
+            //If there was no intent then the profile fragment can be loaded
+            fragmentTransactionManager(new ProfileFragment());
+        }
     }
 
     @Override

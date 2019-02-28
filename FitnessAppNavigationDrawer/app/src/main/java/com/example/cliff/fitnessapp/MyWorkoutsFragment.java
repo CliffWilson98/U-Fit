@@ -61,6 +61,7 @@ public class MyWorkoutsFragment extends Fragment {
             }
         });
 
+        populateListView();
         // Inflate the layout for this fragment
         return v;
     }
@@ -68,7 +69,6 @@ public class MyWorkoutsFragment extends Fragment {
     @Override
     public void onStart()
     {
-        populateListView();
         //displayWorkouts();
         super.onStart();
     }

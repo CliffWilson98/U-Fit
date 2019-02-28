@@ -2,6 +2,7 @@ package com.example.cliff.fitnessapp;
 
 import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -66,23 +67,29 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    public void deleteWorkout(View v)
+    public void checkForDeleteConfirmation(View v)
     {
         AlertDialog diaBox = AskOption();
         diaBox.show();
     }
 
-    private void deleteWorkoutHelper()
+    private void deleteWorkout()
     {
         FitnessAppHelper helper = new FitnessAppHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        //String whereClause = "_id=?";
-        //String[] whereArgs = new String[] { String.valueOf(row) };
-        //db.delete("WORKOUT", whereClause, whereArgs);
-
         db.delete("WORKOUT", "_id = " + workoutId, null);
         db.delete("EXERCISE", "WORKOUT = " + workoutId, null);
+
+        //Once the workout is deleted the user is returned to the mainActivity
+        returnToMyWorkouts();
+    }
+
+    private void returnToMyWorkouts()
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragmentToLoad", MainActivity.MY_WORKOUT_FRAGMENT);
+        startActivity(intent);
     }
 
     public void performWorkout(View v)
@@ -102,13 +109,11 @@ public class WorkoutDetailActivity extends AppCompatActivity {
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        deleteWorkoutHelper();
+                        deleteWorkout();
                         dialog.dismiss();
                     }
 
                 })
-
-
 
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
