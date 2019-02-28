@@ -23,7 +23,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
-    private EditText ageText, genderText, heightText, weightText;
+    private EditText userNameText, ageText, genderText, heightText, weightText;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -40,6 +40,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Button b = (Button) v.findViewById(R.id.submit);
         b.setOnClickListener(this);
 
+        userNameText = (EditText) v.findViewById(R.id.userName_text_view);
         ageText = (EditText) v.findViewById(R.id.age_text_view);
         genderText = (EditText) v.findViewById(R.id.gender_text_view);
         heightText = (EditText) v.findViewById(R.id.height_text_view);
@@ -56,6 +57,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         if (id == R.id.submit)
         {
+            String userName = (String)(((EditText)getView().findViewById(R.id.userName_text_view)).getText().toString());
             int age = Integer.valueOf((((EditText)getView().findViewById(R.id.age_text_view)).getText().toString()));
             String gender = (String)(((EditText)getView().findViewById(R.id.gender_text_view)).getText().toString());
             String height = (String)(((EditText)getView().findViewById(R.id.height_text_view)).getText().toString());
@@ -68,6 +70,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             SQLiteDatabase db = helper.getWritableDatabase();
 
             ContentValues value = new ContentValues();
+            value.put("NAME", userName);
             value.put("AGE", age);
             value.put("GENDER", gender);
             value.put("HEIGHT", height);
@@ -80,6 +83,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             Cursor cursor = db.rawQuery("SELECT * FROM PROFILE ORDER BY _id DESC LIMIT 1;", null);
             cursor.moveToFirst();
 
+            String databaseUserName = cursor.getString(cursor.getColumnIndex("NAME"));
             int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
             String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
             String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
@@ -101,11 +105,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Cursor cursor = db.rawQuery("SELECT * FROM PROFILE ORDER BY _id DESC LIMIT 1;", null);
         cursor.moveToFirst();
 
+        String databaseUserName = cursor.getString(cursor.getColumnIndex("NAME"));
         int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
         String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
         String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
         String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
 
+        userNameText.setText((databaseUserName));
         ageText.setText(Integer.toString(databaseAge));
         genderText.setText(databaseGender);
         heightText.setText(databaseHeight);
