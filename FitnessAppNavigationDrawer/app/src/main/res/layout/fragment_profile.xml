@@ -12,12 +12,12 @@
 
     <ImageView
         android:id="@+id/userPhoto"
-        android:layout_width="371dp"
+        android:layout_width="370dp"
         android:layout_height="100dp"
         android:adjustViewBounds="false"
         android:contentDescription="@string/profile_user_photo"
         android:padding="10dp"
-        app:srcCompat="@mipmap/u_fit_logo" />
+        app:srcCompat="@mipmap/u_fit_logo_transparent" />
 
     <EditText
         android:id="@+id/userName_text_view"
