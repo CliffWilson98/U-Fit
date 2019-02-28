@@ -92,11 +92,14 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void performWorkout(View v)
+    public void goToPerformWorkout(View v)
     {
-        System.out.println("perform workout pressed");
+        Intent intent = new Intent(this, PerformWorkoutActivity.class);
+        intent.putExtra("workoutID", workoutId);
+        startActivity(intent);
     }
 
+    //Used to create dialog box to confirm that the user wants to delete a workout
     private AlertDialog AskOption()
     {
         AlertDialog deleteDialogBox = new AlertDialog.Builder(this)
