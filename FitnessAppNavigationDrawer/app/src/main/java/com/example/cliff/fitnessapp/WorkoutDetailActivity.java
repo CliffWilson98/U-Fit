@@ -1,8 +1,10 @@
 package com.example.cliff.fitnessapp;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -66,6 +68,12 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
     public void deleteWorkout(View v)
     {
+        AlertDialog diaBox = AskOption();
+        diaBox.show();
+    }
+
+    private void deleteWorkoutHelper()
+    {
         FitnessAppHelper helper = new FitnessAppHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -80,5 +88,37 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     public void performWorkout(View v)
     {
         System.out.println("perform workout pressed");
+    }
+
+    private AlertDialog AskOption()
+    {
+        AlertDialog deleteDialogBox = new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete Workout")
+                .setMessage("Are you sure you want to delete this workout?")
+                //TODO change this icon, it is just to test
+                .setIcon(R.drawable.ic_menu_send)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        deleteWorkoutHelper();
+                        dialog.dismiss();
+                    }
+
+                })
+
+
+
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+
+        return deleteDialogBox;
     }
 }
