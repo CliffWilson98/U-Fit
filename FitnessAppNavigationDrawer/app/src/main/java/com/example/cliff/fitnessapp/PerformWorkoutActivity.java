@@ -67,7 +67,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
         TextView exerciseTextView = findViewById(R.id.exercise_instructions);
-        String exerciseInstructions = currentExercise.getName();
+        String exerciseInstructions = String.format("%dx%d %s at %d lbs", currentExercise.getSets(), currentExercise.getReps(), currentExercise.getName(), currentExercise.getWeight());
         exerciseTextView.setText(exerciseInstructions);
     }
 

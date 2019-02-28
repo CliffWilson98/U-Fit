@@ -149,11 +149,13 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
             String name = exercise.getName();
             int reps = exercise.getReps();
             int sets = exercise.getSets();
+            int weight = exercise.getWeight();
 
             ContentValues value = new ContentValues();
             value.put("NAME", name);
             value.put("REPS", reps);
             value.put("SETS", sets);
+            value.put("WEIGHT", weight);
             value.put("WORKOUT", workoutId);
 
             try
