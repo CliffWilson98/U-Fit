@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class CreateWorkoutFragment extends Fragment implements View.OnClickListener {
 
 
-    private ArrayList<WeightExercise> exerciseList;
+    private ArrayList<Exercise> exerciseList;
     private String workoutNames = "";
 
     //Required empty public constructor
@@ -104,7 +104,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
         int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
 
-        WeightExercise exerciseToAdd = new WeightExercise(exerciseName, reps, repCount, weight);
+        Exercise exerciseToAdd = new Exercise(exerciseName, reps, repCount, weight);
         exerciseList.add(exerciseToAdd);
 
         displayAddedExercises();
