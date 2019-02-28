@@ -41,11 +41,18 @@ public class MainActivity extends AppCompatActivity
         //If the intent contains an extra then that means there is a fragment to be loaded
         if (getIntent().getExtras() != null)
         {
-            String intentFragment = getIntent().getExtras().getString("fragmentToLoad");
-
-            if (intentFragment.equals(MY_WORKOUT_FRAGMENT))
+            try
             {
-                fragmentTransactionManager(new MyWorkoutsFragment());
+                String intentFragment = getIntent().getExtras().getString("fragmentToLoad");
+                if (intentFragment.equals(MY_WORKOUT_FRAGMENT))
+                {
+                    fragmentTransactionManager(new MyWorkoutsFragment());
+                }
+            }catch (NullPointerException e)
+            {
+                //If there is a null pointer exception then that means the profile
+                //fragment should just be loaded since it is the default fragment
+                fragmentTransactionManager(new ProfileFragment());
             }
         }
         else
