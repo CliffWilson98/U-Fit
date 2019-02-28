@@ -57,6 +57,7 @@
             android:text="Reps:"/>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/rep_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -74,6 +75,7 @@
             android:text="Rep Count:"/>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/rep_count_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -91,6 +93,7 @@
             android:text="Weight:"/>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/weight_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

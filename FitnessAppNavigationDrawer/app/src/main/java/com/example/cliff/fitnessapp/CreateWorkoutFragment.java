@@ -70,23 +70,21 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         if (id == R.id.add_exercise_button)
         {
-            //Get data from necessary fields and add it to the exercise ArrayList
-            String exerciseName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
-            int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
-            int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
-            int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
+            boolean repTextIsEmpty = ((EditText)(getView().findViewById(R.id.rep_edit_text))).getText().toString().equals("");
+            boolean repCountTextIsEmpty = ((EditText)(getView().findViewById(R.id.rep_count_edit_text))).getText().toString().equals("");
+            boolean weightTextIsEmpty = ((EditText)(getView().findViewById(R.id.weight_edit_text))).getText().toString().equals("");
 
-            WeightExercise exerciseToAdd = new WeightExercise(exerciseName, reps, repCount, weight);
-            exerciseList.add(exerciseToAdd);
+            //The exercise will not be created if there are not values in all of the required text fields
+            if (!(repTextIsEmpty) && !(repCountTextIsEmpty) && !(weightTextIsEmpty))
+            {
+                createExercise();
+            }
 
-            displayAddedExercises();
         }
         else if (id == R.id.create_workout_button)
         {
             EditText workoutNameTextView = getView().findViewById(R.id.workout_name);
             String workoutName = workoutNameTextView.getText().toString();
-
-            System.out.println("EXERCSIE LIST: " + exerciseList.size());
 
             //the workout will not be created unless the workout has a name
             //and there are exercises in the list
@@ -96,6 +94,20 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
                 createWorkout(workoutName);
             }
         }
+    }
+
+    private void createExercise()
+    {
+        //Get data from necessary fields and add it to the exercise ArrayList
+        String exerciseName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
+        int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
+        int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
+        int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
+
+        WeightExercise exerciseToAdd = new WeightExercise(exerciseName, reps, repCount, weight);
+        exerciseList.add(exerciseToAdd);
+
+        displayAddedExercises();
     }
 
     private void createWorkout(String workoutName)
