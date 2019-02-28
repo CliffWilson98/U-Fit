@@ -35,7 +35,7 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT," +
                     "REPS INTEGER," +
-                    "REPCOUNT INTEGER," +
+                    "SETS INTEGER," +
                     "WEIGHT INTEGER," +
                     "USESWEIGHT INTEGER," +
                     "WORKOUT INTEGER);");

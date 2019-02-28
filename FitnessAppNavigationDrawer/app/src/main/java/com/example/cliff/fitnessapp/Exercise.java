@@ -4,7 +4,7 @@ public class Exercise
 {
     private String name;
     private int reps;
-    private int numberOfReps;
+    private int sets;
     private int weight;
 
     //default constructor
@@ -14,7 +14,7 @@ public class Exercise
     {
         this.name = name;
         this.reps = reps;
-        this.numberOfReps = numberOfReps;
+        this.sets = numberOfReps;
         this.weight = weight;
     }
 
@@ -28,9 +28,9 @@ public class Exercise
         return reps;
     }
 
-    public int getNumberOfReps()
+    public int getSets()
     {
-        return numberOfReps;
+        return sets;
     }
 
     public int getWeight(){return weight; };

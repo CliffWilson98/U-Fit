@@ -51,10 +51,10 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         {
             String exerciseName = cursor.getString(cursor.getColumnIndex("NAME"));
             int reps = cursor.getInt(cursor.getColumnIndex("REPS"));
-            int repCount = cursor.getInt(cursor.getColumnIndex("REPCOUNT"));
+            int sets = cursor.getInt(cursor.getColumnIndex("SETS"));
             int weight = cursor.getInt(cursor.getColumnIndex("WEIGHT"));
 
-            Exercise exercise = new Exercise(exerciseName, reps, repCount, weight);
+            Exercise exercise = new Exercise(exerciseName, reps, sets, weight);
             exerciseList.add(exercise);
         }while (cursor.moveToNext());
     }
