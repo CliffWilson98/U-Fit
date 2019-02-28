@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -60,7 +61,14 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void updateEditText()
     {
+        TextView nameTextView = findViewById(R.id.workout_name);
+        nameTextView.setText(workoutName);
 
+        Exercise currentExercise = exerciseList.get(currentExerciseIndex);
+
+        TextView exerciseTextView = findViewById(R.id.exercise_instructions);
+        String exerciseInstructions = currentExercise.getName();
+        exerciseTextView.setText(exerciseInstructions);
     }
 
 

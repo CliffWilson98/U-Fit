@@ -23,15 +23,15 @@
         android:gravity="center"/>
 
     <TextView
+        android:id="@+id/exercise_instructions"
         android:layout_weight="1"
-        android:text="do certain exercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"/>
 
     <Button
         android:layout_weight="1"
-        android:text="Click Me!"
+        android:text="Rep Counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
