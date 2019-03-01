@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="create_workout_title">Create Workout</string>
 
     <string name="profile_user_photo">User Photo</string>
     <string name="profile_user_name">User Name</string>
