@@ -1,128 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     tools:context=".CreateWorkoutFragment"
+    android:padding="20dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/userPhoto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp">
+        android:layout_height="100dp"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/profile_user_photo"
+        android:padding="10dp"
+        app:srcCompat="@mipmap/u_fit_logo_transparent" />
 
-        <TextView
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Workout Name:"/>
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/workout_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_workout_title"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Exercise Properties" />
+                <TableRow
+                    android:background="@color/colorDarkBlue"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Workout Name:"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:layout_column="1"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exercise Name:"/>
+                    <EditText
+                        android:id="@+id/workout_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:width="100dp"
+                        android:textColor="@color/colorWhite"/>
 
-        <Spinner
-            android:id="@+id/name_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                </TableRow>
+            </TableLayout>
 
-    </LinearLayout>
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exercise Properties"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reps:"/>
+                <TableRow
+                    android:background="@color/colorDarkBlue"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
-        <EditText
-            android:inputType="number"
-            android:id="@+id/rep_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exercise Name:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"/>
 
-    </LinearLayout>
+                    <Spinner
+                        android:id="@+id/name_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sets:"/>
+                <TableRow
+                    android:background="@color/colorDarkBlue"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
-        <EditText
-            android:inputType="number"
-            android:id="@+id/sets_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reps:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"/>
 
-    </LinearLayout>
+                    <EditText
+                        android:inputType="number"
+                        android:id="@+id/rep_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weight:"/>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@color/colorDarkBlue">
 
-        <EditText
-            android:inputType="number"
-            android:id="@+id/weight_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rep Count:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"/>
 
-    </LinearLayout>
+                    <EditText
+                        android:inputType="number"
+                        android:id="@+id/sets_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@color/colorDarkBlue">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"/>
+
+                    <EditText
+                        android:inputType="number"
+                        android:id="@+id/weight_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"/>
+
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/add_exercise_button"
+                android:text="Add Exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSilver"/>
+
+            <TextView
+                android:id="@+id/exercise_database_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No contents yet"/>
+
+            <Button
+                android:id="@+id/create_workout_button"
+                android:text="Create Workout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSilver"/>
+
+            <TextView
+                android:id="@+id/workout_database_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No contents yet"/>
 
 
-    <Button
-        android:id="@+id/add_exercise_button"
-        android:text="Add Exercise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/exercise_database_contents"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No contents yet"/>
-
-    <Button
-        android:id="@+id/create_workout_button"
-        android:text="Create Workout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/workout_database_contents"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No contents yet"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
