@@ -4,4 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"/>
+
 </LinearLayout>
