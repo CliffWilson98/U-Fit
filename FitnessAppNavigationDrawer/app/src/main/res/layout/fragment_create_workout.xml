@@ -16,15 +16,6 @@
         android:padding="10dp"
         app:srcCompat="@mipmap/u_fit_logo_transparent" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_workout_title"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorDarkBlue"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,6 +25,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_workout_title"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorDarkBlue"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:text="Exercise Properties"
                 android:paddingBottom="10dp"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textColor="@color/colorDarkBlue"
                 android:textStyle="bold"/>
 
