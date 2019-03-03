@@ -44,7 +44,7 @@
 
         <Button
             android:id="@+id/perform_workout_button"
-            android:onClick="performWorkout"
+            android:onClick="goToPerformWorkout"
             android:text="Perform Workout"
             android:layout_weight="1"
             android:layout_width="match_parent"

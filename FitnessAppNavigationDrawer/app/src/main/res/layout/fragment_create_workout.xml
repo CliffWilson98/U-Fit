@@ -139,14 +139,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rep Count:"
+                        android:text="Sets:"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
 
                     <EditText
                         android:inputType="number"
-                        android:id="@+id/rep_count_edit_text"
+                        android:id="@+id/sets_edit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"/>
@@ -179,31 +179,31 @@
                 </TableRow>
             </TableLayout>
 
-                <Button
-                    android:id="@+id/add_exercise_button"
-                    android:text="Add Exercise"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorSilver"/>
+            <Button
+                android:id="@+id/add_exercise_button"
+                android:text="Add Exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSilver"/>
 
-                <TextView
-                    android:id="@+id/exercise_database_contents"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No contents yet"/>
+            <TextView
+                android:id="@+id/exercise_database_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No contents yet"/>
 
-                <Button
-                    android:id="@+id/create_workout_button"
-                    android:text="Create Workout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorSilver"/>
+            <Button
+                android:id="@+id/create_workout_button"
+                android:text="Create Workout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSilver"/>
 
-                <TextView
-                    android:id="@+id/workout_database_contents"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No contents yet"/>
+            <TextView
+                android:id="@+id/workout_database_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No contents yet"/>
 
 
         </LinearLayout>

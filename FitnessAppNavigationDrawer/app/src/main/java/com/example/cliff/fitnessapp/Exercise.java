@@ -4,16 +4,18 @@ public class Exercise
 {
     private String name;
     private int reps;
-    private int numberOfReps;
+    private int sets;
+    private int weight;
 
     //default constructor
     public Exercise(){};
 
-    public Exercise(String name, int reps, int numberOfReps)
+    public Exercise(String name, int reps, int numberOfReps, int weight)
     {
         this.name = name;
         this.reps = reps;
-        this.numberOfReps = numberOfReps;
+        this.sets = numberOfReps;
+        this.weight = weight;
     }
 
     public String getName()
@@ -26,8 +28,10 @@ public class Exercise
         return reps;
     }
 
-    public int getNumberOfReps()
+    public int getSets()
     {
-        return numberOfReps;
+        return sets;
     }
+
+    public int getWeight(){return weight; };
 }

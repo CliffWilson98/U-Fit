@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 public class CreateWorkoutFragment extends Fragment implements View.OnClickListener {
 
 
-    private ArrayList<WeightExercise> exerciseList;
+    private ArrayList<Exercise> exerciseList;
     private String workoutNames = "";
 
     //Required empty public constructor
@@ -56,9 +58,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         Spinner spinner = (Spinner) getView().findViewById(R.id.name_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.workouts_array, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Spinner spinner = getView().findViewById(R.id.spinner_create_workout);
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.workouts_array, R.layout.create_workout_spinner);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         super.onStart();
@@ -72,11 +71,11 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         if (id == R.id.add_exercise_button)
         {
             boolean repTextIsEmpty = ((EditText)(getView().findViewById(R.id.rep_edit_text))).getText().toString().equals("");
-            boolean repCountTextIsEmpty = ((EditText)(getView().findViewById(R.id.rep_count_edit_text))).getText().toString().equals("");
+            boolean setsTextIsEmpty = ((EditText)(getView().findViewById(R.id.sets_edit_text))).getText().toString().equals("");
             boolean weightTextIsEmpty = ((EditText)(getView().findViewById(R.id.weight_edit_text))).getText().toString().equals("");
 
             //The exercise will not be created if there are not values in all of the required text fields
-            if (!(repTextIsEmpty) && !(repCountTextIsEmpty) && !(weightTextIsEmpty))
+            if (!(repTextIsEmpty) && !(setsTextIsEmpty) && !(weightTextIsEmpty))
             {
                 createExercise();
             }
@@ -102,10 +101,10 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         //Get data from necessary fields and add it to the exercise ArrayList
         String exerciseName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
         int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
-        int repCount = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_count_edit_text)).getText().toString()));
+        int sets = Integer.valueOf((((EditText)getView().findViewById(R.id.sets_edit_text)).getText().toString()));
         int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
 
-        WeightExercise exerciseToAdd = new WeightExercise(exerciseName, reps, repCount, weight);
+        Exercise exerciseToAdd = new Exercise(exerciseName, reps, sets, weight);
         exerciseList.add(exerciseToAdd);
 
         displayAddedExercises();
@@ -149,12 +148,14 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
             String name = exercise.getName();
             int reps = exercise.getReps();
-            int repCount = exercise.getNumberOfReps();
+            int sets = exercise.getSets();
+            int weight = exercise.getWeight();
 
             ContentValues value = new ContentValues();
             value.put("NAME", name);
             value.put("REPS", reps);
-            value.put("REPCOUNT", repCount);
+            value.put("SETS", sets);
+            value.put("WEIGHT", weight);
             value.put("WORKOUT", workoutId);
 
             try
