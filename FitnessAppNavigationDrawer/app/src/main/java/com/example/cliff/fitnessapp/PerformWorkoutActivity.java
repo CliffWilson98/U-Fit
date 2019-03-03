@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +73,10 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         exerciseTextView.setText(exerciseInstructions);
     }
 
+    public void incrementCounter(View v)
+    {
+        System.out.println("Counter is pressed!");
+    }
 
     //The back button needs to be disabled in this activity
     //If the user wants to quit a workout they will use the cancel workout button

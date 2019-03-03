@@ -30,7 +30,8 @@
         android:gravity="center"/>
 
     <Button
-        android:id="@+id/rep_counter_button"
+        android:id="@+id/counter_button"
+        android:onClick="incrementCounter"
         android:text="Counter"
         android:textColor="@color/colorSilver"
         android:background="@drawable/circle_button"
