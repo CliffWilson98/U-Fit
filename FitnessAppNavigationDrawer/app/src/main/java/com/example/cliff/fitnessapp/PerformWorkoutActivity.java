@@ -81,9 +81,11 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     public void incrementCounter(View v)
     {
+        Exercise currentExercise = exerciseList.get(currentExerciseIndex);
+
         Button button = (Button) findViewById(R.id.counter_button);
 
-        if (repCounter == 4)
+        if (repCounter == currentExercise.getReps() - 1)
         {
             repCounter = 0;
             setCounter ++;
@@ -95,6 +97,23 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         String buttonText = String.format("%dx%d", setCounter, repCounter);
         button.setText(buttonText);
+    }
+
+    //when an exercise is complete the next one needs to be obtained
+    public void goToNextExercise()
+    {
+        if (currentExerciseIndex < (exerciseList.size() - 1))
+        {
+            currentExerciseIndex++;
+            updateEditText();
+        }
+    }
+
+    //called whenever the skip exercise button is pressed. It will need to take note
+    //that an exercise was skipped and not finished
+    public void skipExercise(View v)
+    {
+        goToNextExercise();
     }
 
     //The back button needs to be disabled in this activity
