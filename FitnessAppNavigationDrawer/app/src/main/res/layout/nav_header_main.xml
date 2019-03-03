@@ -17,7 +17,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:contentDescription="@string/nav_header_desc"
-        app:srcCompat="@mipmap/u_fit_logo_transparent" />
+        android:src="@drawable/u_fit_logo" />
 
 
 </LinearLayout>
