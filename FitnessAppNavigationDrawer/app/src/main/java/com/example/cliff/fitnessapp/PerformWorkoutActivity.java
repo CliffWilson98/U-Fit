@@ -18,6 +18,9 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
     private int currentExerciseIndex;
 
+    private int repCounter;
+    private int setCounter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,6 +34,9 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         getWorkoutDetails();
         updateEditText();
+
+        repCounter = 0;
+        setCounter = 0;
     }
 
     //this will get the workouts name and populate the exercise ArrayList
@@ -75,7 +81,20 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     public void incrementCounter(View v)
     {
-        System.out.println("Counter is pressed!");
+        Button button = (Button) findViewById(R.id.counter_button);
+
+        if (repCounter == 4)
+        {
+            repCounter = 0;
+            setCounter ++;
+        }
+        else
+        {
+            repCounter ++;
+        }
+
+        String buttonText = String.format("%dx%d", setCounter, repCounter);
+        button.setText(buttonText);
     }
 
     //The back button needs to be disabled in this activity
