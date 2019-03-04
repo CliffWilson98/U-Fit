@@ -45,12 +45,13 @@
                     android:background="@color/colorDarkBlue"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="30dp">
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Workout Name:"
+                        android:text="@string/create_workout_name"
                         android:textSize="18sp"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
@@ -74,7 +75,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Exercise Properties"
+                    android:text="@string/create_workout_exercise_properties"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:background="@color/colorPrimary"
@@ -84,13 +85,14 @@
                 <TableRow
                     android:background="@color/colorDarkBlue"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exercise Name:"
+                        android:text="@string/create_workout_exercise_name"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
@@ -108,13 +110,14 @@
                 <TableRow
                     android:background="@color/colorDarkBlue"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reps:"
+                        android:text="@string/create_workout_reps"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
@@ -132,6 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:background="@color/colorDarkBlue">
@@ -139,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sets:"
+                        android:text="@string/create_workout_sets"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
@@ -157,6 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:background="@color/colorDarkBlue">
@@ -164,7 +169,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weight:"
+                        android:text="@string/create_workout_weight"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
