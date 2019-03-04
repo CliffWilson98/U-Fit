@@ -1,7 +1,10 @@
 package com.example.cliff.fitnessapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +36,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getWorkoutDetails();
-        updateEditText();
+        updateTextViews();
 
         //initially the user has done zero reps and is on the first set
         resetRepsAndSets();
@@ -73,7 +76,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         }while (cursor.moveToNext());
     }
 
-    private void updateEditText()
+    private void updateTextViews()
     {
         TextView nameTextView = findViewById(R.id.workout_name);
         nameTextView.setText(workoutName);
@@ -114,13 +117,20 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         button.setText(buttonText);
     }
 
-    //when an exercise is complete the next one needs to be obtained
+    //when an exercise is completed either the next one needs to be displayed or a new screen must be loaded
+    //because the workout is finished
     public void goToNextExercise()
     {
         if (currentExerciseIndex < (exerciseList.size() - 1))
         {
             currentExerciseIndex++;
-            updateEditText();
+            updateTextViews();
+        }
+        else
+        {
+            //for now when the workout is done it will just take you back to the main activity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -129,6 +139,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     //TODO add a way to tell that an exercise was skipped
     public void skipExercise(View v)
     {
+        resetRepsAndSets();
         goToNextExercise();
     }
 
@@ -141,5 +152,50 @@ public class PerformWorkoutActivity extends AppCompatActivity {
                 "Press cancel workout if you want to go back!",
                 Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    //confirms whether or not the user wants to cancel the workout when they press the cancel button
+    public void confirmCancelWorkout(View v)
+    {
+        AlertDialog diaBox = askOption();
+        diaBox.show();
+    }
+
+    private void cancelWorkout()
+    {
+        //for now when the workout is cancelled it will just take you back to the main activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    //Used to create dialog box to confirm that the user wants to cancel a workout
+    private AlertDialog askOption()
+    {
+        AlertDialog deleteDialogBox = new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Cancel Workout")
+                .setMessage("Are you sure you want to cancel this workout?")
+                //TODO change this icon, it is just to test
+                .setIcon(R.drawable.ic_menu_send)
+
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        cancelWorkout();
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+
+        return deleteDialogBox;
     }
 }
