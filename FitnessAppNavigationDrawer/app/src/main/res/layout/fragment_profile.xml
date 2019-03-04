@@ -58,6 +58,7 @@
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -77,12 +78,14 @@
                         android:textColor="@color/colorWhite"
                         android:width="100dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
 
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -102,12 +105,14 @@
                         android:textColor="@color/colorWhite"
                         android:width="200dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
 
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -127,12 +132,14 @@
                         android:textColor="@color/colorWhite"
                         android:width="200dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
 
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -152,7 +159,8 @@
                         android:textColor="@color/colorWhite"
                         android:width="200dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
             </TableLayout>
 
@@ -174,6 +182,7 @@
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -193,12 +202,14 @@
                         android:textColor="@color/colorWhite"
                         android:width="100dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
 
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -218,12 +229,14 @@
                         android:textColor="@color/colorWhite"
                         android:width="200dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
 
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -243,12 +256,14 @@
                         android:textColor="@color/colorWhite"
                         android:width="200dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
 
                 <TableRow
                     android:background="@color/colorPrimary"
                     android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -268,7 +283,8 @@
                         android:textColor="@color/colorWhite"
                         android:width="200dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
                 </TableRow>
             </TableLayout>
 

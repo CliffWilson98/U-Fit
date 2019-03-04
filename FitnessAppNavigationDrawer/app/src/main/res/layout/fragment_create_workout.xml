@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <TableLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
@@ -62,7 +62,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:width="100dp"
-                        android:textColor="@color/colorWhite"/>
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
             </TableLayout>
@@ -100,7 +101,8 @@
                     <Spinner
                         android:id="@+id/create_workout_spinner"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
 
@@ -124,7 +126,8 @@
                         android:id="@+id/rep_edit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"/>
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
 
@@ -150,7 +153,8 @@
                         android:id="@+id/sets_edit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"/>
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
 
@@ -176,7 +180,8 @@
                         android:id="@+id/weight_edit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"/>
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
             </TableLayout>
