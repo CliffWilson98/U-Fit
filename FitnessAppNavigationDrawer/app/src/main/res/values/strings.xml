@@ -7,6 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Strings for the Create Workout Fragment -->
     <string name="create_workout_title">Create Workout</string>
     <string name="create_workout_exercise_properties">Exercise Properties</string>
     <string name="create_workout_name">Workout Name:</string>
@@ -15,6 +16,7 @@
     <string name="create_workout_sets">Sets:</string>
     <string name="create_workout_weight">Weight:</string>
 
+    <!-- Strings for the Profile Fragment -->
     <string name="profile_user_photo">User Photo</string>
     <string name="profile_user_name">User Name</string>
     <string name="profile_bio">Bio</string>
