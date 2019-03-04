@@ -35,8 +35,14 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         getWorkoutDetails();
         updateEditText();
 
+        //initially the user has done zero reps and is on the first set
+        resetRepsAndSets();
+    }
+
+    private void resetRepsAndSets()
+    {
         repCounter = 0;
-        setCounter = 0;
+        setCounter = 1;
     }
 
     //this will get the workouts name and populate the exercise ArrayList
@@ -85,11 +91,20 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.counter_button);
 
-        if (repCounter == currentExercise.getReps() - 1)
+        //if the user has completed all the reps in a set and is not on the last set
+        //then the rep counter is set to 0 and the set is incremented
+        if (repCounter == currentExercise.getReps() - 1 && setCounter < currentExercise.getSets())
         {
             repCounter = 0;
             setCounter ++;
         }
+        //if the user has completed the reps in a set and is on the last set then the next exercise must be launched
+        else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
+        {
+            resetRepsAndSets();
+            goToNextExercise();
+        }
+        //otherwise the user is still in the same set and the repCounter is incremented
         else
         {
             repCounter ++;
@@ -111,6 +126,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     //called whenever the skip exercise button is pressed. It will need to take note
     //that an exercise was skipped and not finished
+    //TODO add a way to tell that an exercise was skipped
     public void skipExercise(View v)
     {
         goToNextExercise();
