@@ -150,14 +150,26 @@
                         android:layout_column="2"/>
 
                 </TableRow>
+
+                <TableRow
+                    android:background="@color/colorDarkBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/add_exercise_button"
+                        android:text="Add Exercise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="5"
+                        android:textSize="18sp"
+                        android:backgroundTint="@color/colorSilver"
+                        android:layout_marginHorizontal="20dp"/>
+
+
+                </TableRow>
             </TableLayout>
 
-            <Button
-                android:id="@+id/add_exercise_button"
-                android:text="Add Exercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorSilver"/>
 
             <TextView
                 android:id="@+id/exercise_database_contents"
@@ -223,7 +235,6 @@
                         android:layout_marginHorizontal="20dp"
                         android:textSize="18sp"
                         android:backgroundTint="@color/colorSilver" />
-
                 </TableRow>
             </TableLayout>
 
