@@ -173,7 +173,11 @@
                 android:id="@+id/exercise_database_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No contents yet"/>
+                android:layout_marginHorizontal="30dp"
+                android:text="No contents yet"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorDarkBlue"/>
 
 
             <!-- Create Workout Table -->
