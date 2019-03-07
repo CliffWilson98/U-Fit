@@ -114,7 +114,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private void createWorkout(String workoutName)
     {
-        
         SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
         SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -126,15 +125,10 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;", null);
         cursor.moveToFirst();
 
-        String name = cursor.getString(cursor.getColumnIndex("NAME"));
         int workoutID = cursor.getInt(0);
-
-        System.out.println("WORKOUT ID: " + workoutID);
 
         addExercisesToDatabase(workoutID);
         exerciseList.clear();
-
-        Cursor workoutCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
 
         Toast toast = Toast.makeText(getActivity(), String.format("%s: %s", "Workout created", workoutName), Toast.LENGTH_LONG);
         toast.show();
@@ -192,25 +186,4 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         addedExercises.setText(exercises);
     }
 
-    private void displayAddedWorkouts(Cursor cursor)
-    {
-        cursor.moveToFirst();
-        String workout = cursor.getString(cursor.getColumnIndex("NAME"));
-
-        Toast toast = Toast.makeText(getActivity(), String.format("%s: %s", "Workout created", workout), Toast.LENGTH_LONG);
-        toast.show();
-
-        do
-        {
-            workoutNames += cursor.getString(cursor.getColumnIndex("NAME"));
-        }
-        while(cursor.moveToNext());
-
-        workoutNames += "\n";
-
-        // removed from create workout layout
-        //TextView workoutView = getView().findViewById(R.id.workout_database_contents);
-        //workoutView.setText(workoutNames);
-
-    }
 }
