@@ -29,7 +29,8 @@
             <TableLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:stretchColumns="2">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -59,7 +60,7 @@
 
                     <EditText
                         android:id="@+id/workout_name"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
@@ -72,7 +73,8 @@
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:stretchColumns="2">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,13 +99,14 @@
                         android:text="@string/create_workout_exercise_name"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/colorWhite"/>
+                        android:textColor="@color/colorWhite" />
 
                     <Spinner
                         android:id="@+id/create_workout_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="30dp"/>
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_column="2"/>
 
                 </TableRow>
 
@@ -120,7 +123,7 @@
                         android:text="@string/create_workout_reps"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/colorWhite"/>
+                        android:textColor="@color/colorWhite" />
 
                     <EditText
                         android:inputType="number"
@@ -129,7 +132,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
                         android:textSize="24sp"
-                        android:layout_marginHorizontal="30dp"/>
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_column="2"/>
 
                 </TableRow>
 
@@ -157,7 +161,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
                         android:textSize="24sp"
-                        android:layout_marginHorizontal="30dp"/>
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_column="2"/>
 
                 </TableRow>
 
@@ -185,7 +190,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
                         android:textSize="24sp"
-                        android:layout_marginHorizontal="30dp"/>
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_column="2"/>
 
                 </TableRow>
             </TableLayout>
