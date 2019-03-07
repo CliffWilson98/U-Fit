@@ -26,50 +26,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TableLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:stretchColumns="2">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/create_workout_title"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/colorAccent"/>
-
-                <TableRow
-                    android:background="@color/colorDarkBlue"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/create_workout_name"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorWhite"
-                        android:textStyle="bold"
-                        android:layout_column="1"/>
-
-                    <EditText
-                        android:id="@+id/workout_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_column="2"/>
-
-                </TableRow>
-            </TableLayout>
-
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -209,19 +165,67 @@
                 android:layout_height="wrap_content"
                 android:text="No contents yet"/>
 
-            <Button
-                android:id="@+id/create_workout_button"
-                android:text="Create Workout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorSilver"/>
 
-            <TextView
-                android:id="@+id/workout_database_contents"
-                android:layout_width="match_parent"
+            <!-- Create Workout Table -->
+            <TableLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="No contents yet"/>
+                android:padding="10dp"
+                android:stretchColumns="2,5">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_workout_title"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"/>
+
+                <TableRow
+                    android:background="@color/colorDarkBlue"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create_workout_name"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/workout_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_column="2"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/colorDarkBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/create_workout_button"
+                        android:layout_span="5"
+                        android:text="Create Workout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:textSize="18sp"
+                        android:backgroundTint="@color/colorSilver" />
+
+                </TableRow>
+            </TableLayout>
 
         </LinearLayout>
     </ScrollView>

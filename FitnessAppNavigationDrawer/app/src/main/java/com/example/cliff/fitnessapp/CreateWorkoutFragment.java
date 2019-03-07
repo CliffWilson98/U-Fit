@@ -199,8 +199,9 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         workoutNames += "\n";
 
-        TextView workoutView = getView().findViewById(R.id.workout_database_contents);
-        workoutView.setText(workoutNames);
+        // removed from create workout layout
+        //TextView workoutView = getView().findViewById(R.id.workout_database_contents);
+        //workoutView.setText(workoutNames);
 
     }
 }
