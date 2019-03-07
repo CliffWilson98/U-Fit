@@ -177,7 +177,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     private void displayAddedExercises()
     {
         String exercises = "";
-        System.out.println(exercises.length());
 
         for (int i = 0; i < exerciseList.size(); i ++)
         {
