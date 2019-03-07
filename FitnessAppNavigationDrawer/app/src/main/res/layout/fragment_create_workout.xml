@@ -59,11 +59,12 @@
 
                     <EditText
                         android:id="@+id/workout_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:width="100dp"
                         android:textColor="@color/colorWhite"
-                        android:layout_marginHorizontal="30dp"/>
+                        android:textSize="18sp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_column="2"/>
 
                 </TableRow>
             </TableLayout>
@@ -127,6 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
+                        android:textSize="24sp"
                         android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
@@ -154,6 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
+                        android:textSize="24sp"
                         android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>
@@ -181,6 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
+                        android:textSize="24sp"
                         android:layout_marginHorizontal="30dp"/>
 
                 </TableRow>

@@ -4,7 +4,6 @@
         android:id="@+id/workout_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="24sp"
         android:textColor="@color/colorWhite" />
 
