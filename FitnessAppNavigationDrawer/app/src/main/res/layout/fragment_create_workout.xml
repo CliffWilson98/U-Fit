@@ -166,10 +166,8 @@
                         android:backgroundTint="@color/colorSilver"
                         android:layout_marginHorizontal="20dp"/>
 
-
                 </TableRow>
             </TableLayout>
-
 
             <TextView
                 android:id="@+id/exercise_database_contents"

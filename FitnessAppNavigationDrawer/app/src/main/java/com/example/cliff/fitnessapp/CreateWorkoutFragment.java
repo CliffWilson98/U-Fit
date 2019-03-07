@@ -180,7 +180,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         for (int i = 0; i < exerciseList.size(); i ++)
         {
-            exerciseNames += " " + exerciseList.get(i).getName();
+            exerciseNames += "\n" + exerciseList.get(i).getName();
         }
 
         TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
