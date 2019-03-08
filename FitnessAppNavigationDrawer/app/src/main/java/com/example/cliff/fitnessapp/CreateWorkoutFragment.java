@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,15 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         Button addExerciseButton = (Button) v.findViewById(R.id.add_exercise_button);
         addExerciseButton.setOnClickListener(this);
+        addExerciseButton.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == event.KEYCODE_ENTER) {
+
+                }
+                return false;
+            }
+        });
 
         Button createWorkoutButton = (Button) v.findViewById(R.id.create_workout_button);
         createWorkoutButton.setOnClickListener(this);
