@@ -175,7 +175,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         for (int i = 0; i < exerciseList.size(); i ++)
         {
-            exercises += String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n",
+            exercises += String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n\n",
                                         "exercise #", i+1, exerciseList.get(i).getName(),
                                         "reps", exerciseList.get(i).getReps(),
                                         "sets", exerciseList.get(i).getSets(),
