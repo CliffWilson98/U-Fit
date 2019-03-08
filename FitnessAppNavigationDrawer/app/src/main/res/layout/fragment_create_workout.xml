@@ -164,8 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_span="5"
                         android:textStyle="bold"
-                        android:backgroundTint="@color/colorSilver"
-                        android:layout_marginHorizontal="20dp"/>
+                        android:backgroundTint="@color/colorSilver" />
 
                 </TableRow>
             </TableLayout>
@@ -236,7 +235,6 @@
                         android:text="Create Workout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
                         android:textStyle="bold"
                         android:backgroundTint="@color/colorSilver" />
                 </TableRow>
