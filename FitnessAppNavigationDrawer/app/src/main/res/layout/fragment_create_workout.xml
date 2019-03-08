@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_marginHorizontal="30dp"
-                android:text="@string/no_exercies"
+                android:text="@string/no_exercise"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorDarkBlue"/>
