@@ -171,19 +171,27 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private void displayAddedExercises()
     {
-        String exercises = "";
+        StringBuilder sb = new StringBuilder();
+        ArrayList<String> exercises = new ArrayList<>();
+        String exercise;
 
-        for (int i = 0; i < exerciseList.size(); i ++)
-        {
-            exercises += String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n",
-                                        "exercise #", i+1, exerciseList.get(i).getName(),
-                                        "reps", exerciseList.get(i).getReps(),
-                                        "sets", exerciseList.get(i).getSets(),
-                                        "weight", exerciseList.get(i).getWeight());
+        for (int i = 0; i < exerciseList.size(); i++) {
+            exercise = String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n",
+                    "exercise #", i+1, exerciseList.get(i).getName(),
+                    "reps", exerciseList.get(i).getReps(),
+                    "sets", exerciseList.get(i).getSets(),
+                    "weight", exerciseList.get(i).getWeight());
+
+            exercises.add(exercise);
         }
 
         TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
-        addedExercises.setText(exercises);
+
+        for (String element : exercises) {
+            sb.append(element);
+        }
+        addedExercises.setText(sb.toString());
+
     }
 
 }
