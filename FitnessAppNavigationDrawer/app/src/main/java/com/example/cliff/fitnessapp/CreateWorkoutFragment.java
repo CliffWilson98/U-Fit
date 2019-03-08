@@ -6,11 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,8 +57,8 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     @Override
     public void onStart()
     {
-        Spinner spinner = (Spinner) getView().findViewById(R.id.name_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.workouts_array, R.layout.support_simple_spinner_dropdown_item);
+        Spinner spinner = (Spinner) getView().findViewById(R.id.create_workout_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.workouts_array, R.layout.create_workout_spinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -99,7 +101,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     private void createExercise()
     {
         //Get data from necessary fields and add it to the exercise ArrayList
-        String exerciseName = (String)(((Spinner)getView().findViewById(R.id.name_spinner)).getSelectedItem().toString());
+        String exerciseName = (String)(((Spinner)getView().findViewById(R.id.create_workout_spinner)).getSelectedItem().toString());
         int reps = Integer.valueOf((((EditText)getView().findViewById(R.id.rep_edit_text)).getText().toString()));
         int sets = Integer.valueOf((((EditText)getView().findViewById(R.id.sets_edit_text)).getText().toString()));
         int weight = Integer.valueOf((((EditText)getView().findViewById(R.id.weight_edit_text)).getText().toString()));
@@ -112,8 +114,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private void createWorkout(String workoutName)
     {
-        System.out.println("CREATE WORKOUT IS PRESSED");
-
         SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
         SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -125,17 +125,14 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;", null);
         cursor.moveToFirst();
 
-        String name = cursor.getString(cursor.getColumnIndex("NAME"));
         int workoutID = cursor.getInt(0);
-
-        System.out.println("WORKOUT ID: " + workoutID);
 
         addExercisesToDatabase(workoutID);
         exerciseList.clear();
 
-        Cursor workoutCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
+        Toast toast = Toast.makeText(getActivity(), String.format("%s: %s", "Workout created", workoutName), Toast.LENGTH_LONG);
+        toast.show();
 
-        displayAddedWorkouts(workoutCursor);
     }
 
     private void addExercisesToDatabase(int workoutId)
@@ -174,31 +171,19 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private void displayAddedExercises()
     {
-        String exerciseNames = "";
+        String exercises = "";
 
         for (int i = 0; i < exerciseList.size(); i ++)
         {
-            exerciseNames += " " + exerciseList.get(i).getName();
+            exercises += String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n\n",
+                                        "exercise #", i+1, exerciseList.get(i).getName(),
+                                        "reps", exerciseList.get(i).getReps(),
+                                        "sets", exerciseList.get(i).getSets(),
+                                        "weight", exerciseList.get(i).getWeight());
         }
 
         TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
-        addedExercises.setText(exerciseNames);
+        addedExercises.setText(exercises);
     }
 
-    private void displayAddedWorkouts(Cursor cursor)
-    {
-        cursor.moveToFirst();
-
-        do
-        {
-            workoutNames += cursor.getString(cursor.getColumnIndex("NAME"));
-        }
-        while(cursor.moveToNext());
-
-        workoutNames += "\n";
-
-        TextView workoutView = getView().findViewById(R.id.workout_database_contents);
-        workoutView.setText(workoutNames);
-
-    }
 }
