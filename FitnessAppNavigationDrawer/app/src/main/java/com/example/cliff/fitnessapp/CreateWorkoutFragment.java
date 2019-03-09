@@ -36,7 +36,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     private ArrayList<Exercise> exerciseList;
     private String workoutNames = "";
     private ArrayList<String> exerciseListView;
-    private ListView listView;
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
@@ -47,11 +46,12 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     {
         exerciseList = new ArrayList<>();
         exerciseListView = new ArrayList<>();
-        CreateWorkoutAdapter workoutAdapter = new CreateWorkoutAdapter(exerciseListView, getActivity());
-        listView = (ListView) listView.findViewById(R.id.workout_list_view);
-        listView.setAdapter(workoutAdapter);
 
+        CreateWorkoutAdapter createWorkoutAdapter = new CreateWorkoutAdapter(exerciseListView, this.getContext());
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
+
+        ListView listView = (ListView) v.findViewById(R.id.workout_list_view);
+        listView.setAdapter(createWorkoutAdapter);
 
         Button addExerciseButton = (Button) v.findViewById(R.id.add_exercise_button);
         addExerciseButton.setOnClickListener(this);
