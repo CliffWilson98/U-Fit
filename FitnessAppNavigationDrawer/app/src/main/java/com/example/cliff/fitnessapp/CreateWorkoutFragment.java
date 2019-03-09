@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private ArrayList<Exercise> exerciseList;
     private String workoutNames = "";
+    private ArrayList<String> exerciseListView;
+    private ListView listView;
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
@@ -43,6 +46,10 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         exerciseList = new ArrayList<>();
+        exerciseListView = new ArrayList<>();
+        CreateWorkoutAdapter workoutAdapter = new CreateWorkoutAdapter(exerciseListView, getActivity());
+        listView = (ListView) listView.findViewById(R.id.workout_list_view);
+        listView.setAdapter(workoutAdapter);
 
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
 
@@ -119,7 +126,10 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         Exercise exerciseToAdd = new Exercise(exerciseName, reps, sets, weight);
         exerciseList.add(exerciseToAdd);
 
-        displayAddedExercises();
+        exerciseListView.add(exerciseToAdd.getName());
+
+
+        //displayAddedExercises();
     }
 
     private void createWorkout(String workoutName)
@@ -197,7 +207,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
             exercises.add(exercise);
         }
-
+        /**
         // create a TextView to display to the user
         TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
 
@@ -208,6 +218,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         // adds those exercises to the TextView
         addedExercises.setText(sb.toString());
+         **/
     }
 
 }

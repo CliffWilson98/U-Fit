@@ -169,16 +169,10 @@
                 </TableRow>
             </TableLayout>
 
-            <TextView
-                android:id="@+id/exercise_database_contents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_marginHorizontal="30dp"
-                android:text="@string/no_exercise"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorDarkBlue"/>
+            <ListView
+                android:id="@+id/workout_list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
             <!-- Create Workout Table -->
