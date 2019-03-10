@@ -40,6 +40,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     private ArrayList<String> exerciseListView;
     private ListView listView;
     private CreateWorkoutAdapter createWorkoutAdapter;
+    private int listViewHeight = 50;
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
