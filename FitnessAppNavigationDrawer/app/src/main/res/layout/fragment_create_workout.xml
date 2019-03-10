@@ -169,16 +169,19 @@
                 </TableRow>
             </TableLayout>
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/workout_list_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
+<<<<<<< HEAD
                 <ListView
                     android:id="@+id/workout_list_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+=======
+>>>>>>> 862cda0ed1b33071d100821150ecaa33337341a1
 
-            </LinearLayout>
 
             <!-- Create Workout Table -->
             <TableLayout

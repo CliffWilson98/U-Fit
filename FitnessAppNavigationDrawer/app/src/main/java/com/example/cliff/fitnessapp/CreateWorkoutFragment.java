@@ -141,6 +141,12 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         System.out.println("LIST VIEW: " + exerciseListView);
         createWorkoutAdapter.notifyDataSetChanged();
 
+        //whenever an exercise is added the listview size must be changed
+        ListView exerciseListView = getView().findViewById(R.id.workout_list_view);
+        ViewGroup.LayoutParams params = exerciseListView.getLayoutParams();
+        params.height += 150;
+        exerciseListView.setLayoutParams(params);
+
         displayAddedExercises(exerciseToAdd);
     }
 
