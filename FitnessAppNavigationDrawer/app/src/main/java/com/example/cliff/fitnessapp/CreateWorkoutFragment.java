@@ -107,10 +107,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
                 createWorkout(workoutName);
             }
         }
-
-        else if (id == R.id.remove_button) {
-            justifyListViewHeightBasedOnChildren(listView);
-        }
     }
 
     private void createExercise()
@@ -125,8 +121,8 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         exerciseList.add(exerciseToAdd);
 
         exerciseListView.add(exerciseToAdd.getName());
-        System.out.println("LIST VIEW: " + exerciseListView);
-        createWorkoutAdapter.notifyDataSetChanged();
+        //createWorkoutAdapter.notifyDataSetChanged();
+        System.out.println("From fragment: " + createWorkoutAdapter.getItem(createWorkoutAdapter.getCount()-1));
 
         //whenever an exercise is added the listview size must be changed
         justifyListViewHeightBasedOnChildren(listView);
@@ -134,7 +130,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         displayAddedExercises(exerciseToAdd);
     }
 
-    public void justifyListViewHeightBasedOnChildren (ListView listView) {
+    private void justifyListViewHeightBasedOnChildren (ListView listView) {
 
         ListAdapter adapter = listView.getAdapter();
 
@@ -153,6 +149,14 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
         listView.setLayoutParams(par);
         listView.requestLayout();
+    }
+
+    public void deleteExercise (int position) {
+
+        //exerciseListView.remove(position);
+        //createWorkoutAdapter.notifyDataSetChanged();
+        System.out.println("fragment position: " + position);
+
     }
 
     private void createWorkout(String workoutName)

@@ -16,9 +16,8 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<String> list = new ArrayList<>();
     private Context context;
-    CreateWorkoutFragment fragment = new CreateWorkoutFragment();
-    ListView exerciseListView;
-    Button removeButton;
+    private CreateWorkoutFragment fragment = new CreateWorkoutFragment();
+    private ListView exerciseListView;
 
     public CreateWorkoutAdapter(ArrayList<String> list, Context context) {
         this.list = list;
@@ -53,17 +52,18 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         listViewText.setText(list.get(position));
 
         //Handle remove button and onClickListener
-        removeButton = (Button) view.findViewById(R.id.remove_button);
+        Button removeButton = (Button) view.findViewById(R.id.remove_button);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 list.remove(position);
-                exerciseListView = v.findViewById(R.id.workout_list_view);
-                System.out.println("size() " + list.size());
+                fragment.deleteExercise(position);
+                //exerciseListView = v.findViewById(R.id.workout_list_view);
                 notifyDataSetChanged();
             }
         });
 
         return view;
     }
+
 }
