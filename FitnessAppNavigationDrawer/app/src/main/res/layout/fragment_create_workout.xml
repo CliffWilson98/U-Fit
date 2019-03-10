@@ -176,7 +176,7 @@
                 <ListView
                     android:id="@+id/workout_list_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
