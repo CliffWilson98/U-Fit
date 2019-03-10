@@ -36,11 +36,9 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
 
     private ArrayList<Exercise> exerciseList;
-    private String workoutNames = "";
     private ArrayList<String> exerciseListView;
     private ListView listView;
     private CreateWorkoutAdapter createWorkoutAdapter;
-    private int listViewHeight = 50;
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
@@ -57,25 +55,9 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         listView = (ListView) v.findViewById(R.id.workout_list_view);
         listView.setAdapter(createWorkoutAdapter);
-        listView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
 
         Button addExerciseButton = (Button) v.findViewById(R.id.add_exercise_button);
         addExerciseButton.setOnClickListener(this);
-        addExerciseButton.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == event.KEYCODE_ENTER) {
-
-                }
-                return false;
-            }
-        });
 
         Button createWorkoutButton = (Button) v.findViewById(R.id.create_workout_button);
         createWorkoutButton.setOnClickListener(this);
@@ -125,6 +107,10 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
                 createWorkout(workoutName);
             }
         }
+
+        else if (id == R.id.remove_button) {
+            justifyListViewHeightBasedOnChildren(listView);
+        }
     }
 
     private void createExercise()
@@ -143,13 +129,12 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         createWorkoutAdapter.notifyDataSetChanged();
 
         //whenever an exercise is added the listview size must be changed
-        ListView exerciseListView = getView().findViewById(R.id.workout_list_view);
-        justifyListViewHeightBasedOnChildren(exerciseListView);
+        justifyListViewHeightBasedOnChildren(listView);
 
         displayAddedExercises(exerciseToAdd);
     }
 
-    private void justifyListViewHeightBasedOnChildren (ListView listView) {
+    public void justifyListViewHeightBasedOnChildren (ListView listView) {
 
         ListAdapter adapter = listView.getAdapter();
 

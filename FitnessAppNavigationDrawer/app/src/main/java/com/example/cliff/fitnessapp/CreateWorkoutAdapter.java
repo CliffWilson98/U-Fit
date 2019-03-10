@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<String> list = new ArrayList<>();
     private Context context;
+    CreateWorkoutFragment fragment = new CreateWorkoutFragment();
+    ListView exerciseListView;
+    Button removeButton;
 
     public CreateWorkoutAdapter(ArrayList<String> list, Context context) {
         this.list = list;
@@ -49,11 +53,13 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         listViewText.setText(list.get(position));
 
         //Handle remove button and onClickListener
-        Button removeButton = (Button) view.findViewById(R.id.remove_button);
+        removeButton = (Button) view.findViewById(R.id.remove_button);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 list.remove(position);
+                exerciseListView = v.findViewById(R.id.workout_list_view);
+                System.out.println("size() " + list.size());
                 notifyDataSetChanged();
             }
         });
