@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -54,6 +55,13 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         listView = (ListView) v.findViewById(R.id.workout_list_view);
         listView.setAdapter(createWorkoutAdapter);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         Button addExerciseButton = (Button) v.findViewById(R.id.add_exercise_button);
         addExerciseButton.setOnClickListener(this);

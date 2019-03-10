@@ -20,12 +20,23 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:id="@+id/workout_list_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
@@ -168,12 +179,6 @@
 
                 </TableRow>
             </TableLayout>
-
-            <ListView
-                android:id="@+id/workout_list_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
 
             <!-- Create Workout Table -->
             <TableLayout
