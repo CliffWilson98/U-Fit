@@ -17,7 +17,9 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<>();
     private Context context;
     private CreateWorkoutFragment fragment = new CreateWorkoutFragment();
-    private ListView exerciseListView;
+    ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private int exercisePosition;
+    private String outputString = "";
 
     public CreateWorkoutAdapter(ArrayList<String> list, Context context) {
         this.list = list;
@@ -39,8 +41,24 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         return 0;
     }
 
+    public int getExercisePosition() {
+        return this.exercisePosition;
+    }
+
+    public void setExercisePosition(int pos) {
+        this.exercisePosition = pos;
+    }
+
+    public void setOutputString (String string) {
+        this.outputString = string;
+    }
+
+    public String toString() {
+        return this.outputString;
+    }
+
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -56,9 +74,13 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.remove(position);
+                setOutputString(list.get(position));
+                exerciseList = fragment.getExerciseList();
+                setExercisePosition(position);
                 fragment.deleteExercise(position);
-                //exerciseListView = v.findViewById(R.id.workout_list_view);
+                //System.out.println("exercise: " + getItem(position));
+                //System.out.println("exercise: " + exerciseList);
+                list.remove(position);
                 notifyDataSetChanged();
             }
         });

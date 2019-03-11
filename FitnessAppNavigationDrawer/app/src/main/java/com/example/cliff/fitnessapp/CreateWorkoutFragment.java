@@ -27,6 +27,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -50,7 +51,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         exerciseList = new ArrayList<>();
         exerciseListView = new ArrayList<>();
 
-        createWorkoutAdapter = new CreateWorkoutAdapter(exerciseListView, this.getContext());
+        createWorkoutAdapter = new CreateWorkoutAdapter(exerciseListView, this.getActivity());
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
 
         listView = (ListView) v.findViewById(R.id.workout_list_view);
@@ -151,12 +152,21 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         listView.requestLayout();
     }
 
-    public void deleteExercise (int position) {
+    public ArrayList<Exercise> deleteExercise (int position) {
+
+        CreateWorkoutAdapter myAdapater = new CreateWorkoutAdapter(exerciseListView, this.getActivity());
 
         //exerciseListView.remove(position);
         //createWorkoutAdapter.notifyDataSetChanged();
+        //System.out.println("exercise: " + myAdapater.getItem(position));
+        System.out.println("exercise: " + myAdapater.toString());
         System.out.println("fragment position: " + position);
 
+        return exerciseList;
+    }
+
+    public ArrayList<Exercise> getExerciseList() {
+        return this.exerciseList;
     }
 
     private void createWorkout(String workoutName)
