@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
 
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> list;
     private Context context;
-    private CreateWorkoutFragment fragment = new CreateWorkoutFragment();
+    private CreateWorkoutFragment fragment;
     ArrayList<Exercise> exerciseList = new ArrayList<>();
-    private int exercisePosition;
     private String outputString = "";
 
-    public CreateWorkoutAdapter(ArrayList<String> list, Context context) {
+    public CreateWorkoutAdapter(ArrayList<String> list, Context context, CreateWorkoutFragment fragment) {
         this.list = list;
         this.context = context;
+        this.fragment = fragment;
     }
 
     @Override
@@ -41,14 +41,6 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         return 0;
     }
 
-    public int getExercisePosition() {
-        return this.exercisePosition;
-    }
-
-    public void setExercisePosition(int pos) {
-        this.exercisePosition = pos;
-    }
-
     public void setOutputString (String string) {
         this.outputString = string;
     }
@@ -58,7 +50,7 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public View getView(final int position, final View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -75,11 +67,7 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 setOutputString(list.get(position));
-                exerciseList = fragment.getExerciseList();
-                setExercisePosition(position);
                 fragment.deleteExercise(position);
-                //System.out.println("exercise: " + getItem(position));
-                //System.out.println("exercise: " + exerciseList);
                 list.remove(position);
                 notifyDataSetChanged();
             }

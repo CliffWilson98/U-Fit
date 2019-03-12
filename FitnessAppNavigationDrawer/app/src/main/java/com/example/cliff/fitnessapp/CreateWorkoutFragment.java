@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
+import android.icu.text.SymbolTable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -51,7 +52,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         exerciseList = new ArrayList<>();
         exerciseListView = new ArrayList<>();
 
-        createWorkoutAdapter = new CreateWorkoutAdapter(exerciseListView, this.getActivity());
+        createWorkoutAdapter = new CreateWorkoutAdapter(exerciseListView, this.getActivity(), this);
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
 
         listView = (ListView) v.findViewById(R.id.workout_list_view);
@@ -122,51 +123,53 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         exerciseList.add(exerciseToAdd);
 
         exerciseListView.add(exerciseToAdd.getName());
-        //createWorkoutAdapter.notifyDataSetChanged();
-        System.out.println("From fragment: " + createWorkoutAdapter.getItem(createWorkoutAdapter.getCount()-1));
+        createWorkoutAdapter.notifyDataSetChanged();
 
         //whenever an exercise is added the listview size must be changed
-        justifyListViewHeightBasedOnChildren(listView);
+        justifyListViewHeightBasedOnChildren();
 
         displayAddedExercises(exerciseToAdd);
     }
 
-    private void justifyListViewHeightBasedOnChildren (ListView listView) {
+    private void justifyListViewHeightBasedOnChildren () {
 
-        ListAdapter adapter = listView.getAdapter();
-
-        if (adapter == null) {
+        if (createWorkoutAdapter == null) {
             return;
         }
         ViewGroup vg = listView;
         int totalHeight = 0;
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View listItem = adapter.getView(i, null, vg);
+        for (int i = 0; i < createWorkoutAdapter.getCount(); i++) {
+            View listItem = createWorkoutAdapter.getView(i, null, vg);
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
 
         ViewGroup.LayoutParams par = listView.getLayoutParams();
-        par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        par.height = totalHeight + (listView.getDividerHeight() * (createWorkoutAdapter.getCount() - 1));
         listView.setLayoutParams(par);
         listView.requestLayout();
     }
 
     public ArrayList<Exercise> deleteExercise (int position) {
 
-        CreateWorkoutAdapter myAdapater = new CreateWorkoutAdapter(exerciseListView, this.getActivity());
+        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
+        SQLiteDatabase db = helper.getWritableDatabase();
 
-        //exerciseListView.remove(position);
-        //createWorkoutAdapter.notifyDataSetChanged();
-        //System.out.println("exercise: " + myAdapater.getItem(position));
-        System.out.println("exercise: " + myAdapater.toString());
+        String exerciseName = exerciseList.get(position).getName();
+        String exerciseReps = String.valueOf(exerciseList.get(position).getReps());
+        String exerciseSets = String.valueOf(exerciseList.get(position).getSets());
+        String exerciseWeight = String.valueOf(exerciseList.get(position).getWeight());
+
+        String[] exercisesToDelete = {exerciseName, exerciseReps, exerciseSets, exerciseWeight};
+
+        //db.delete("WORKOUT", "NAME = ? AND REPS = ? AND SETS = ? AND WEIGHT = ?", exercisesToDelete);
+
+        //System.out.println("exercise: " + createWorkoutAdapter.toString());
+        System.out.println("exercise: " + exerciseList.get(position).getName() + " reps: " + exerciseList.get(position).getReps());
         System.out.println("fragment position: " + position);
+        justifyListViewHeightBasedOnChildren();
 
         return exerciseList;
-    }
-
-    public ArrayList<Exercise> getExerciseList() {
-        return this.exerciseList;
     }
 
     private void createWorkout(String workoutName)
