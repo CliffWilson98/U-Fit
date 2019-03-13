@@ -7,15 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
+import android.icu.text.SymbolTable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +28,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,9 +36,13 @@ import java.util.ArrayList;
  */
 public class CreateWorkoutFragment extends Fragment implements View.OnClickListener {
 
-
+    //Handle the exercises for each workout
     private ArrayList<Exercise> exerciseList;
-    private String workoutNames = "";
+    //Handle the TextView within the ListView exercises for the adapter
+    private ArrayList<String> exerciseListView;
+    //Handle the TextView to populate the ListView via the adapter
+    private ListView listView;
+    private CreateWorkoutAdapter createWorkoutAdapter;
 
     //Required empty public constructor
     public CreateWorkoutFragment() {}
@@ -42,8 +52,13 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         exerciseList = new ArrayList<>();
+        exerciseListView = new ArrayList<>();
 
+        createWorkoutAdapter = new CreateWorkoutAdapter(exerciseListView, this.getActivity(), this);
         View v = inflater.inflate(R.layout.fragment_create_workout, container, false);
+
+        listView = (ListView) v.findViewById(R.id.workout_list_view);
+        listView.setAdapter(createWorkoutAdapter);
 
         Button addExerciseButton = (Button) v.findViewById(R.id.add_exercise_button);
         addExerciseButton.setOnClickListener(this);
@@ -109,7 +124,40 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         Exercise exerciseToAdd = new Exercise(exerciseName, reps, sets, weight);
         exerciseList.add(exerciseToAdd);
 
-        displayAddedExercises();
+        exerciseListView.add(exerciseToAdd.getName());
+        createWorkoutAdapter.notifyDataSetChanged();
+
+        //whenever an exercise is added the listview size must be changed
+        justifyListViewHeightBasedOnChildren();
+    }
+
+    public void removeExercise (int position) {
+        //Remove the exercise from the ListView for the adapter
+        exerciseListView.remove(position);
+
+        //Remove the exercise from the ArrayList of exercises for the database
+        exerciseList.remove(position);
+
+        //Resize the ListView to match the number of exercises
+        justifyListViewHeightBasedOnChildren();
+    }
+
+    private void justifyListViewHeightBasedOnChildren () {
+        if (createWorkoutAdapter == null) {
+            return;
+        }
+        ViewGroup vg = listView;
+        int totalHeight = 0;
+        for (int i = 0; i < createWorkoutAdapter.getCount(); i++) {
+            View listItem = createWorkoutAdapter.getView(i, null, vg);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams par = listView.getLayoutParams();
+        par.height = totalHeight + (listView.getDividerHeight() * (createWorkoutAdapter.getCount() - 1));
+        listView.setLayoutParams(par);
+        listView.requestLayout();
     }
 
     private void createWorkout(String workoutName)
@@ -128,11 +176,24 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         int workoutID = cursor.getInt(0);
 
         addExercisesToDatabase(workoutID);
-        exerciseList.clear();
 
+        //TESTING to see what exercises are actually added
+        for (int i = 0; i < exerciseList.size(); i++) {
+            System.out.println("exercise list: " + exerciseList.get(i).getName());
+        }
+
+        //Clear list of exercises
+        exerciseList.clear();
+        //Clear ListView of exercises
+        exerciseListView.clear();
+        //Notify adapter that ListView has changed
+        createWorkoutAdapter.notifyDataSetChanged();
+        //Resize the ListView to match the number of exercises
+        justifyListViewHeightBasedOnChildren();
+
+        // verify to the user that a workout was created
         Toast toast = Toast.makeText(getActivity(), String.format("%s: %s", "Workout created", workoutName), Toast.LENGTH_LONG);
         toast.show();
-
     }
 
     private void addExercisesToDatabase(int workoutId)
@@ -166,24 +227,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
                 toast.show();
             }
         }
-    }
-
-
-    private void displayAddedExercises()
-    {
-        String exercises = "";
-
-        for (int i = 0; i < exerciseList.size(); i ++)
-        {
-            exercises += String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n\n",
-                                        "exercise #", i+1, exerciseList.get(i).getName(),
-                                        "reps", exerciseList.get(i).getReps(),
-                                        "sets", exerciseList.get(i).getSets(),
-                                        "weight", exerciseList.get(i).getWeight());
-        }
-
-        TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
-        addedExercises.setText(exercises);
     }
 
 }
