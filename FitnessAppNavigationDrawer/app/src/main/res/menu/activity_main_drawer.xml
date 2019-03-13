@@ -16,6 +16,9 @@
             android:id="@+id/nav_my_workouts"
             android:icon="@drawable/ic_directions_run_black_24dp"
             android:title="My Workouts" />
+        <item
+            android:id="@+id/calendar"
+            android:title="My Calendar" />
     </group>
 
 </menu>
