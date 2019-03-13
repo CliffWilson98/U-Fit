@@ -18,6 +18,7 @@
             android:title="My Workouts" />
         <item
             android:id="@+id/calendar"
+            android:icon="@drawable/ic_calendar_icon"
             android:title="My Calendar" />
     </group>
 
