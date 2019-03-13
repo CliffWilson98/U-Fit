@@ -17,7 +17,6 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list;
     private Context context;
     private CreateWorkoutFragment fragment;
-    ArrayList<Exercise> exerciseList = new ArrayList<>();
     private String outputString = "";
 
     public CreateWorkoutAdapter(ArrayList<String> list, Context context, CreateWorkoutFragment fragment) {
@@ -67,7 +66,7 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 setOutputString(list.get(position));
-                fragment.deleteExercise(position);
+                fragment.removeExercise(position);
                 list.remove(position);
                 notifyDataSetChanged();
             }

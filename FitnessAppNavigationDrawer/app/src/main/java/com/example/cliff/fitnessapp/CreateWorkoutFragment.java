@@ -150,26 +150,9 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         listView.requestLayout();
     }
 
-    public ArrayList<Exercise> deleteExercise (int position) {
-
-        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        String exerciseName = exerciseList.get(position).getName();
-        String exerciseReps = String.valueOf(exerciseList.get(position).getReps());
-        String exerciseSets = String.valueOf(exerciseList.get(position).getSets());
-        String exerciseWeight = String.valueOf(exerciseList.get(position).getWeight());
-
-        String[] exercisesToDelete = {exerciseName, exerciseReps, exerciseSets, exerciseWeight};
-
-        //db.delete("WORKOUT", "NAME = ? AND REPS = ? AND SETS = ? AND WEIGHT = ?", exercisesToDelete);
-
-        //System.out.println("exercise: " + createWorkoutAdapter.toString());
-        System.out.println("exercise: " + exerciseList.get(position).getName() + " reps: " + exerciseList.get(position).getReps());
-        System.out.println("fragment position: " + position);
+    public void removeExercise (int position) {
+        exerciseList.remove(position);
         justifyListViewHeightBasedOnChildren();
-
-        return exerciseList;
     }
 
     private void createWorkout(String workoutName)
