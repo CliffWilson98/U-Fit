@@ -128,7 +128,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         //whenever an exercise is added the listview size must be changed
         justifyListViewHeightBasedOnChildren();
 
-        displayAddedExercises(exerciseToAdd);
     }
 
     private void justifyListViewHeightBasedOnChildren () {
@@ -209,42 +208,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
                 toast.show();
             }
         }
-    }
-
-
-    private void displayAddedExercises(Exercise e)
-    {
-        // create a StringBuilder for writing exercises to the ArrayList
-        StringBuilder sb = new StringBuilder();
-        // create an ArrayList so that added exercises have an index to reference each exercise
-        ArrayList<String> exercises = new ArrayList<>();
-        String exercise;
-
-
-        /**
-        // loops through all exercises in the list and add each one to the ArrayList
-        for (int i = 0; i < exerciseList.size(); i++) {
-            exercise = String.format("%s%d: %s \n%s: %d   %s: %d  %s: %d\n",
-                    "exercise #", i+1, exerciseList.get(i).getName(),
-                    "reps", exerciseList.get(i).getReps(),
-                    "sets", exerciseList.get(i).getSets(),
-                    "weight", exerciseList.get(i).getWeight());
-
-            exercises.add(exercise);
-        }
-
-        // create a TextView to display to the user
-        TextView addedExercises = getView().findViewById(R.id.exercise_database_contents);
-
-        // loops through each new exercise that was created by the user
-        for (String element : exercises) {
-            sb.append(element);
-        }
-
-        // adds those exercises to the TextView
-        addedExercises.setText(sb.toString());
-         **/
-
     }
 
 }
