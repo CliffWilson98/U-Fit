@@ -36,9 +36,11 @@ import java.util.List;
  */
 public class CreateWorkoutFragment extends Fragment implements View.OnClickListener {
 
-
+    //Handle the exercises for each workout
     private ArrayList<Exercise> exerciseList;
+    //Handle the TextView within the ListView exercises for the adapter
     private ArrayList<String> exerciseListView;
+    //Handle the TextView to populate the ListView via the adapter
     private ListView listView;
     private CreateWorkoutAdapter createWorkoutAdapter;
 
@@ -127,11 +129,20 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
         //whenever an exercise is added the listview size must be changed
         justifyListViewHeightBasedOnChildren();
+    }
 
+    public void removeExercise (int position) {
+        //Remove the exercise from the ListView for the adapter
+        exerciseListView.remove(position);
+
+        //Remove the exercise from the ArrayList of exercises for the database
+        exerciseList.remove(position);
+
+        //Resize the ListView to match the number of exercises
+        justifyListViewHeightBasedOnChildren();
     }
 
     private void justifyListViewHeightBasedOnChildren () {
-
         if (createWorkoutAdapter == null) {
             return;
         }
@@ -147,11 +158,6 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         par.height = totalHeight + (listView.getDividerHeight() * (createWorkoutAdapter.getCount() - 1));
         listView.setLayoutParams(par);
         listView.requestLayout();
-    }
-
-    public void removeExercise (int position) {
-        exerciseList.remove(position);
-        justifyListViewHeightBasedOnChildren();
     }
 
     private void createWorkout(String workoutName)
@@ -170,11 +176,24 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         int workoutID = cursor.getInt(0);
 
         addExercisesToDatabase(workoutID);
-        exerciseList.clear();
 
+        //TESTING to see what exercises are actually added
+        for (int i = 0; i < exerciseList.size(); i++) {
+            System.out.println("exercise list: " + exerciseList.get(i).getName());
+        }
+
+        //Clear list of exercises
+        exerciseList.clear();
+        //Clear ListView of exercises
+        exerciseListView.clear();
+        //Notify adapter that ListView has changed
+        createWorkoutAdapter.notifyDataSetChanged();
+        //Resize the ListView to match the number of exercises
+        justifyListViewHeightBasedOnChildren();
+
+        // verify to the user that a workout was created
         Toast toast = Toast.makeText(getActivity(), String.format("%s: %s", "Workout created", workoutName), Toast.LENGTH_LONG);
         toast.show();
-
     }
 
     private void addExercisesToDatabase(int workoutId)

@@ -16,6 +16,7 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<String> list;
     private Context context;
+    //Reference an instance of fragment, passed in through the constructor
     private CreateWorkoutFragment fragment;
 
     public CreateWorkoutAdapter(ArrayList<String> list, Context context, CreateWorkoutFragment fragment) {
@@ -56,8 +57,8 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // notify the fragment of the position of the exercise to delete
                 fragment.removeExercise(position);
-                list.remove(position);
                 notifyDataSetChanged();
             }
         });
