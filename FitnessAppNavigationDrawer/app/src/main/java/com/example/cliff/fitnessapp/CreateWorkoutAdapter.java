@@ -17,7 +17,6 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list;
     private Context context;
     private CreateWorkoutFragment fragment;
-    private String outputString = "";
 
     public CreateWorkoutAdapter(ArrayList<String> list, Context context, CreateWorkoutFragment fragment) {
         this.list = list;
@@ -40,14 +39,6 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         return 0;
     }
 
-    public void setOutputString (String string) {
-        this.outputString = string;
-    }
-
-    public String toString() {
-        return this.outputString;
-    }
-
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
         View view = convertView;
@@ -65,7 +56,6 @@ public class CreateWorkoutAdapter extends BaseAdapter implements ListAdapter {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setOutputString(list.get(position));
                 fragment.removeExercise(position);
                 list.remove(position);
                 notifyDataSetChanged();
