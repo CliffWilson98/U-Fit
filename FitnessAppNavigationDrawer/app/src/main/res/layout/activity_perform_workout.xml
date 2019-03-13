@@ -30,7 +30,8 @@
         android:gravity="center"/>
 
     <Button
-        android:id="@+id/rep_counter_button"
+        android:id="@+id/counter_button"
+        android:onClick="incrementCounter"
         android:text="Counter"
         android:textColor="@color/colorSilver"
         android:background="@drawable/circle_button"
@@ -41,6 +42,7 @@
     <Button
         android:layout_weight="1"
         android:text="Skip Exercise"
+        android:onClick="skipExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
@@ -48,6 +50,7 @@
     <Button
         android:layout_weight="1"
         android:text="Cancel Workout"
+        android:onClick="confirmCancelWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
