@@ -124,7 +124,13 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
         Exercise exerciseToAdd = new Exercise(exerciseName, reps, sets, weight);
         exerciseList.add(exerciseToAdd);
 
-        exerciseListView.add(exerciseToAdd.getName());
+        String exerciseListViewDetails = String.format("%s\nReps: %d - Sets: %d - Weight: %d",
+                                                        exerciseToAdd.getName(),
+                                                        exerciseToAdd.getReps(),
+                                                        exerciseToAdd.getSets(),
+                                                        exerciseToAdd.getWeight());
+
+        exerciseListView.add(exerciseListViewDetails);
         createWorkoutAdapter.notifyDataSetChanged();
 
         //whenever an exercise is added the listview size must be changed
