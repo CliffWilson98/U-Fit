@@ -48,34 +48,21 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         workoutNameTextView.setText(workoutName);
 
         TextView exerciseNamesTextView = findViewById(R.id.exercise_names);
-        TextView exerciseDetailsTextView = findViewById(R.id.exercise_details);
 
         FitnessAppHelper helper = new FitnessAppHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
         cursor.moveToFirst();
-        /**
-        ArrayList<String> exercisesToAdd = new ArrayList<>();
-        do {
-            exercisesToAdd.add(cursor.getString(1));
-        } while (cursor.moveToNext());
 
         String exercises = "";
-        for (String line : exercisesToAdd) {
-            exercises += line + "\n";
-        }
+        do {
+            exercises += (cursor.getString(1) + "\n" +
+                            "Reps: " + cursor.getInt(2) + " - " +
+                            "Sets: " + cursor.getInt(3) + " - " +
+                            "Weight: " + cursor.getInt(4) + "\n\n");
+        } while (cursor.moveToNext());
+
         exerciseNamesTextView.setText(exercises);
-        **/
-
-        String exerciseNames = "";
-
-        do
-        {
-            exerciseNames += cursor.getString(1) + "\n";
-        }while (cursor.moveToNext());
-
-        exerciseNamesTextView.setText(exerciseNames);
-
     }
 
     //Necessary for the back button to work

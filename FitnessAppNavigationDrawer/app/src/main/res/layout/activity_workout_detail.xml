@@ -44,13 +44,11 @@
             android:id="@+id/exercise_names"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="exercise text"/>
-
-        <TextView
-            android:id="@+id/exercise_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="exercise details"/>
+            android:padding="10dp"
+            android:background="@color/colorLightBlue"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:text="exercise text" />
 
     </LinearLayout>
 
