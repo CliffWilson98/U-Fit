@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
+        android:paddingBottom="20dp"
         android:weightSum="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -62,10 +62,12 @@
         <Button
             android:id="@+id/delete_workout_button"
             android:onClick="checkForDeleteConfirmation"
-            android:text="Delete"
+            android:text="Delete Workout"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorSilver"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/perform_workout_button"
@@ -73,7 +75,9 @@
             android:text="Perform Workout"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorSilver"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
