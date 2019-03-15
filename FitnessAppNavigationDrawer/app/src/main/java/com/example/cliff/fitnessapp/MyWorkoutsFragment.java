@@ -32,6 +32,7 @@ public class MyWorkoutsFragment extends Fragment {
     private ListView workoutList;
     private ArrayList<String> workoutNameList = new ArrayList<>();
     private ArrayList<Integer> workoutIDList = new ArrayList<>();
+    private WhiteTextAdapter whiteTextAdapter;
 
     public MyWorkoutsFragment() {
         // Required empty public constructor
@@ -43,7 +44,9 @@ public class MyWorkoutsFragment extends Fragment {
     {
         View v = inflater.inflate(R.layout.fragment_my_workouts, container, false);
 
+        whiteTextAdapter = new WhiteTextAdapter(getActivity(), R.layout.white_text_listview, workoutNameList);
         workoutList = (ListView)(v.findViewById(R.id.workout_listview));
+        workoutList.setAdapter(whiteTextAdapter);
 
         workoutList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,8 +98,6 @@ public class MyWorkoutsFragment extends Fragment {
             }while (cursor.moveToNext());
         }
 
-
-        workoutList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, workoutNameList));
     }
 
     //TODO remove this
@@ -145,9 +146,10 @@ public class MyWorkoutsFragment extends Fragment {
             Toast.makeText(getActivity(), "DATABASE UNAVAILABLE", Toast.LENGTH_SHORT).show();
         }
 
-        TextView workoutText = (TextView)(getView().findViewById(R.id.my_workouts_text));
+        //TODO delete this, not needed?
+        //TextView workoutText = (TextView)(getView().findViewById(R.id.my_workouts_text));
         //System.out.println("WORKOUT " + workoutText);
-        workoutText.setText(text);
+        //workoutText.setText(text);
     }
 
 }

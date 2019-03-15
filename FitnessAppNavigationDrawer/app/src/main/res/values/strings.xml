@@ -31,6 +31,9 @@
     <string name="profile_waist">Waist:</string>
     <string name="profile_hips">Hips:</string>
 
+    <!-- Strings for the My Workouts Fragment -->
+    <string name="my_workouts_title">My Workouts</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
