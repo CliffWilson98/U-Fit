@@ -36,7 +36,6 @@ public class WhiteTextAdapter extends ArrayAdapter<String> {
         TextView text = (TextView) v.findViewById(R.id.white_listview);
 
         if (list.get(position) != null) {
-            text.setTextColor(Color.WHITE);
             text.setText(list.get(position));
         }
 
