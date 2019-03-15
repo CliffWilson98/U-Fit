@@ -145,9 +145,10 @@ public class MyWorkoutsFragment extends Fragment {
             Toast.makeText(getActivity(), "DATABASE UNAVAILABLE", Toast.LENGTH_SHORT).show();
         }
 
-        TextView workoutText = (TextView)(getView().findViewById(R.id.my_workouts_text));
+        //TODO delete this, not needed?
+        //TextView workoutText = (TextView)(getView().findViewById(R.id.my_workouts_text));
         //System.out.println("WORKOUT " + workoutText);
-        workoutText.setText(text);
+        //workoutText.setText(text);
     }
 
 }
