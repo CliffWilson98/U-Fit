@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/workout_toolbar"
@@ -12,20 +14,45 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
+    <ImageView
+        android:id="@+id/userPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/profile_user_photo"
+        android:padding="10dp"
+        android:src="@drawable/u_fit_logo" />
+
     <TextView
-        android:layout_weight="1"
         android:id="@+id/workout_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/colorDarkBlue"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
         android:text="workout names"/>
 
-    <TextView
+    <LinearLayout
         android:layout_weight="4"
-        android:id="@+id/exercise_names"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="exercise text"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/exercise_names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="exercise text"/>
+
+        <TextView
+            android:id="@+id/exercise_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="exercise details"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_weight="1"
