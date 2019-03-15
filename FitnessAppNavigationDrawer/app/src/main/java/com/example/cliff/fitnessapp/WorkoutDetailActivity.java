@@ -57,8 +57,8 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         String exercises = "";
         do {
             exercises += (cursor.getString(1) + "\n" +
-                            "Reps: " + cursor.getInt(2) + " - " +
-                            "Sets: " + cursor.getInt(3) + " - " +
+                            "Reps: " + cursor.getInt(2) + "  -  " +
+                            "Sets: " + cursor.getInt(3) + "  -  " +
                             "Weight: " + cursor.getInt(4) + "\n\n");
         } while (cursor.moveToNext());
 
