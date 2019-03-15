@@ -34,15 +34,13 @@
             android:textStyle="bold"/>
 
         <TableRow
-            android:background="@color/colorDarkBlue"
-            android:padding="30dp">
+            android:background="@color/colorDarkBlue">
 
             <ListView
                 android:id="@+id/workout_listview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="60dp"/>
+                android:layout_weight="1"/>
 
         </TableRow>
 
