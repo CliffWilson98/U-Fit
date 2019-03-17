@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity
         {
             fragmentTransactionManager(new MyWorkoutsFragment());
         }
+        else if (id == R.id.nav_stats_screen)
+        {
+            fragmentTransactionManager(new StatsFragment());
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
