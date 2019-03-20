@@ -31,6 +31,7 @@ public class FitnessAppHelper extends SQLiteOpenHelper
         //so the tables must be made for the first time
         if (oldVersion < 1)
         {
+            //TODO maybe split each table creation into own method?
             db.execSQL("CREATE TABLE EXERCISE (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT," +
@@ -57,6 +58,22 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "WAIST TEXT," +
                     "HIPS TEXT);");
 
+            //this table is for holding the results of any exercise when it is completed so
+            //it can be displayed on the stats screen.
+            //For example, if a user completes a 5x5 bench press at 200 lbs then the weight
+            //and sets will be saved.
+            db.execSQL("CREATE TABLE EXERCISERESULTS(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "NAME TEXT," +
+                    "WEIGHT INTEGER," +
+                    "REPS INTEGER," +
+                    "SETS INTEGER," +
+                    "EXERCISERESULTSTABLEID INTEGER);");
+
+            db.execSQL("CREATE TABLE EXERCISERESULTSTABLE(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "NAME TEXT);");
+
             ContentValues profileValues = new ContentValues();
             profileValues.put("NAME", "New User");
             profileValues.put("AGE", 23);
@@ -70,6 +87,18 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
             db.insert("PROFILE", null, profileValues);
 
+            ContentValues exerciseNames = new ContentValues();
+            exerciseNames.put("NAME", "Deadlift");
+            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+            exerciseNames.clear();
+            exerciseNames.put("NAME", "Bench Press");
+            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+            exerciseNames.clear();
+            exerciseNames.put("NAME", "Squat");
+            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+            exerciseNames.clear();
+            exerciseNames.put("NAME", "Overhead Press");
+            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
         }
         if (oldVersion < 2)
         {
