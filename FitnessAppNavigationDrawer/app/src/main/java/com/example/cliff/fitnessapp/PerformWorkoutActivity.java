@@ -116,7 +116,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         String buttonText = String.format("%dx%d", setCounter, repCounter);
         button.setText(buttonText);
     }
-    
+
     public void goToNextExercise()
     {
         currentExerciseIndex++;
