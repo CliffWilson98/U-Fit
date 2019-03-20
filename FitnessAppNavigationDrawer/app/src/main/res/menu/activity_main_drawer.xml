@@ -9,6 +9,9 @@
             android:icon="@drawable/ic_tag_faces_black_24dp"
             android:title="View Profile" />
         <item
+            android:id="@+id/nav_stats_screen"
+            android:title="View Stats"/>
+        <item
             android:id="@+id/nav_create_workouts"
             android:icon="@drawable/ic_add_circle_black_24dp"
             android:title="Create Workout" />

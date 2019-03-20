@@ -105,7 +105,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
         {
             resetRepsAndSets();
-            goToNextExercise();
+            goToNextExerciseOrGoToMainActivity();
         }
         //otherwise the user is still in the same set and the repCounter is incremented
         else
@@ -121,17 +121,30 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     //because the workout is finished
     public void goToNextExercise()
     {
-        if (currentExerciseIndex < (exerciseList.size() - 1))
+        currentExerciseIndex++;
+        updateTextViews();
+    }
+
+    private void goToNextExerciseOrGoToMainActivity ()
+    {
+        if (isNotLastExercise())
         {
-            currentExerciseIndex++;
-            updateTextViews();
+            goToNextExercise();
         }
         else
         {
-            //for now when the workout is done it will just take you back to the main activity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            returnToMainActivity();
         }
+    }
+
+    private boolean isNotLastExercise() {
+        return (currentExerciseIndex < (exerciseList.size() - 1));
+    }
+
+    private void returnToMainActivity()
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     //called whenever the skip exercise button is pressed. It will need to take note
@@ -140,7 +153,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     public void skipExercise(View v)
     {
         resetRepsAndSets();
-        goToNextExercise();
+        goToNextExerciseOrGoToMainActivity();
     }
 
     //The back button needs to be disabled in this activity
