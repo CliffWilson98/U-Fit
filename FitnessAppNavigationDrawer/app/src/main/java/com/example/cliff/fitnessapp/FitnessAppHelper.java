@@ -99,6 +99,32 @@ public class FitnessAppHelper extends SQLiteOpenHelper
             exerciseNames.clear();
             exerciseNames.put("NAME", "Overhead Press");
             db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+
+            //TODO remove this
+            //putting dummy data just to make sure that the database is working
+            ContentValues fakeExerciseResults = new ContentValues();
+            fakeExerciseResults.put("NAME", "Deadlift");
+            fakeExerciseResults.put("WEIGHT", 120);
+            fakeExerciseResults.put("REPS", 5);
+            fakeExerciseResults.put("SETS", 5);
+            fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
+            db.insert("EXERCISERESULTS", null, fakeExerciseResults);
+
+            fakeExerciseResults.clear();
+            fakeExerciseResults.put("NAME", "Deadlift");
+            fakeExerciseResults.put("WEIGHT", 175);
+            fakeExerciseResults.put("REPS", 5);
+            fakeExerciseResults.put("SETS", 5);
+            fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
+            db.insert("EXERCISERESULTS", null, fakeExerciseResults);
+
+            fakeExerciseResults.put("NAME", "Deadlift");
+            fakeExerciseResults.put("WEIGHT", 210);
+            fakeExerciseResults.put("REPS", 5);
+            fakeExerciseResults.put("SETS", 5);
+            fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
+            db.insert("EXERCISERESULTS", null, fakeExerciseResults);
+
         }
         if (oldVersion < 2)
         {
