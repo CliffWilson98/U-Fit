@@ -116,9 +116,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         String buttonText = String.format("%dx%d", setCounter, repCounter);
         button.setText(buttonText);
     }
-
-    //when an exercise is completed either the next one needs to be displayed or a new screen must be loaded
-    //because the workout is finished
+    
     public void goToNextExercise()
     {
         currentExerciseIndex++;
