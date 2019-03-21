@@ -48,26 +48,17 @@ public class StatsFragment extends Fragment {
                 new DataPoint(4, 6)
         });
         graph.addSeries(series);*/
-        retrieveDatabaseCursorForExercise("Deadlift");
+        retrieveDatabaseInformationForExercise("Deadlift");
     }
 
-    private void retrieveDatabaseCursorForExercise(String exerciseName)
+    private void retrieveDatabaseInformationForExercise(String exerciseName)
     {
-        FitnessAppHelper helper = new FitnessAppHelper(getActivity());
-        SQLiteDatabase db = helper.getReadableDatabase();
+        SQLiteDatabase db = getDatabase();
 
-        //getting ID of exercise from Name
-        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTSTABLE WHERE NAME = ?", new String[] {exerciseName});
-        cursor.moveToFirst();
-        int exerciseResultsTableID = cursor.getInt(0);
-        System.out.println(String.format("ID FOR %s = %d", exerciseName, exerciseResultsTableID));
+        int exerciseID = getIdOfExerciseFromName(db, exerciseName);
 
-        //cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE EXERCISERESULTSTABLEID = " + exerciseResultsTableID,null);
-        cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE EXERCISERESULTSTABLEID = " + exerciseResultsTableID,null);
-        cursor.moveToFirst();
-        int weight = cursor.getInt(cursor.getColumnIndex("WEIGHT"));
-        int sets = cursor.getInt(cursor.getColumnIndex("SETS"));
-        System.out.println(String.format("Weight: %d, Sets: %d", weight, sets));
+        populateExerciseInformationArrays(getCursorFromExerciseId(db, exerciseID));
+
         //populating the exercise ArrayList
         /*cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
         cursor.moveToFirst();
@@ -82,5 +73,45 @@ public class StatsFragment extends Fragment {
             exerciseList.add(exercise);
         }while (cursor.moveToNext());*/
     }
+
+    private SQLiteDatabase getDatabase()
+    {
+        FitnessAppHelper helper = new FitnessAppHelper(getActivity());
+        return helper.getReadableDatabase();
+    }
+
+    private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTSTABLE WHERE NAME = ?", new String[] {exerciseName});
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE EXERCISERESULTSTABLEID = " + id,null);
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    private void populateExerciseInformationArrays(Cursor cursor)
+    {
+        do {
+            int weight = getWeightFromCursor(cursor);
+            int sets = getSetsFromCursor(cursor);
+
+        }while(cursor.moveToNext());
+    }
+
+    private int getWeightFromCursor(Cursor cursor)
+    {
+        return cursor.getInt(cursor.getColumnIndex("WEIGHT"));
+    }
+
+    private int getSetsFromCursor(Cursor cursor)
+    {
+        return cursor.getInt(cursor.getColumnIndex("SETS"));
+    }
+
 
 }
