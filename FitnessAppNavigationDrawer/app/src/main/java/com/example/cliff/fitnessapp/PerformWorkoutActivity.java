@@ -1,5 +1,6 @@
 package com.example.cliff.fitnessapp;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -145,8 +146,67 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         }
         else
         {
+            updateDatabaseWithCompletedExercises(getDatabase());
             returnToMainActivity();
         }
+    }
+
+    private SQLiteDatabase getDatabase()
+    {
+        FitnessAppHelper helper = new FitnessAppHelper(this);
+        return helper.getReadableDatabase();
+    }
+
+    private void updateDatabaseWithCompletedExercises(SQLiteDatabase db)
+    {
+        getCompletedExercises();
+        addCompletedExercisesToDatabase(getCompletedExercises(), db);
+    }
+
+    private ArrayList<Exercise> getCompletedExercises()
+    {
+        ArrayList<Exercise> completedExerciseList = new ArrayList<>();
+
+        for (int i = 0; i < wasExerciseSkippedArray.length; i++)
+        {
+            if (exerciseWasCompleted(i))
+            {
+                completedExerciseList.add(exerciseList.get(i));
+            }
+        }
+
+        return completedExerciseList;
+    }
+
+    private void addCompletedExercisesToDatabase(ArrayList<Exercise> exercisesToAdd, SQLiteDatabase db)
+    {
+        ContentValues exerciseResults = new ContentValues();
+
+        for (Exercise e : exercisesToAdd)
+        {
+            int id = findCorrespondingIdOfExercise(e, db);
+
+            exerciseResults.put("NAME", e.getName());
+            exerciseResults.put("WEIGHT", e.getWeight());
+            exerciseResults.put("REPS", e.getReps());
+            exerciseResults.put("SETS", e.getSets());
+            exerciseResults.put("EXERCISERESULTSTABLEID", id);
+
+            db.insert("EXERCISERESULTS", null, exerciseResults);
+            exerciseResults.clear();
+        }
+    }
+
+    private int findCorrespondingIdOfExercise(Exercise e, SQLiteDatabase db)
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTSTABLE WHERE NAME = ? ", new String[]{e.getName()});
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    private boolean exerciseWasCompleted(int exerciseIndex)
+    {
+        return !wasExerciseSkippedArray[exerciseIndex];
     }
 
     private boolean isNotLastExercise() {
@@ -169,9 +229,6 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //called whenever the skip exercise button is pressed. It will need to take note
-    //that an exercise was skipped and not finished
-    //TODO add a way to tell that an exercise was skipped
     public void skipExercise(View v)
     {
         resetRepsAndSets();

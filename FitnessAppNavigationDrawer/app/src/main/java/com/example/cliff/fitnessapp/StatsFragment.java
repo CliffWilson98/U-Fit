@@ -19,6 +19,8 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
+
+//TODO fix crash when user tries to load an exercise for which there are no recorded values
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();

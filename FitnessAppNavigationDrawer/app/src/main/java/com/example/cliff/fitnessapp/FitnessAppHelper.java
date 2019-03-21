@@ -60,8 +60,8 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
             //this table is for holding the results of any exercise when it is completed so
             //it can be displayed on the stats screen.
-            //For example, if a user completes a 5x5 bench press at 200 lbs then the weight
-            //and sets will be saved.
+            //For example, if a user completes a 5x5 bench press at 200 lbs then the weight, sets,
+            //and reps will be saved.
             db.execSQL("CREATE TABLE EXERCISERESULTS(" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT," +
@@ -102,7 +102,8 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
             //TODO remove this
             //putting dummy data just to make sure that the database is working
-            ContentValues fakeExerciseResults = new ContentValues();
+
+            /*ContentValues fakeExerciseResults = new ContentValues();
             fakeExerciseResults.put("NAME", "Deadlift");
             fakeExerciseResults.put("WEIGHT", 120);
             fakeExerciseResults.put("REPS", 5);
@@ -123,7 +124,7 @@ public class FitnessAppHelper extends SQLiteOpenHelper
             fakeExerciseResults.put("REPS", 5);
             fakeExerciseResults.put("SETS", 5);
             fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
-            db.insert("EXERCISERESULTS", null, fakeExerciseResults);
+            db.insert("EXERCISERESULTS", null, fakeExerciseResults);*/
 
         }
         if (oldVersion < 2)
