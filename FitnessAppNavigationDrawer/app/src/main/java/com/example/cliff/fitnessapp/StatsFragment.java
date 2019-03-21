@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
+    private GraphView graph;
 
     public StatsFragment() {
         // Required empty public constructor
@@ -39,19 +40,16 @@ public class StatsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        /*GraphView graph = (GraphView) getView().findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);*/
-        retrieveDatabaseInformationForExercise("Deadlift");
+        initializeGraph();
+        retrieveDatabaseInformationForExerciseAndUpdateGraph("Deadlift");
     }
 
-    private void retrieveDatabaseInformationForExercise(String exerciseName)
+    private void initializeGraph()
+    {
+        graph = (GraphView) getView().findViewById(R.id.graph);
+    }
+
+    private void retrieveDatabaseInformationForExerciseAndUpdateGraph(String exerciseName)
     {
         SQLiteDatabase db = getDatabase();
 
@@ -59,19 +57,30 @@ public class StatsFragment extends Fragment {
 
         populateExerciseInformationArrays(getCursorFromExerciseId(db, exerciseID));
 
-        //populating the exercise ArrayList
-        /*cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
-        cursor.moveToFirst();
-        do
-        {
-            String exerciseName = cursor.getString(cursor.getColumnIndex("NAME"));
-            int reps = cursor.getInt(cursor.getColumnIndex("REPS"));
-            int sets = cursor.getInt(cursor.getColumnIndex("SETS"));
-            int weight = cursor.getInt(cursor.getColumnIndex("WEIGHT"));
+        updateGraph();
+    }
 
-            Exercise exercise = new Exercise(exerciseName, reps, sets, weight);
-            exerciseList.add(exercise);
-        }while (cursor.moveToNext());*/
+    private void updateGraph()
+    {
+        DataPoint[] pointArray = generateDataPointArrayFromArrayList(weightList);
+        graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
+    }
+
+    private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
+    {
+            DataPoint[] pointArray = new DataPoint[list.size()];
+
+            for (int i = 0; i < pointArray.length; i ++)
+            {
+                pointArray[i] = new DataPoint(i, list.get(i));
+            }
+
+            return pointArray;
+    }
+
+    private LineGraphSeries<DataPoint> createLineGraphSeriesFromPointArray(DataPoint[] pointArray)
+    {
+        return new LineGraphSeries<>(pointArray);
     }
 
     private SQLiteDatabase getDatabase()
@@ -99,6 +108,7 @@ public class StatsFragment extends Fragment {
         do {
             int weight = getWeightFromCursor(cursor);
             int sets = getSetsFromCursor(cursor);
+            weightList.add(weight);
 
         }while(cursor.moveToNext());
     }
