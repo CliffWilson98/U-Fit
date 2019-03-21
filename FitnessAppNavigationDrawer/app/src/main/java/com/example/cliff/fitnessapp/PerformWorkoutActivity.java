@@ -19,6 +19,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private String workoutName;
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private boolean[] wasExerciseSkippedArray;
     private int currentExerciseIndex;
 
     private int repCounter;
@@ -74,6 +75,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             Exercise exercise = new Exercise(exerciseName, reps, sets, weight);
             exerciseList.add(exercise);
         }while (cursor.moveToNext());
+
+       setSizeOfWasExerciseSkippedArray();
+    }
+
+    private void setSizeOfWasExerciseSkippedArray()
+    {
+        wasExerciseSkippedArray = new boolean[exerciseList.size()];
     }
 
     private void updateTextViews()
@@ -105,6 +113,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
         {
             resetRepsAndSets();
+            markCurrentExerciseAsCompleted();
             goToNextExerciseOrGoToMainActivity();
         }
         //otherwise the user is still in the same set and the repCounter is incremented
@@ -115,6 +124,11 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         String buttonText = String.format("%dx%d", setCounter, repCounter);
         button.setText(buttonText);
+    }
+
+    private void markCurrentExerciseAsCompleted()
+    {
+        wasExerciseSkippedArray[currentExerciseIndex] = false;
     }
 
     public void goToNextExercise()
@@ -141,6 +155,16 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void returnToMainActivity()
     {
+        //TODO remove this
+        String testString = "";
+        for (boolean exerciseBoolean : wasExerciseSkippedArray)
+        {
+            testString += exerciseBoolean;
+            testString += " ";
+        }
+        System.out.println("EXERCISE IS FINISHED!");
+        System.out.println(testString);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -151,7 +175,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     public void skipExercise(View v)
     {
         resetRepsAndSets();
+        markCurrentExerciseAsSkipped();
         goToNextExerciseOrGoToMainActivity();
+    }
+
+    private void markCurrentExerciseAsSkipped()
+    {
+        wasExerciseSkippedArray[currentExerciseIndex] = true;
     }
 
     //The back button needs to be disabled in this activity
