@@ -103,7 +103,7 @@ public class StatsFragment extends Fragment {
 
     private void initializeGraph()
     {
-        graph = (GraphView) getView().findViewById(R.id.graph);
+        graph = (GraphView) getView().findViewById(R.id.weight_graph);
         graph.getViewport().setXAxisBoundsManual(true);
     }
 
@@ -151,12 +151,13 @@ public class StatsFragment extends Fragment {
         return helper.getReadableDatabase();
     }
 
-    private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
+    //For now this method does not need to be used.
+    /*private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
     {
         Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ?", new String[] {exerciseName});
         cursor.moveToFirst();
         return cursor.getInt(0);
-    }
+    }*/
 
     private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
     {
