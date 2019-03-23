@@ -104,6 +104,7 @@ public class StatsFragment extends Fragment {
     private void initializeGraph()
     {
         graph = (GraphView) getView().findViewById(R.id.graph);
+        graph.getViewport().setXAxisBoundsManual(true);
     }
 
     private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
@@ -118,6 +119,13 @@ public class StatsFragment extends Fragment {
         graph.removeAllSeries();
         DataPoint[] pointArray = generateDataPointArrayFromArrayList(weightList);
         graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
+        setGraphXAxisBounds();
+    }
+
+    private void setGraphXAxisBounds()
+    {
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(weightList.size() - 1);
     }
 
     private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
