@@ -16,6 +16,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -23,14 +24,17 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 
-//TODO fix crash when user tries to load an exercise for which there are no recorded values
-//TODO fix graph only showing first 8 values recorded
+//TODO change x scaling of both sets and reps graph
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
     private ArrayList<Integer> setList = new ArrayList<Integer>();
+    private ArrayList<Integer> repList = new ArrayList<Integer>();
 
-    private GraphView graph;
+    private GraphView weightGraph;
+    private GraphView repGraph;
+    private GraphView setGraph;
+
     private Spinner exerciseNamesSpinner;
 
     public StatsFragment() {
@@ -53,7 +57,7 @@ public class StatsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        initializeGraph();
+        initializeGraphs();
     }
 
     private void setUpExerciseNamesSpinnerAdapter()
@@ -101,31 +105,39 @@ public class StatsFragment extends Fragment {
         });
     }
 
-    private void initializeGraph()
+    private void initializeGraphs()
     {
-        graph = (GraphView) getView().findViewById(R.id.weight_graph);
-        graph.getViewport().setXAxisBoundsManual(true);
+        weightGraph = (GraphView) getView().findViewById(R.id.weight_graph);
+        weightGraph.getViewport().setXAxisBoundsManual(true);
+
+        setGraph = (GraphView) getView().findViewById(R.id.set_graph);
+        setGraph.getViewport().setXAxisBoundsManual(true);
+
+        repGraph = (GraphView) getView().findViewById(R.id.rep_graph);
+        repGraph.getViewport().setXAxisBoundsManual(true);
     }
 
     private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
     {
         clearValuesFromInformationArrays();
         populateExerciseInformationArrays(getCursorFromExerciseId(getDatabase(), exerciseID));
-        updateGraph();
+        updateGraph(weightGraph, weightList);
+        updateGraph(repGraph, repList);
+        updateGraph(setGraph, setList);
     }
 
-    private void updateGraph()
+    private void updateGraph(GraphView graph, ArrayList<Integer> list)
     {
         graph.removeAllSeries();
-        DataPoint[] pointArray = generateDataPointArrayFromArrayList(weightList);
+        DataPoint[] pointArray = generateDataPointArrayFromArrayList(list);
         graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
         setGraphXAxisBounds();
     }
 
     private void setGraphXAxisBounds()
     {
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(weightList.size() - 1);
+        weightGraph.getViewport().setMinX(0);
+        weightGraph.getViewport().setMaxX(weightList.size() - 1);
     }
 
     private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
@@ -172,6 +184,7 @@ public class StatsFragment extends Fragment {
             do {
                 weightList.add(getWeightFromCursor(cursor));
                 setList.add(getSetsFromCursor(cursor));
+                repList.add(getRepsFromCursor(cursor));
             }while(cursor.moveToNext());
         }
     }
@@ -190,6 +203,11 @@ public class StatsFragment extends Fragment {
     private int getSetsFromCursor(Cursor cursor)
     {
         return cursor.getInt(cursor.getColumnIndex("SETS"));
+    }
+
+    private int getRepsFromCursor(Cursor cursor)
+    {
+        return cursor.getInt(cursor.getColumnIndex("REPS"));
     }
 
     private String getNameFromCursor(Cursor cursor)

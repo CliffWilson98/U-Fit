@@ -34,7 +34,7 @@
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
-        android:id="@+id/reps_graph" />
+        android:id="@+id/rep_graph" />
 
     <TextView
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
-        android:id="@+id/sets_graph" />
+        android:id="@+id/set_graph" />
 
     </LinearLayout>
 
