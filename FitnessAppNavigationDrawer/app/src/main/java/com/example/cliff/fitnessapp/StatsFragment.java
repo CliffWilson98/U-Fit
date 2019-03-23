@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -41,6 +42,8 @@ public class StatsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_stats, container, false);
         exerciseNamesSpinner = v.findViewById(R.id.stats_screen_exercise_spinner);
 
+        setUpExerciseNamesSpinnerAdapter();
+
         return v;
     }
 
@@ -49,12 +52,17 @@ public class StatsFragment extends Fragment {
         super.onStart();
 
         initializeGraph();
-        setExerciseNamesSpinnerAdapter();
         //TODO change this to where it can update data for multiple exercises, not just deadlifts
         retrieveDatabaseInformationForExerciseAndUpdateGraph("Deadlift");
     }
 
-    private void setExerciseNamesSpinnerAdapter()
+    private void setUpExerciseNamesSpinnerAdapter()
+    {
+        populateSpinnerWithExerciseNames();
+        addListenerToSpinner();
+    }
+
+    private void populateSpinnerWithExerciseNames()
     {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -71,6 +79,21 @@ public class StatsFragment extends Fragment {
         return helper.getDefinedExerciseNames();
     }
 
+    private void addListenerToSpinner()
+    {
+        exerciseNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+    }
 
     private void initializeGraph()
     {
