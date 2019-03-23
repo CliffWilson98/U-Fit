@@ -190,7 +190,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             exerciseResults.put("WEIGHT", e.getWeight());
             exerciseResults.put("REPS", e.getReps());
             exerciseResults.put("SETS", e.getSets());
-            exerciseResults.put("EXERCISERESULTSTABLEID", id);
+            exerciseResults.put("DEFINEDEXERCISEID", id);
 
             db.insert("EXERCISERESULTS", null, exerciseResults);
             exerciseResults.clear();
@@ -199,7 +199,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private int findCorrespondingIdOfExercise(Exercise e, SQLiteDatabase db)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTSTABLE WHERE NAME = ? ", new String[]{e.getName()});
+        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ? ", new String[]{e.getName()});
         cursor.moveToFirst();
         return cursor.getInt(0);
     }

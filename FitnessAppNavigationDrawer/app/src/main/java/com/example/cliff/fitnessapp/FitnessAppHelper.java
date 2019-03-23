@@ -68,9 +68,9 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "WEIGHT INTEGER," +
                     "REPS INTEGER," +
                     "SETS INTEGER," +
-                    "EXERCISERESULTSTABLEID INTEGER);");
+                    "DEFINEDEXERCISEID INTEGER);");
 
-            db.execSQL("CREATE TABLE EXERCISERESULTSTABLE(" +
+            db.execSQL("CREATE TABLE DEFINEDEXERCISE(" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT);");
 
@@ -89,48 +89,28 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
             ContentValues exerciseNames = new ContentValues();
             exerciseNames.put("NAME", "Deadlift");
-            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+            db.insert("DEFINEDEXERCISE", null, exerciseNames);
             exerciseNames.clear();
             exerciseNames.put("NAME", "Bench Press");
-            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+            db.insert("DEFINEDEXERCISE", null, exerciseNames);
             exerciseNames.clear();
             exerciseNames.put("NAME", "Squat");
-            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
+            db.insert("DEFINEDEXERCISE", null, exerciseNames);
             exerciseNames.clear();
             exerciseNames.put("NAME", "Overhead Press");
-            db.insert("EXERCISERESULTSTABLE", null, exerciseNames);
-
-            //TODO remove this
-            //putting dummy data just to make sure that the database is working
-
-            /*ContentValues fakeExerciseResults = new ContentValues();
-            fakeExerciseResults.put("NAME", "Deadlift");
-            fakeExerciseResults.put("WEIGHT", 120);
-            fakeExerciseResults.put("REPS", 5);
-            fakeExerciseResults.put("SETS", 5);
-            fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
-            db.insert("EXERCISERESULTS", null, fakeExerciseResults);
-
-            fakeExerciseResults.clear();
-            fakeExerciseResults.put("NAME", "Deadlift");
-            fakeExerciseResults.put("WEIGHT", 175);
-            fakeExerciseResults.put("REPS", 5);
-            fakeExerciseResults.put("SETS", 5);
-            fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
-            db.insert("EXERCISERESULTS", null, fakeExerciseResults);
-
-            fakeExerciseResults.put("NAME", "Deadlift");
-            fakeExerciseResults.put("WEIGHT", 210);
-            fakeExerciseResults.put("REPS", 5);
-            fakeExerciseResults.put("SETS", 5);
-            fakeExerciseResults.put("EXERCISERESULTSTABLEID", 1);
-            db.insert("EXERCISERESULTS", null, fakeExerciseResults);*/
+            db.insert("DEFINEDEXERCISE", null, exerciseNames);
 
         }
         if (oldVersion < 2)
         {
             //For future use
         }
+
+    }
+
+    //TODO fill this in!
+    private void populateExerciseResults()
+    {
 
     }
 

@@ -94,14 +94,14 @@ public class StatsFragment extends Fragment {
 
     private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTSTABLE WHERE NAME = ?", new String[] {exerciseName});
+        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ?", new String[] {exerciseName});
         cursor.moveToFirst();
         return cursor.getInt(0);
     }
 
     private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE EXERCISERESULTSTABLEID = " + id,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
         cursor.moveToFirst();
         return cursor;
     }
