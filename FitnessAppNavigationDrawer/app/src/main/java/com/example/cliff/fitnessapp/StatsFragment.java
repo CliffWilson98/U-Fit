@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 
 //TODO fix crash when user tries to load an exercise for which there are no recorded values
+//TODO fix graph only showing first 8 values recorded
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
