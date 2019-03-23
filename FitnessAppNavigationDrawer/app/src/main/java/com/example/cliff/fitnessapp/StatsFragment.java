@@ -126,9 +126,6 @@ public class StatsFragment extends Fragment {
 
     private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
     {
-        //Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
-        //cursor.moveToFirst();
-        //return cursor;
         return db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
     }
 
