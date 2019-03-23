@@ -50,6 +50,7 @@ public class StatsFragment extends Fragment {
 
         initializeGraph();
         setExerciseNamesSpinnerAdapter();
+        //TODO change this to where it can update data for multiple exercises, not just deadlifts
         retrieveDatabaseInformationForExerciseAndUpdateGraph("Deadlift");
     }
 
@@ -125,19 +126,24 @@ public class StatsFragment extends Fragment {
 
     private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
-        cursor.moveToFirst();
-        return cursor;
+        //Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
+        //cursor.moveToFirst();
+        //return cursor;
+        return db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
     }
 
     private void populateExerciseInformationArrays(Cursor cursor)
     {
-        do {
-            int weight = getWeightFromCursor(cursor);
-            int sets = getSetsFromCursor(cursor);
-            weightList.add(weight);
+        if (cursor.getCount() != 0)
+        {
+            cursor.moveToFirst();
+            do {
+                int weight = getWeightFromCursor(cursor);
+                int sets = getSetsFromCursor(cursor);
+                weightList.add(weight);
 
-        }while(cursor.moveToNext());
+            }while(cursor.moveToNext());
+        }
     }
 
     private int getWeightFromCursor(Cursor cursor)
