@@ -19,6 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/stats_weight_progression"/>
 
     <com.jjoe64.graphview.GraphView
@@ -29,6 +30,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/stats_reps_progression"/>
 
     <com.jjoe64.graphview.GraphView
@@ -39,6 +41,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/stats_sets_progression"/>
 
     <com.jjoe64.graphview.GraphView
