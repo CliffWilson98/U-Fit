@@ -121,23 +121,31 @@ public class StatsFragment extends Fragment {
     {
         clearValuesFromInformationArrays();
         populateExerciseInformationArrays(getCursorFromExerciseId(getDatabase(), exerciseID));
+        updateEveryGraph();
+    }
+
+    private void updateEveryGraph()
+    {
         updateGraph(weightGraph, weightList);
         updateGraph(repGraph, repList);
         updateGraph(setGraph, setList);
     }
+
 
     private void updateGraph(GraphView graph, ArrayList<Integer> list)
     {
         graph.removeAllSeries();
         DataPoint[] pointArray = generateDataPointArrayFromArrayList(list);
         graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
-        setGraphXAxisBounds();
+        setGraphXAxisBounds(graph, list);
     }
 
-    private void setGraphXAxisBounds()
+    private void setGraphXAxisBounds(GraphView graph, ArrayList<Integer> list)
     {
-        weightGraph.getViewport().setMinX(0);
-        weightGraph.getViewport().setMaxX(weightList.size() - 1);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(list.size() - 1);
+
+        System.out.println(list.size() - 1);
     }
 
     private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
@@ -193,6 +201,7 @@ public class StatsFragment extends Fragment {
     {
         weightList.clear();
         setList.clear();
+        repList.clear();
     }
 
     private int getWeightFromCursor(Cursor cursor)
