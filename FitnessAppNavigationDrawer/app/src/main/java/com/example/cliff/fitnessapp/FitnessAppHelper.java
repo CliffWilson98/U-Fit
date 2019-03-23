@@ -2,8 +2,11 @@ package com.example.cliff.fitnessapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class FitnessAppHelper extends SQLiteOpenHelper
 {
@@ -87,18 +90,7 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
             db.insert("PROFILE", null, profileValues);
 
-            ContentValues exerciseNames = new ContentValues();
-            exerciseNames.put("NAME", "Deadlift");
-            db.insert("DEFINEDEXERCISE", null, exerciseNames);
-            exerciseNames.clear();
-            exerciseNames.put("NAME", "Bench Press");
-            db.insert("DEFINEDEXERCISE", null, exerciseNames);
-            exerciseNames.clear();
-            exerciseNames.put("NAME", "Squat");
-            db.insert("DEFINEDEXERCISE", null, exerciseNames);
-            exerciseNames.clear();
-            exerciseNames.put("NAME", "Overhead Press");
-            db.insert("DEFINEDEXERCISE", null, exerciseNames);
+            populateDefinedExercise(db);
 
         }
         if (oldVersion < 2)
@@ -108,11 +100,37 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
     }
 
-    //TODO fill this in!
-    private void populateExerciseResults()
+    private void populateDefinedExercise(SQLiteDatabase db)
     {
-
+        ContentValues exerciseNames = new ContentValues();
+        exerciseNames.put("NAME", "Deadlift");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+        exerciseNames.clear();
+        exerciseNames.put("NAME", "Bench Press");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+        exerciseNames.clear();
+        exerciseNames.put("NAME", "Squat");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+        exerciseNames.clear();
+        exerciseNames.put("NAME", "Overhead Press");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
     }
+
+    public ArrayList<String> getDefinedExerciseNames()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE", null);
+        cursor.moveToFirst();
+
+        ArrayList<String> definedExerciseNameList = new ArrayList<>();
+        do {
+            definedExerciseNameList.add(cursor.getString(cursor.getColumnIndex("NAME")));
+        }while(cursor.moveToNext());
+
+        return definedExerciseNameList;
+    }
+
 
     //helper method to add rows to the exercise table
     private static void insertExercise(SQLiteDatabase db, String name, int reps, int numberOfReps, int weight, int usesWeight)

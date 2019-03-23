@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -26,6 +28,7 @@ public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
     private GraphView graph;
+    private Spinner exerciseNamesSpinner;
 
     public StatsFragment() {
         // Required empty public constructor
@@ -35,8 +38,10 @@ public class StatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stats, container, false);
+        View v = inflater.inflate(R.layout.fragment_stats, container, false);
+        exerciseNamesSpinner = v.findViewById(R.id.stats_screen_exercise_spinner);
+
+        return v;
     }
 
     @Override
@@ -44,8 +49,27 @@ public class StatsFragment extends Fragment {
         super.onStart();
 
         initializeGraph();
+        setExerciseNamesSpinnerAdapter();
         retrieveDatabaseInformationForExerciseAndUpdateGraph("Deadlift");
     }
+
+    private void setExerciseNamesSpinnerAdapter()
+    {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_spinner_item,
+                getArrayListOfExerciseNames()
+        );
+
+        exerciseNamesSpinner.setAdapter(adapter);
+    }
+
+    private ArrayList<String> getArrayListOfExerciseNames()
+    {
+        FitnessAppHelper helper = new FitnessAppHelper(getActivity());
+        return helper.getDefinedExerciseNames();
+    }
+
 
     private void initializeGraph()
     {
