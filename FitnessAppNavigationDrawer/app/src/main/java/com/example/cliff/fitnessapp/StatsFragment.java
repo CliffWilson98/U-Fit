@@ -28,6 +28,8 @@ import java.util.ArrayList;
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
+    private ArrayList<Integer> setList = new ArrayList<Integer>();
+
     private GraphView graph;
     private Spinner exerciseNamesSpinner;
 
@@ -52,8 +54,6 @@ public class StatsFragment extends Fragment {
         super.onStart();
 
         initializeGraph();
-        //TODO change this to where it can update data for multiple exercises, not just deadlifts
-        retrieveDatabaseInformationForExerciseAndUpdateGraph("Deadlift");
     }
 
     private void setUpExerciseNamesSpinnerAdapter()
@@ -84,13 +84,19 @@ public class StatsFragment extends Fragment {
         exerciseNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                
+                retrieveDatabaseInformationForExerciseAndUpdateGraph(convertSpinnerPositionToDatabaseId(position));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
+
+            private int convertSpinnerPositionToDatabaseId(int position)
+            {
+                return position + 1;
+            }
+
 
         });
     }
@@ -100,19 +106,16 @@ public class StatsFragment extends Fragment {
         graph = (GraphView) getView().findViewById(R.id.graph);
     }
 
-    private void retrieveDatabaseInformationForExerciseAndUpdateGraph(String exerciseName)
+    private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
     {
-        SQLiteDatabase db = getDatabase();
-
-        int exerciseID = getIdOfExerciseFromName(db, exerciseName);
-
-        populateExerciseInformationArrays(getCursorFromExerciseId(db, exerciseID));
-
+        clearValuesFromInformationArrays();
+        populateExerciseInformationArrays(getCursorFromExerciseId(getDatabase(), exerciseID));
         updateGraph();
     }
 
     private void updateGraph()
     {
+        graph.removeAllSeries();
         DataPoint[] pointArray = generateDataPointArrayFromArrayList(weightList);
         graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
     }
@@ -158,12 +161,16 @@ public class StatsFragment extends Fragment {
         {
             cursor.moveToFirst();
             do {
-                int weight = getWeightFromCursor(cursor);
-                int sets = getSetsFromCursor(cursor);
-                weightList.add(weight);
-
+                weightList.add(getWeightFromCursor(cursor));
+                setList.add(getSetsFromCursor(cursor));
             }while(cursor.moveToNext());
         }
+    }
+
+    private void clearValuesFromInformationArrays()
+    {
+        weightList.clear();
+        setList.clear();
     }
 
     private int getWeightFromCursor(Cursor cursor)
@@ -174,6 +181,11 @@ public class StatsFragment extends Fragment {
     private int getSetsFromCursor(Cursor cursor)
     {
         return cursor.getInt(cursor.getColumnIndex("SETS"));
+    }
+
+    private String getNameFromCursor(Cursor cursor)
+    {
+        return cursor.getString(cursor.getColumnIndex("NAME"));
     }
 
 
