@@ -1,5 +1,6 @@
 package com.example.cliff.fitnessapp;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +20,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private String workoutName;
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private boolean[] wasExerciseSkippedArray;
     private int currentExerciseIndex;
 
     private int repCounter;
@@ -74,6 +76,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             Exercise exercise = new Exercise(exerciseName, reps, sets, weight);
             exerciseList.add(exercise);
         }while (cursor.moveToNext());
+
+       setSizeOfWasExerciseSkippedArray();
+    }
+
+    private void setSizeOfWasExerciseSkippedArray()
+    {
+        wasExerciseSkippedArray = new boolean[exerciseList.size()];
     }
 
     private void updateTextViews()
@@ -105,6 +114,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
         {
             resetRepsAndSets();
+            markCurrentExerciseAsCompleted();
             goToNextExerciseOrGoToMainActivity();
         }
         //otherwise the user is still in the same set and the repCounter is incremented
@@ -116,7 +126,12 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         String buttonText = String.format("%dx%d", setCounter, repCounter);
         button.setText(buttonText);
     }
-    
+
+    private void markCurrentExerciseAsCompleted()
+    {
+        wasExerciseSkippedArray[currentExerciseIndex] = false;
+    }
+
     public void goToNextExercise()
     {
         currentExerciseIndex++;
@@ -131,8 +146,67 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         }
         else
         {
+            updateDatabaseWithCompletedExercises(getDatabase());
             returnToMainActivity();
         }
+    }
+
+    private SQLiteDatabase getDatabase()
+    {
+        FitnessAppHelper helper = new FitnessAppHelper(this);
+        return helper.getReadableDatabase();
+    }
+
+    private void updateDatabaseWithCompletedExercises(SQLiteDatabase db)
+    {
+        getCompletedExercises();
+        addCompletedExercisesToDatabase(getCompletedExercises(), db);
+    }
+
+    private ArrayList<Exercise> getCompletedExercises()
+    {
+        ArrayList<Exercise> completedExerciseList = new ArrayList<>();
+
+        for (int i = 0; i < wasExerciseSkippedArray.length; i++)
+        {
+            if (exerciseWasCompleted(i))
+            {
+                completedExerciseList.add(exerciseList.get(i));
+            }
+        }
+
+        return completedExerciseList;
+    }
+
+    private void addCompletedExercisesToDatabase(ArrayList<Exercise> exercisesToAdd, SQLiteDatabase db)
+    {
+        ContentValues exerciseResults = new ContentValues();
+
+        for (Exercise e : exercisesToAdd)
+        {
+            int id = findCorrespondingIdOfExercise(e, db);
+
+            exerciseResults.put("NAME", e.getName());
+            exerciseResults.put("WEIGHT", e.getWeight());
+            exerciseResults.put("REPS", e.getReps());
+            exerciseResults.put("SETS", e.getSets());
+            exerciseResults.put("DEFINEDEXERCISEID", id);
+
+            db.insert("EXERCISERESULTS", null, exerciseResults);
+            exerciseResults.clear();
+        }
+    }
+
+    private int findCorrespondingIdOfExercise(Exercise e, SQLiteDatabase db)
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ? ", new String[]{e.getName()});
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    private boolean exerciseWasCompleted(int exerciseIndex)
+    {
+        return !wasExerciseSkippedArray[exerciseIndex];
     }
 
     private boolean isNotLastExercise() {
@@ -141,17 +215,30 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void returnToMainActivity()
     {
+        //TODO remove this
+        String testString = "";
+        for (boolean exerciseBoolean : wasExerciseSkippedArray)
+        {
+            testString += exerciseBoolean;
+            testString += " ";
+        }
+        System.out.println("EXERCISE IS FINISHED!");
+        System.out.println(testString);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    //called whenever the skip exercise button is pressed. It will need to take note
-    //that an exercise was skipped and not finished
-    //TODO add a way to tell that an exercise was skipped
     public void skipExercise(View v)
     {
         resetRepsAndSets();
+        markCurrentExerciseAsSkipped();
         goToNextExerciseOrGoToMainActivity();
+    }
+
+    private void markCurrentExerciseAsSkipped()
+    {
+        wasExerciseSkippedArray[currentExerciseIndex] = true;
     }
 
     //The back button needs to be disabled in this activity

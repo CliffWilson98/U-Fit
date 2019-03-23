@@ -2,8 +2,11 @@ package com.example.cliff.fitnessapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class FitnessAppHelper extends SQLiteOpenHelper
 {
@@ -31,6 +34,7 @@ public class FitnessAppHelper extends SQLiteOpenHelper
         //so the tables must be made for the first time
         if (oldVersion < 1)
         {
+            //TODO maybe split each table creation into own method?
             db.execSQL("CREATE TABLE EXERCISE (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME TEXT," +
@@ -57,6 +61,22 @@ public class FitnessAppHelper extends SQLiteOpenHelper
                     "WAIST TEXT," +
                     "HIPS TEXT);");
 
+            //this table is for holding the results of any exercise when it is completed so
+            //it can be displayed on the stats screen.
+            //For example, if a user completes a 5x5 bench press at 200 lbs then the weight, sets,
+            //and reps will be saved.
+            db.execSQL("CREATE TABLE EXERCISERESULTS(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "NAME TEXT," +
+                    "WEIGHT INTEGER," +
+                    "REPS INTEGER," +
+                    "SETS INTEGER," +
+                    "DEFINEDEXERCISEID INTEGER);");
+
+            db.execSQL("CREATE TABLE DEFINEDEXERCISE(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "NAME TEXT);");
+
             ContentValues profileValues = new ContentValues();
             profileValues.put("NAME", "New User");
             profileValues.put("AGE", 23);
@@ -70,6 +90,8 @@ public class FitnessAppHelper extends SQLiteOpenHelper
 
             db.insert("PROFILE", null, profileValues);
 
+            populateDefinedExercise(db);
+
         }
         if (oldVersion < 2)
         {
@@ -77,6 +99,38 @@ public class FitnessAppHelper extends SQLiteOpenHelper
         }
 
     }
+
+    private void populateDefinedExercise(SQLiteDatabase db)
+    {
+        ContentValues exerciseNames = new ContentValues();
+        exerciseNames.put("NAME", "Deadlift");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+        exerciseNames.clear();
+        exerciseNames.put("NAME", "Bench Press");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+        exerciseNames.clear();
+        exerciseNames.put("NAME", "Squat");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+        exerciseNames.clear();
+        exerciseNames.put("NAME", "Overhead Press");
+        db.insert("DEFINEDEXERCISE", null, exerciseNames);
+    }
+
+    public ArrayList<String> getDefinedExerciseNames()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE", null);
+        cursor.moveToFirst();
+
+        ArrayList<String> definedExerciseNameList = new ArrayList<>();
+        do {
+            definedExerciseNameList.add(cursor.getString(cursor.getColumnIndex("NAME")));
+        }while(cursor.moveToNext());
+
+        return definedExerciseNameList;
+    }
+
 
     //helper method to add rows to the exercise table
     private static void insertExercise(SQLiteDatabase db, String name, int reps, int numberOfReps, int weight, int usesWeight)
