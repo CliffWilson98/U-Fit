@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -15,19 +16,26 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 
-//TODO fix crash when user tries to load an exercise for which there are no recorded values
-//TODO fix graph only showing first 8 values recorded
+//TODO scale Y axis on every graph
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
-    private GraphView graph;
+    private ArrayList<Integer> setList = new ArrayList<Integer>();
+    private ArrayList<Integer> repList = new ArrayList<Integer>();
+
+    private GraphView weightGraph;
+    private GraphView repGraph;
+    private GraphView setGraph;
+
     private Spinner exerciseNamesSpinner;
 
     public StatsFragment() {
@@ -41,6 +49,8 @@ public class StatsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_stats, container, false);
         exerciseNamesSpinner = v.findViewById(R.id.stats_screen_exercise_spinner);
 
+        setUpExerciseNamesSpinnerAdapter();
+
         return v;
     }
 
@@ -48,13 +58,16 @@ public class StatsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        initializeGraph();
-        setExerciseNamesSpinnerAdapter();
-        //TODO change this to where it can update data for multiple exercises, not just deadlifts
-        retrieveDatabaseInformationForExerciseAndUpdateGraph("Deadlift");
+        initializeGraphs();
     }
 
-    private void setExerciseNamesSpinnerAdapter()
+    private void setUpExerciseNamesSpinnerAdapter()
+    {
+        populateSpinnerWithExerciseNames();
+        addListenerToSpinner();
+    }
+
+    private void populateSpinnerWithExerciseNames()
     {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -71,27 +84,89 @@ public class StatsFragment extends Fragment {
         return helper.getDefinedExerciseNames();
     }
 
-
-    private void initializeGraph()
+    private void addListenerToSpinner()
     {
-        graph = (GraphView) getView().findViewById(R.id.graph);
+        exerciseNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                retrieveDatabaseInformationForExerciseAndUpdateGraph(convertSpinnerPositionToDatabaseId(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+            private int convertSpinnerPositionToDatabaseId(int position)
+            {
+                return position + 1;
+            }
+
+
+        });
     }
 
-    private void retrieveDatabaseInformationForExerciseAndUpdateGraph(String exerciseName)
+    private void initializeGraphs()
     {
-        SQLiteDatabase db = getDatabase();
+        weightGraph = (GraphView) getView().findViewById(R.id.weight_graph);
+        weightGraph.getViewport().setXAxisBoundsManual(true);
+        weightGraph.getViewport().setYAxisBoundsManual(true);
 
-        int exerciseID = getIdOfExerciseFromName(db, exerciseName);
+        setGraph = (GraphView) getView().findViewById(R.id.set_graph);
+        setGraph.getViewport().setXAxisBoundsManual(true);
+        setGraph.getViewport().setYAxisBoundsManual(true);
 
-        populateExerciseInformationArrays(getCursorFromExerciseId(db, exerciseID));
-
-        updateGraph();
+        repGraph = (GraphView) getView().findViewById(R.id.rep_graph);
+        repGraph.getViewport().setXAxisBoundsManual(true);
+        repGraph.getViewport().setYAxisBoundsManual(true);
     }
 
-    private void updateGraph()
+    private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
     {
-        DataPoint[] pointArray = generateDataPointArrayFromArrayList(weightList);
+        clearValuesFromInformationArrays();
+        populateExerciseInformationArrays(getCursorFromExerciseId(getDatabase(), exerciseID));
+        updateEveryGraph();
+    }
+
+    private void updateEveryGraph()
+    {
+        updateGraph(weightGraph, weightList);
+        updateGraph(repGraph, repList);
+        updateGraph(setGraph, setList);
+    }
+
+
+    private void updateGraph(GraphView graph, ArrayList<Integer> list)
+    {
+        graph.removeAllSeries();
+        DataPoint[] pointArray = generateDataPointArrayFromArrayList(list);
         graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
+        setGraphXAxisBounds(graph, list);
+        setGraphYAxisBounds(graph, list);
+    }
+
+    private void setGraphXAxisBounds(GraphView graph, ArrayList<Integer> list)
+    {
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(list.size() - 1);
+    }
+
+    private void setGraphYAxisBounds(GraphView graph, ArrayList<Integer> list)
+    {
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(getMaxValueFromList(list));
+    }
+
+    private int getMaxValueFromList(ArrayList<Integer> list)
+    {
+        if (!list.isEmpty())
+        {
+            return Collections.max(list);
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
@@ -117,18 +192,16 @@ public class StatsFragment extends Fragment {
         return helper.getReadableDatabase();
     }
 
-    private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
+    //For now this method does not need to be used.
+    /*private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
     {
         Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ?", new String[] {exerciseName});
         cursor.moveToFirst();
         return cursor.getInt(0);
-    }
+    }*/
 
     private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
     {
-        //Cursor cursor = db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
-        //cursor.moveToFirst();
-        //return cursor;
         return db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
     }
 
@@ -138,12 +211,18 @@ public class StatsFragment extends Fragment {
         {
             cursor.moveToFirst();
             do {
-                int weight = getWeightFromCursor(cursor);
-                int sets = getSetsFromCursor(cursor);
-                weightList.add(weight);
-
+                weightList.add(getWeightFromCursor(cursor));
+                setList.add(getSetsFromCursor(cursor));
+                repList.add(getRepsFromCursor(cursor));
             }while(cursor.moveToNext());
         }
+    }
+
+    private void clearValuesFromInformationArrays()
+    {
+        weightList.clear();
+        setList.clear();
+        repList.clear();
     }
 
     private int getWeightFromCursor(Cursor cursor)
@@ -154,6 +233,16 @@ public class StatsFragment extends Fragment {
     private int getSetsFromCursor(Cursor cursor)
     {
         return cursor.getInt(cursor.getColumnIndex("SETS"));
+    }
+
+    private int getRepsFromCursor(Cursor cursor)
+    {
+        return cursor.getInt(cursor.getColumnIndex("REPS"));
+    }
+
+    private String getNameFromCursor(Cursor cursor)
+    {
+        return cursor.getString(cursor.getColumnIndex("NAME"));
     }
 
 

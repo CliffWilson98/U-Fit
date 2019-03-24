@@ -131,7 +131,6 @@ public class FitnessAppHelper extends SQLiteOpenHelper
         return definedExerciseNameList;
     }
 
-
     //helper method to add rows to the exercise table
     private static void insertExercise(SQLiteDatabase db, String name, int reps, int numberOfReps, int weight, int usesWeight)
     {
