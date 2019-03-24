@@ -18,13 +18,14 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 
-//TODO change x scaling of both sets and reps graph
+//TODO scale Y axis on every graph
 public class StatsFragment extends Fragment {
 
     private ArrayList<Integer> weightList = new ArrayList<Integer>();
@@ -109,12 +110,15 @@ public class StatsFragment extends Fragment {
     {
         weightGraph = (GraphView) getView().findViewById(R.id.weight_graph);
         weightGraph.getViewport().setXAxisBoundsManual(true);
+        weightGraph.getViewport().setYAxisBoundsManual(true);
 
         setGraph = (GraphView) getView().findViewById(R.id.set_graph);
         setGraph.getViewport().setXAxisBoundsManual(true);
+        setGraph.getViewport().setYAxisBoundsManual(true);
 
         repGraph = (GraphView) getView().findViewById(R.id.rep_graph);
         repGraph.getViewport().setXAxisBoundsManual(true);
+        repGraph.getViewport().setYAxisBoundsManual(true);
     }
 
     private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
@@ -138,14 +142,31 @@ public class StatsFragment extends Fragment {
         DataPoint[] pointArray = generateDataPointArrayFromArrayList(list);
         graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
         setGraphXAxisBounds(graph, list);
+        setGraphYAxisBounds(graph, list);
     }
 
     private void setGraphXAxisBounds(GraphView graph, ArrayList<Integer> list)
     {
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(list.size() - 1);
+    }
 
-        System.out.println(list.size() - 1);
+    private void setGraphYAxisBounds(GraphView graph, ArrayList<Integer> list)
+    {
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(getMaxValueFromList(list));
+    }
+
+    private int getMaxValueFromList(ArrayList<Integer> list)
+    {
+        if (!list.isEmpty())
+        {
+            return Collections.max(list);
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
