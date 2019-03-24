@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 
     //a string needed to manage the intent in the onCreate method
     public static final String MY_WORKOUT_FRAGMENT = "MyWorkouts";
+    private int currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,19 @@ public class MainActivity extends AppCompatActivity
                 //If there is a null pointer exception then that means the profile
                 //fragment should just be loaded since it is the default fragment
                 fragmentTransactionManager(new ProfileFragment());
+                currentFragment = R.id.nav_profile;
             }
         }
         else
         {
             //If there was no intent then the profile fragment can be loaded
             fragmentTransactionManager(new ProfileFragment());
+        }
+
+        if (savedInstanceState != null)
+        {
+            currentFragment = savedInstanceState.getInt("currentFragment");
+            swapToFragmentById(currentFragment);
         }
     }
 
@@ -99,7 +107,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        currentFragment = id;
 
+        swapToFragmentById(id);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void swapToFragmentById(int id)
+    {
         if (id == R.id.nav_profile)
         {
             fragmentTransactionManager(new ProfileFragment());
@@ -116,10 +134,6 @@ public class MainActivity extends AppCompatActivity
         {
             fragmentTransactionManager(new StatsFragment());
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void fragmentTransactionManager(Fragment fragmentToSwap)
@@ -128,4 +142,13 @@ public class MainActivity extends AppCompatActivity
         ft.replace(R.id.fragment_placeholder, fragmentToSwap);
         ft.commit();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle)
+    {
+        super.onSaveInstanceState(bundle);
+        bundle.putInt("currentFragment", currentFragment);
+    }
+
+
 }
