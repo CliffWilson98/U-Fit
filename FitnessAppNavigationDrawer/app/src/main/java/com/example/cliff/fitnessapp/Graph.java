@@ -28,6 +28,11 @@ public class Graph {
     }
 
     public void updateGraph() {
+        updateSeries();
+        updateBounds();
+    }
+
+    private void updateSeries() {
         view.removeAllSeries();
         DataPoint[] pointArray = generateDataPointArrayFromArrayList(dataPoints);
         view.addSeries(createLineGraphSeriesFromPointArray(pointArray));
@@ -50,16 +55,12 @@ public class Graph {
         return new LineGraphSeries<>(pointArray);
     }
 
-    private void setGraphXAxisBounds(ArrayList<Integer> list)
+    private void updateBounds()
     {
         view.getViewport().setMinX(0);
-        view.getViewport().setMaxX(list.size() - 1);
-    }
-
-    private void setGraphYAxisBounds(ArrayList<Integer> list)
-    {
+        view.getViewport().setMaxX(dataPoints.size() - 1);
         view.getViewport().setMinY(0);
-        view.getViewport().setMaxY(getMaxValueFromList(list));
+        view.getViewport().setMaxY(getMaxValueFromList(dataPoints));
     }
 
     private int getMaxValueFromList(ArrayList<Integer> list)
