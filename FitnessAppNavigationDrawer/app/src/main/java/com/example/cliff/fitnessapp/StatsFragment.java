@@ -28,13 +28,7 @@ import java.util.Collections;
 //TODO scale Y axis on every graph
 public class StatsFragment extends Fragment {
 
-    private ArrayList<Integer> weightList = new ArrayList<Integer>();
-    private ArrayList<Integer> setList = new ArrayList<Integer>();
-    private ArrayList<Integer> repList = new ArrayList<Integer>();
-
-    private GraphView weightGraph;
-    private GraphView repGraph;
-    private GraphView setGraph;
+    private ArrayList<Graph> graphs = new ArrayList<>();
 
     private Spinner exerciseNamesSpinner;
 
@@ -89,7 +83,8 @@ public class StatsFragment extends Fragment {
         exerciseNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                retrieveDatabaseInformationForExerciseAndUpdateGraph(convertSpinnerPositionToDatabaseId(position));
+                int databaseId = convertSpinnerPositionToDatabaseId(position);
+                retrieveDatabaseInformationForExerciseAndUpdateGraph(databaseId);
             }
 
             @Override
@@ -106,19 +101,19 @@ public class StatsFragment extends Fragment {
         });
     }
 
+    private GraphView getGraphViewById(int id) {
+        return (GraphView)getView().findViewById(id);
+    }
+
     private void initializeGraphs()
     {
-        weightGraph = (GraphView) getView().findViewById(R.id.weight_graph);
-        weightGraph.getViewport().setXAxisBoundsManual(true);
-        weightGraph.getViewport().setYAxisBoundsManual(true);
+        Graph weightGraph = new Graph(getGraphViewById(R.id.weight_graph), "WEIGHT");
+        Graph repGraph = new Graph(getGraphViewById(R.id.rep_graph), "REPS");
+        Graph setGraph = new Graph(getGraphViewById(R.id.set_graph), "SETS");
 
-        setGraph = (GraphView) getView().findViewById(R.id.set_graph);
-        setGraph.getViewport().setXAxisBoundsManual(true);
-        setGraph.getViewport().setYAxisBoundsManual(true);
-
-        repGraph = (GraphView) getView().findViewById(R.id.rep_graph);
-        repGraph.getViewport().setXAxisBoundsManual(true);
-        repGraph.getViewport().setYAxisBoundsManual(true);
+        graphs.add(weightGraph);
+        graphs.add(repGraph);
+        graphs.add(setGraph);
     }
 
     private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
@@ -130,60 +125,9 @@ public class StatsFragment extends Fragment {
 
     private void updateEveryGraph()
     {
-        updateGraph(weightGraph, weightList);
-        updateGraph(repGraph, repList);
-        updateGraph(setGraph, setList);
-    }
-
-
-    private void updateGraph(GraphView graph, ArrayList<Integer> list)
-    {
-        graph.removeAllSeries();
-        DataPoint[] pointArray = generateDataPointArrayFromArrayList(list);
-        graph.addSeries(createLineGraphSeriesFromPointArray(pointArray));
-        setGraphXAxisBounds(graph, list);
-        setGraphYAxisBounds(graph, list);
-    }
-
-    private void setGraphXAxisBounds(GraphView graph, ArrayList<Integer> list)
-    {
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(list.size() - 1);
-    }
-
-    private void setGraphYAxisBounds(GraphView graph, ArrayList<Integer> list)
-    {
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(getMaxValueFromList(list));
-    }
-
-    private int getMaxValueFromList(ArrayList<Integer> list)
-    {
-        if (!list.isEmpty())
-        {
-            return Collections.max(list);
+        for (Graph graph : graphs) {
+            graph.updateGraph();
         }
-        else
-        {
-            return 0;
-        }
-    }
-
-    private DataPoint[] generateDataPointArrayFromArrayList(ArrayList<Integer> list)
-    {
-            DataPoint[] pointArray = new DataPoint[list.size()];
-
-            for (int i = 0; i < pointArray.length; i ++)
-            {
-                pointArray[i] = new DataPoint(i, list.get(i));
-            }
-
-            return pointArray;
-    }
-
-    private LineGraphSeries<DataPoint> createLineGraphSeriesFromPointArray(DataPoint[] pointArray)
-    {
-        return new LineGraphSeries<>(pointArray);
     }
 
     private SQLiteDatabase getDatabase()
@@ -191,14 +135,6 @@ public class StatsFragment extends Fragment {
         FitnessAppHelper helper = new FitnessAppHelper(getActivity());
         return helper.getReadableDatabase();
     }
-
-    //For now this method does not need to be used.
-    /*private int getIdOfExerciseFromName(SQLiteDatabase db, String exerciseName)
-    {
-        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ?", new String[] {exerciseName});
-        cursor.moveToFirst();
-        return cursor.getInt(0);
-    }*/
 
     private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
     {
@@ -211,39 +147,18 @@ public class StatsFragment extends Fragment {
         {
             cursor.moveToFirst();
             do {
-                weightList.add(getWeightFromCursor(cursor));
-                setList.add(getSetsFromCursor(cursor));
-                repList.add(getRepsFromCursor(cursor));
+                for(Graph graph : graphs) {
+                    graph.addDataFromCursor(cursor);
+                }
             }while(cursor.moveToNext());
         }
     }
 
     private void clearValuesFromInformationArrays()
     {
-        weightList.clear();
-        setList.clear();
-        repList.clear();
+        for(Graph graph : graphs) {
+            graph.clear();
+        }
     }
-
-    private int getWeightFromCursor(Cursor cursor)
-    {
-        return cursor.getInt(cursor.getColumnIndex("WEIGHT"));
-    }
-
-    private int getSetsFromCursor(Cursor cursor)
-    {
-        return cursor.getInt(cursor.getColumnIndex("SETS"));
-    }
-
-    private int getRepsFromCursor(Cursor cursor)
-    {
-        return cursor.getInt(cursor.getColumnIndex("REPS"));
-    }
-
-    private String getNameFromCursor(Cursor cursor)
-    {
-        return cursor.getString(cursor.getColumnIndex("NAME"));
-    }
-
 
 }
