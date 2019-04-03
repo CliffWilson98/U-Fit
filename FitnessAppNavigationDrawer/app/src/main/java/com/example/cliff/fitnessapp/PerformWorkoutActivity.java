@@ -23,6 +23,10 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private boolean[] wasExerciseSkippedArray;
     private int currentExerciseIndex;
 
+    private boolean isResting;
+
+    private boolean isWorkoutFinished;
+
     private int repCounter;
     private int setCounter;
 
@@ -33,6 +37,8 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perform_workout);
+
+        isResting = false;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.workout_toolbar);
         setSupportActionBar(toolbar);
@@ -99,32 +105,36 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     public void incrementCounter(View v)
     {
-        Exercise currentExercise = exerciseList.get(currentExerciseIndex);
-
-        Button button = (Button) findViewById(R.id.counter_button);
-
-        //if the user has completed all the reps in a set and is not on the last set
-        //then the rep counter is set to 0 and the set is incremented
-        if (repCounter == currentExercise.getReps() - 1 && setCounter < currentExercise.getSets())
+        if (!isResting)
         {
-            repCounter = 0;
-            setCounter ++;
-        }
-        //if the user has completed the reps in a set and is on the last set then the next exercise must be launched
-        else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
-        {
-            resetRepsAndSets();
-            markCurrentExerciseAsCompleted();
-            goToNextExerciseOrGoToMainActivity();
-        }
-        //otherwise the user is still in the same set and the repCounter is incremented
-        else
-        {
-            repCounter ++;
+            Exercise currentExercise = exerciseList.get(currentExerciseIndex);
+            Button button = (Button) findViewById(R.id.counter_button);
+
+            //if the user has completed all the reps in a set and is not on the last set
+            //then the rep counter is set to 0 and the set is incremented
+            if (repCounter == currentExercise.getReps() - 1 && setCounter < currentExercise.getSets())
+            {
+                repCounter = 0;
+                setCounter ++;
+            }
+            //if the user has completed the reps in a set and is on the last set then the next exercise must be launched
+            else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
+            {
+                resetRepsAndSets();
+                markCurrentExerciseAsCompleted();
+                goToNextExerciseOrGoToMainActivity();
+            }
+            //otherwise the user is still in the same set and the repCounter is incremented
+            else
+            {
+                repCounter ++;
+            }
+
+
+            String buttonText = String.format("%dx%d", setCounter, repCounter);
+            button.setText(buttonText);
         }
 
-        String buttonText = String.format("%dx%d", setCounter, repCounter);
-        button.setText(buttonText);
     }
 
     private void markCurrentExerciseAsCompleted()
@@ -296,4 +306,34 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         return deleteDialogBox;
     }
+
+    public void restTimer(View v)
+    {
+        isResting = true;
+        setCounterTextResting();
+
+        if (v == findViewById(R.id.rest_15))
+        {
+            System.out.println("15 seconds");
+        }
+        else if (v == findViewById(R.id.rest_30))
+        {
+            System.out.println("30 seconds");
+        }
+        else if (v == findViewById(R.id.rest_45))
+        {
+            System.out.println("45 seconds");
+        }
+        else if (v == findViewById(R.id.rest_60))
+        {
+            System.out.println("60 seconds");
+        }
+    }
+
+    private void setCounterTextResting()
+    {
+        Button b = findViewById(R.id.counter_button);
+        b.setText("Resting");
+    }
+
 }

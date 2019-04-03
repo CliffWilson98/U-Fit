@@ -18,14 +18,14 @@
     <TextView
         android:id="@+id/workout_name"
         android:layout_weight="1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/exercise_instructions"
         android:layout_weight="1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"/>
 
@@ -39,20 +39,64 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
-    <Button
-        android:layout_weight="1"
-        android:text="Skip Exercise"
-        android:onClick="skipExercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <Button
-        android:layout_weight="1"
-        android:text="Cancel Workout"
-        android:onClick="confirmCancelWorkout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="horizontal">
 
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rest_15"
+            android:onClick="restTimer"
+            android:text="15"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rest_30"
+            android:onClick="restTimer"
+            android:text="30"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rest_45"
+            android:onClick="restTimer"
+            android:text="45"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rest_60"
+            android:onClick="restTimer"
+            android:text="60"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+
+            android:text="Skip Exercise"
+            android:onClick="skipExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Cancel Workout"
+            android:onClick="confirmCancelWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </LinearLayout>
