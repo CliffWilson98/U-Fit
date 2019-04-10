@@ -317,10 +317,9 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     public void restTimer(View v)
     {
-        isResting = true;
         setCounterTextResting();
         Button restButton = (Button) v;
-        Integer restTime = Integer.valueOf(restButton.getText().toString());
+        int restTime = Integer.parseInt(restButton.getText().toString());
         restTimerHandler(restTime);
     }
 
@@ -344,6 +343,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void setCounterTextResting()
     {
+        isResting = true;
         Button b = findViewById(R.id.counter_button);
         b.setText("Resting");
     }
