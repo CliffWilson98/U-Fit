@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SymbolTable;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private int repCounter;
     private int setCounter;
+    private String counterButtonText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -133,9 +135,14 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
 
             String buttonText = String.format("%dx%d", setCounter, repCounter);
+            setCounterButtonText(buttonText);
             button.setText(buttonText);
         }
 
+    }
+
+    private String setCounterButtonText(String buttonText) {
+        return this.counterButtonText = buttonText;
     }
 
     private void markCurrentExerciseAsCompleted()
@@ -312,42 +319,27 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     {
         isResting = true;
         setCounterTextResting();
+        Button restButton = (Button) v;
+        Integer restTime = Integer.valueOf(restButton.getText().toString());
+        restTimerHandler(restTime);
+    }
 
+    private void restTimerHandler(final int restTime) {
         final Handler handler = new Handler();
         handler.post(new Runnable() {
-            int a = 0;
+            int timer = 0;
 
             @Override
             public void run() {
-                a+=1;
-                System.out.println("A: " + a);
-                if (a <= 15)
-                {
+                timer++;
+                System.out.println("Timer: " + timer);
+                if (timer < restTime) {
                     handler.postDelayed(this, 1000);
                 }
             }
+
         });
-
-        if (v == findViewById(R.id.rest_15))
-        {
-            System.out.println("15 seconds");
-        }
-        else if (v == findViewById(R.id.rest_30))
-        {
-            System.out.println("30 seconds");
-        }
-        else if (v == findViewById(R.id.rest_45))
-        {
-            System.out.println("45 seconds");
-        }
-        else if (v == findViewById(R.id.rest_60))
-        {
-            System.out.println("60 seconds");
-        }
-
-        //isResting = false;
         setCounterTextNotResting();
-
     }
 
     private void setCounterTextResting()
@@ -358,8 +350,9 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void setCounterTextNotResting()
     {
+        isResting = false;
         Button b = findViewById(R.id.counter_button);
-        b.setText("Ready");
+        b.setText(counterButtonText);
     }
 
 
