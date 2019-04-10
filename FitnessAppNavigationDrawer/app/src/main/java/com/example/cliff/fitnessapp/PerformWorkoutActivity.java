@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -312,6 +313,21 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         isResting = true;
         setCounterTextResting();
 
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            int a = 0;
+
+            @Override
+            public void run() {
+                a+=1;
+                System.out.println("A: " + a);
+                if (a <= 15)
+                {
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        });
+
         if (v == findViewById(R.id.rest_15))
         {
             System.out.println("15 seconds");
@@ -328,6 +344,10 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         {
             System.out.println("60 seconds");
         }
+
+        //isResting = false;
+        setCounterTextNotResting();
+
     }
 
     private void setCounterTextResting()
@@ -335,5 +355,12 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         Button b = findViewById(R.id.counter_button);
         b.setText("Resting");
     }
+
+    private void setCounterTextNotResting()
+    {
+        Button b = findViewById(R.id.counter_button);
+        b.setText("Ready");
+    }
+
 
 }
