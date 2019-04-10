@@ -321,24 +321,25 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         Button restButton = (Button) v;
         int restTime = Integer.parseInt(restButton.getText().toString());
         restTimerHandler(restTime);
+        System.out.println("Clicked button: " + restTime);
     }
 
     private void restTimerHandler(final int restTime) {
+
         final Handler handler = new Handler();
         handler.post(new Runnable() {
-            int timer = 0;
+            int timer = restTime;
 
             @Override
             public void run() {
-                timer++;
+                timer--;
                 System.out.println("Timer: " + timer);
-                if (timer < restTime) {
+                if (timer > 0) {
                     handler.postDelayed(this, 1000);
                 }
             }
 
         });
-        setCounterTextNotResting();
     }
 
     private void setCounterTextResting()
