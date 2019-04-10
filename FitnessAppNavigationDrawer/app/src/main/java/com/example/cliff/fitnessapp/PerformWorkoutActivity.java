@@ -326,6 +326,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void restTimerHandler(final int restTime) {
 
+        final Button counterButton = findViewById(R.id.counter_button);
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             int timer = restTime;
@@ -334,8 +335,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             public void run() {
                 timer--;
                 System.out.println("Timer: " + timer);
+                counterButton.setText(String.format("Time: %d", timer));
                 if (timer > 0) {
                     handler.postDelayed(this, 1000);
+                }
+                else
+                {
+                    setCounterTextNotResting();
                 }
             }
 
@@ -353,7 +359,14 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     {
         isResting = false;
         Button b = findViewById(R.id.counter_button);
-        b.setText(counterButtonText);
+        if (counterButtonText != null)
+        {
+            b.setText(counterButtonText);
+        }
+        else
+        {
+            b.setText("Counter");
+        }
     }
 
 
