@@ -42,6 +42,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perform_workout);
 
         isResting = false;
+        isWorkoutFinished = false;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.workout_toolbar);
         setSupportActionBar(toolbar);
@@ -49,8 +50,32 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         getWorkoutDetails();
         updateTextViews();
 
+        runTimer();
+
         //initially the user has done zero reps and is on the first set
         resetRepsAndSets();
+    }
+
+    private void runTimer()
+    {
+        final TextView timerTextView = findViewById(R.id.timer_text_view);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            int seconds = 0;
+
+            @Override
+            public void run() {
+                seconds++;
+                System.out.println("timer is running");
+                String timerText = String.format("Timer %02d:%02d", seconds/60, seconds);
+                timerTextView.setText(timerText);
+                if (!isWorkoutFinished)
+                {
+                    handler.postDelayed(this, 1000);
+                }
+            }
+
+        });
     }
 
     private void resetRepsAndSets()
@@ -164,6 +189,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         }
         else
         {
+            isWorkoutFinished = true;
             updateDatabaseWithCompletedExercises(getDatabase());
             returnToMainActivity();
         }
@@ -280,6 +306,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private void cancelWorkout()
     {
         //for now when the workout is cancelled it will just take you back to the main activity
+        isWorkoutFinished = true;
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -348,7 +375,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
                 timer--;
                 System.out.println("Timer: " + timer);
                 counterButton.setText(String.format("Time: %d", timer));
-                if (timer > 0) {
+                if (timer > 0 && !isWorkoutFinished) {
                     handler.postDelayed(this, 1000);
                 }
                 else
