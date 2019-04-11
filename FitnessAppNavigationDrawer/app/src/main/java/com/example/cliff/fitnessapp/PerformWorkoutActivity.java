@@ -81,7 +81,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private void resetRepsAndSets()
     {
         repCounter = 0;
-        setCounter = 1;
+        setCounter = 0;
     }
 
     //this will get the workouts name and populate the exercise ArrayList
@@ -138,33 +138,37 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             Exercise currentExercise = exerciseList.get(currentExerciseIndex);
             Button button = (Button) findViewById(R.id.counter_button);
 
-            //if the user has completed all the reps in a set and is not on the last set
-            //then the rep counter is set to 0 and the set is incremented
-            if (repCounter == currentExercise.getReps() - 1 && setCounter < currentExercise.getSets())
-            {
-                repCounter = 0;
-                setCounter ++;
-            }
-            //if the user has completed the reps in a set and is on the last set then the next exercise must be launched
-            else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
+            if (isLastSetOfExercise(currentExercise))
             {
                 resetRepsAndSets();
                 markCurrentExerciseAsCompleted();
                 goToNextExerciseOrGoToMainActivity();
             }
-            //otherwise the user is still in the same set and the repCounter is incremented
             else
             {
-                repCounter ++;
+                setCounter++;
+                repCounter = currentExercise.getReps();
             }
 
-
-            String buttonText = String.format("%dx%d", setCounter, repCounter);
+            String buttonText = String.format("Finished set %d\n with %d reps!", setCounter, repCounter);
             setCounterButtonText(buttonText);
             button.setText(buttonText);
         }
 
     }
+
+    private boolean isLastSetOfExercise(Exercise currentExercise)
+    {
+        if (setCounter == (currentExercise.getSets() - 1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     private String setCounterButtonText(String buttonText) {
         return this.counterButtonText = buttonText;
