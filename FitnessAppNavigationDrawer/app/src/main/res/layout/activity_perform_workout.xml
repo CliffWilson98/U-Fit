@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="5"
     tools:context=".PerformWorkoutActivity">
 
     <android.support.v7.widget.Toolbar
@@ -17,16 +18,16 @@
 
     <TextView
         android:id="@+id/workout_name"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/exercise_instructions"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center"/>
 
     <Button
@@ -42,60 +43,80 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="4"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
 
-        <Button
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rest_15"
-            android:onClick="restTimer"
-            android:text="15"/>
+            android:text="@string/rest"/>
 
-        <Button
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rest_30"
-            android:onClick="restTimer"
-            android:text="30"/>
+            android:weightSum="4"
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rest_45"
-            android:onClick="restTimer"
-            android:text="45"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rest_15"
+                android:onClick="restTimer"
+                android:text="15"/>
 
-        <Button
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rest_60"
-            android:onClick="restTimer"
-            android:text="60"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rest_30"
+                android:onClick="restTimer"
+                android:text="30"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rest_45"
+                android:onClick="restTimer"
+                android:text="45"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rest_60"
+                android:onClick="restTimer"
+                android:text="60"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <Button
+            android:text="Cancel Workout"
+            android:onClick="confirmCancelWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <Button
 
             android:text="Skip Exercise"
             android:onClick="skipExercise"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:text="Cancel Workout"
-            android:onClick="confirmCancelWorkout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
