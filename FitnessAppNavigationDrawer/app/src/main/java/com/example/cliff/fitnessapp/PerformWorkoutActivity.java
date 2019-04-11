@@ -375,7 +375,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
                 timer--;
                 System.out.println("Timer: " + timer);
                 counterButton.setText(String.format("Time: %d", timer));
-                if (timer > 0 && !isWorkoutFinished) {
+                if (timer > 0 && !isWorkoutFinished && isResting) {
                     handler.postDelayed(this, 1000);
                 }
                 else
@@ -396,7 +396,10 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void setCounterTextNotResting()
     {
-        isResting = false;
+        if (isResting == true)
+        {
+            isResting = false;
+        }
         Button b = findViewById(R.id.counter_button);
         if (counterButtonText != null)
         {
@@ -408,5 +411,9 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         }
     }
 
+    public void cancelRest(View v)
+    {
+        isResting = false;
+    }
 
 }

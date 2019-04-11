@@ -41,6 +41,8 @@
 
     <!-- Strings for the Perform Workout Activity -->
     <string name="rest">Rest Timers</string>
+    <string name="cancel_rest">Cancel Rest</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
