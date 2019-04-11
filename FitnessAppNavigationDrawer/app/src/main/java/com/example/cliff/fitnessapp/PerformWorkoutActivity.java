@@ -317,11 +317,23 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     public void restTimer(View v)
     {
-        setCounterTextResting();
-        Button restButton = (Button) v;
-        int restTime = Integer.parseInt(restButton.getText().toString());
-        restTimerHandler(restTime);
-        System.out.println("Clicked button: " + restTime);
+        if (!isResting)
+        {
+            setCounterTextResting();
+            Button restButton = (Button) v;
+            int restTime = Integer.parseInt(restButton.getText().toString());
+            restTimerHandler(restTime);
+            System.out.println("Clicked button: " + restTime);
+        }
+        else
+        {
+            createAlreadyRestingToast();
+        }
+    }
+
+    private void createAlreadyRestingToast()
+    {
+        Toast.makeText(getApplicationContext(),"You are already resting!",Toast.LENGTH_SHORT).show();
     }
 
     private void restTimerHandler(final int restTime) {
