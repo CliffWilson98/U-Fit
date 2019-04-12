@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SymbolTable;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,8 +25,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private boolean[] wasExerciseSkippedArray;
     private int currentExerciseIndex;
 
+    private boolean isResting;
+
+    private boolean isWorkoutFinished;
+
     private int repCounter;
     private int setCounter;
+    private String counterButtonText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,20 +41,47 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perform_workout);
 
+        isResting = false;
+        isWorkoutFinished = false;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.workout_toolbar);
         setSupportActionBar(toolbar);
 
         getWorkoutDetails();
         updateTextViews();
 
+        runTimer();
+
         //initially the user has done zero reps and is on the first set
         resetRepsAndSets();
+    }
+
+    private void runTimer()
+    {
+        final TextView timerTextView = findViewById(R.id.timer_text_view);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            int seconds = 0;
+
+            @Override
+            public void run() {
+                seconds++;
+                System.out.println("timer is running");
+                String timerText = String.format("Timer %02d:%02d", seconds/60, seconds);
+                timerTextView.setText(timerText);
+                if (!isWorkoutFinished)
+                {
+                    handler.postDelayed(this, 1000);
+                }
+            }
+
+        });
     }
 
     private void resetRepsAndSets()
     {
         repCounter = 0;
-        setCounter = 1;
+        setCounter = 0;
     }
 
     //this will get the workouts name and populate the exercise ArrayList
@@ -99,32 +133,45 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     public void incrementCounter(View v)
     {
-        Exercise currentExercise = exerciseList.get(currentExerciseIndex);
-
-        Button button = (Button) findViewById(R.id.counter_button);
-
-        //if the user has completed all the reps in a set and is not on the last set
-        //then the rep counter is set to 0 and the set is incremented
-        if (repCounter == currentExercise.getReps() - 1 && setCounter < currentExercise.getSets())
+        if (!isResting)
         {
-            repCounter = 0;
-            setCounter ++;
+            Exercise currentExercise = exerciseList.get(currentExerciseIndex);
+            Button button = (Button) findViewById(R.id.counter_button);
+
+            if (isLastSetOfExercise(currentExercise))
+            {
+                resetRepsAndSets();
+                markCurrentExerciseAsCompleted();
+                goToNextExerciseOrGoToMainActivity();
+            }
+            else
+            {
+                setCounter++;
+                repCounter = currentExercise.getReps();
+            }
+
+            String buttonText = String.format("Finished set %d\n with %d reps!", setCounter, repCounter);
+            setCounterButtonText(buttonText);
+            button.setText(buttonText);
         }
-        //if the user has completed the reps in a set and is on the last set then the next exercise must be launched
-        else if (repCounter == currentExercise.getReps() - 1 && setCounter == currentExercise.getSets())
+
+    }
+
+    private boolean isLastSetOfExercise(Exercise currentExercise)
+    {
+        if (setCounter == (currentExercise.getSets() - 1))
         {
-            resetRepsAndSets();
-            markCurrentExerciseAsCompleted();
-            goToNextExerciseOrGoToMainActivity();
+            return true;
         }
-        //otherwise the user is still in the same set and the repCounter is incremented
         else
         {
-            repCounter ++;
+            return false;
         }
+    }
 
-        String buttonText = String.format("%dx%d", setCounter, repCounter);
-        button.setText(buttonText);
+
+    private String setCounterButtonText(String buttonText) {
+        return this.counterButtonText = buttonText;
     }
 
     private void markCurrentExerciseAsCompleted()
@@ -146,6 +193,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         }
         else
         {
+            isWorkoutFinished = true;
             updateDatabaseWithCompletedExercises(getDatabase());
             returnToMainActivity();
         }
@@ -262,6 +310,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private void cancelWorkout()
     {
         //for now when the workout is cancelled it will just take you back to the main activity
+        isWorkoutFinished = true;
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -296,4 +345,79 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         return deleteDialogBox;
     }
+
+    public void restTimer(View v)
+    {
+        if (!isResting)
+        {
+            setCounterTextResting();
+            Button restButton = (Button) v;
+            int restTime = Integer.parseInt(restButton.getText().toString());
+            restTimerHandler(restTime);
+            System.out.println("Clicked button: " + restTime);
+        }
+        else
+        {
+            createAlreadyRestingToast();
+        }
+    }
+
+    private void createAlreadyRestingToast()
+    {
+        Toast.makeText(getApplicationContext(),"You are already resting!",Toast.LENGTH_SHORT).show();
+    }
+
+    private void restTimerHandler(final int restTime) {
+
+        final Button counterButton = findViewById(R.id.counter_button);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            int timer = restTime;
+
+            @Override
+            public void run() {
+                timer--;
+                System.out.println("Timer: " + timer);
+                counterButton.setText(String.format("Time: %d", timer));
+                if (timer > 0 && !isWorkoutFinished && isResting) {
+                    handler.postDelayed(this, 1000);
+                }
+                else
+                {
+                    setCounterTextNotResting();
+                }
+            }
+
+        });
+    }
+
+    private void setCounterTextResting()
+    {
+        isResting = true;
+        Button b = findViewById(R.id.counter_button);
+        b.setText("Resting");
+    }
+
+    private void setCounterTextNotResting()
+    {
+        if (isResting == true)
+        {
+            isResting = false;
+        }
+        Button b = findViewById(R.id.counter_button);
+        if (counterButtonText != null)
+        {
+            b.setText(counterButtonText);
+        }
+        else
+        {
+            b.setText("Counter");
+        }
+    }
+
+    public void cancelRest(View v)
+    {
+        isResting = false;
+    }
+
 }
