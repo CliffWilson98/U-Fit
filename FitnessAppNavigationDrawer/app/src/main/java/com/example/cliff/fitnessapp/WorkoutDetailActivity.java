@@ -94,6 +94,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("fragmentToLoad", MainActivity.MY_WORKOUT_FRAGMENT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
