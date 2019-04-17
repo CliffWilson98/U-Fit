@@ -1,12 +1,15 @@
 package com.example.cliff.fitnessapp;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SymbolTable;
+import android.os.Build;
 import android.os.Handler;
+import android.os.VibrationEffect;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Vibrator;
 
 import java.util.ArrayList;
 
@@ -67,7 +71,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             public void run() {
                 seconds++;
                 System.out.println("timer is running");
-                String timerText = String.format("Timer %02d:%02d", seconds/60, seconds);
+                String timerText = String.format("Timer %02d:%02d", seconds/60, seconds % 60);
                 timerTextView.setText(timerText);
                 if (!isWorkoutFinished)
                 {
@@ -372,6 +376,8 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         final Button counterButton = findViewById(R.id.counter_button);
         final Handler handler = new Handler();
         handler.post(new Runnable() {
+
+            final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             int timer = restTime;
 
             @Override
@@ -384,6 +390,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    v.vibrate(500);
                     setCounterTextNotResting();
                 }
             }
