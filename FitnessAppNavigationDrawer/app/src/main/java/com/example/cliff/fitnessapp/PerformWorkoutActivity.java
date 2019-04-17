@@ -71,7 +71,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             public void run() {
                 seconds++;
                 System.out.println("timer is running");
-                String timerText = String.format("Timer %02d:%02d", seconds/60, seconds);
+                String timerText = String.format("Timer %02d:%02d", seconds/60, seconds % 60);
                 timerTextView.setText(timerText);
                 if (!isWorkoutFinished)
                 {
