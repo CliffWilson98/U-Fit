@@ -12,6 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
 public class WorkoutDetailActivity extends AppCompatActivity {
 
     private int workoutId;
@@ -50,14 +54,15 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
         cursor.moveToFirst();
 
-        String exerciseNames = "";
+        String exercises = "";
+        do {
+            exercises += (cursor.getString(1) + "\n" +
+                            "Reps: " + cursor.getInt(2) + "  -  " +
+                            "Sets: " + cursor.getInt(3) + "  -  " +
+                            "Weight: " + cursor.getInt(4) + "\n\n");
+        } while (cursor.moveToNext());
 
-        do
-        {
-            exerciseNames += cursor.getString(1) + "\n";
-        }while (cursor.moveToNext());
-
-        exerciseNamesTextView.setText(exerciseNames);
+        exerciseNamesTextView.setText(exercises);
     }
 
     //Necessary for the back button to work
@@ -89,6 +94,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("fragmentToLoad", MainActivity.MY_WORKOUT_FRAGMENT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

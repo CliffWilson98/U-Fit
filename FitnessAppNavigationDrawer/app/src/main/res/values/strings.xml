@@ -34,6 +34,15 @@
     <!-- Strings for the My Workouts Fragment -->
     <string name="my_workouts_title">My Workouts</string>
 
+    <!-- Strings for the Stats Fragment -->
+    <string name="stats_weight_progression"> Weight Progression</string>
+    <string name="stats_reps_progression"> Reps Progression</string>
+    <string name="stats_sets_progression"> Sets Progression</string>
+
+    <!-- Strings for the Perform Workout Activity -->
+    <string name="rest">Rest Timers</string>
+    <string name="cancel_rest">Cancel Rest</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
