@@ -2,10 +2,6 @@ package com.example.cliff.fitnessapp;
 
 
 import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -158,18 +154,17 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private void createWorkout(String workoutName)
     {
-        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
-        SQLiteDatabase db = helper.getWritableDatabase();
+        Database db = Database.getDatabase();
 
-        ContentValues value = new ContentValues();
+        DatabaseValues value = db.newValues();
         value.put("NAME", workoutName);
 
-        db.insert("WORKOUT", null, value);
+        db.insert("WORKOUT", value);
 
-        Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;", null);
-        cursor.moveToFirst();
+        QueryResult queryResult = db.query("SELECT * FROM WORKOUT ORDER BY _id DESC LIMIT 1;");
+        queryResult.moveToFirst();
 
-        int workoutID = cursor.getInt(0);
+        int workoutID = queryResult.getInt(0);
 
         addExercisesToDatabase(workoutID);
 
@@ -194,8 +189,7 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
 
     private void addExercisesToDatabase(int workoutId)
     {
-        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
-
+        Database db = Database.getDatabase();
         for (int i = 0; i < exerciseList.size(); i ++)
         {
             Exercise exercise = exerciseList.get(i);
@@ -205,23 +199,14 @@ public class CreateWorkoutFragment extends Fragment implements View.OnClickListe
             int sets = exercise.getSets();
             int weight = exercise.getWeight();
 
-            ContentValues value = new ContentValues();
+            DatabaseValues value = db.newValues();
             value.put("NAME", name);
             value.put("REPS", reps);
             value.put("SETS", sets);
             value.put("WEIGHT", weight);
             value.put("WORKOUT", workoutId);
 
-            try
-            {
-                SQLiteDatabase db = helper.getWritableDatabase();
-                db.insert("EXERCISE", null, value);
-            }
-            catch(SQLiteException e)
-            {
-                Toast toast = Toast.makeText(getActivity(), "Database Unavailable", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+            db.insert("EXERCISE", value);
         }
     }
 
