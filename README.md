@@ -15,4 +15,5 @@ The Create Workout screen allows the user to create their own custom workouts. A
  ## Viewing Workouts
  The My Workouts screen is where you can view all of your created workouts. Clicking on a workouts name will take you to a seperate screen with more details regarding the exercises that the workout is composed of. From this screen you can either delete or perform the workout. 
  
- 
+ ## Performing a Workout 
+ The perform workout screen allows the user to keep track of their reps, sets, and time while performing a workout and features buttons for manual rests if the user wishes to keep track of their time spent resting during the workout. The Perform Workout screen displays the name of the workout along with informatino regarding the current exercise that the user is on. The blue counter button in the middle of the screen should be pressed after the completion of each set. Upon completion of an exercise within the workout the app will automatically present the user with the next exercise to perform. At any point the user can skip an exercise or cancel the workout completely.
