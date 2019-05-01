@@ -2,10 +2,6 @@ package com.example.cliff.fitnessapp;
 
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -72,78 +68,60 @@ public class MyWorkoutsFragment extends Fragment {
 
     private void populateListView()
     {
-        FitnessAppHelper helper = new FitnessAppHelper(getActivity());
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT", null);
-        cursor.moveToFirst();
+        Database db = Database.getDatabase();
+        QueryResult queryResult = db.query("SELECT * FROM WORKOUT");
+        queryResult.moveToFirst();
 
-        int workoutCount = cursor.getCount();
+        int workoutCount = queryResult.getCount();
 
         System.out.println("NUMBER OF WORKOUTS: " + workoutCount);
 
-        if (cursor.getCount() != 0)
+        if (queryResult.getCount() != 0)
         {
             do
             {
-                int workoutID = cursor.getInt(0);
+                int workoutID = queryResult.getInt(0);
                 workoutIDList.add(workoutID);
-                String workoutName = cursor.getString(1);
+                String workoutName = queryResult.getString(1);
                 workoutNameList.add(workoutName);
-            }while (cursor.moveToNext());
+            }while (queryResult.moveToNext());
         }
 
     }
 
     //TODO remove this
     //this method is just a way to make sure the database is working properly
-    private void displayWorkouts()
-    {
+    private void displayWorkouts() {
         String text = "";
 
-        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
+        Database db = Database.getDatabase();
 
-        try
-        {
-            SQLiteDatabase db = helper.getReadableDatabase();
+        QueryResult workoutQueryResult = db.query("SELECT * FROM WORKOUT ORDER BY _id");
+        workoutQueryResult.moveToFirst();
 
-            Cursor workoutCursor = db.rawQuery("SELECT * FROM WORKOUT ORDER BY _id", null);
-            workoutCursor.moveToFirst();
+        //TODO delete this!
+        QueryResult testQueryResult = db.query("SELECT * FROM EXERCISE");
+        testQueryResult.moveToFirst();
+        System.out.println("Total exercises " + testQueryResult.getCount());
 
-            //TODO delete this!
-            Cursor testCursor = db.rawQuery("SELECT * FROM EXERCISE", null);
-            testCursor.moveToFirst();
-            System.out.println("Total exercises " + testCursor.getCount());
+        do {
+            int workoutID = workoutQueryResult.getInt(0);
 
-            do
-            {
-                int workoutID = workoutCursor.getInt(0);
+            text += workoutQueryResult.getString("NAME");
 
-                text += workoutCursor.getString(workoutCursor.getColumnIndex("NAME"));
+            QueryResult exerciseQueryResult = db.query("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID);
+            exerciseQueryResult.moveToFirst();
 
-                Cursor exerciseCursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID + "", null);
-                exerciseCursor.moveToFirst();
+            System.out.println("Exercise Count: " + exerciseQueryResult.getCount());
 
-                System.out.println("Exercise Count: " + exerciseCursor.getCount());
-
-                do
-                {
-                    text += " " + exerciseCursor.getString(exerciseCursor.getColumnIndex("NAME"));
-                }
-                while(exerciseCursor.moveToNext());
-
-                text += "\n";
+            do {
+                text += " " + exerciseQueryResult.getString("NAME");
             }
-            while (workoutCursor.moveToNext());
-        }
-        catch(SQLiteException e)
-        {
-            Toast.makeText(getActivity(), "DATABASE UNAVAILABLE", Toast.LENGTH_SHORT).show();
-        }
+            while (exerciseQueryResult.moveToNext());
 
-        //TODO delete this, not needed?
-        //TextView workoutText = (TextView)(getView().findViewById(R.id.my_workouts_text));
-        //System.out.println("WORKOUT " + workoutText);
-        //workoutText.setText(text);
+            text += "\n";
+        }
+        while (workoutQueryResult.moveToNext());
     }
 
 }

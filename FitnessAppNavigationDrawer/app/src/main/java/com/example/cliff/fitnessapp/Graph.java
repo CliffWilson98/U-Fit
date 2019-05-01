@@ -75,8 +75,8 @@ public class Graph {
         }
     }
 
-    public void addDataFromCursor(Cursor cursor) {
-        int data = cursor.getInt(cursor.getColumnIndex(databaseColumn));
+    public void addDataFromQueryResult(QueryResult queryResult) {
+        int data = queryResult.getInt(databaseColumn);
         dataPoints.add(data);
     }
 }

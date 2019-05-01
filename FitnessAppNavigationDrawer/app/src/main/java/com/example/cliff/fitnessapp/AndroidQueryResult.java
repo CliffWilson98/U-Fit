@@ -22,6 +22,11 @@ public class AndroidQueryResult implements QueryResult {
     }
 
     @Override
+    public int getCount() {
+        return cursor.getCount();
+    }
+
+    @Override
     public String getString(String columnName) {
         return getString(cursor.getColumnIndex(columnName));
     }
