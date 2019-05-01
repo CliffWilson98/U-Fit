@@ -1,8 +1,10 @@
 package com.example.cliff.fitnessapp;
 
-public abstract class QueryResult {
-        public abstract int getInt(String column);
-        public abstract String getString(String column);
-        public abstract void moveToNext();
-        public abstract void moveToFirst();
+public interface QueryResult {
+        public int getInt(int columnIndex);
+        public int getInt(String columnName);
+        public String getString(int columnIndex);
+        public String getString(String columnName);
+        public boolean moveToNext();
+        public boolean moveToFirst();
 }

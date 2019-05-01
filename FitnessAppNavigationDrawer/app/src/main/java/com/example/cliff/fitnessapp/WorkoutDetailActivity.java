@@ -1,20 +1,13 @@
 package com.example.cliff.fitnessapp;
 
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class WorkoutDetailActivity extends AppCompatActivity {
 
@@ -49,18 +42,16 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
         TextView exerciseNamesTextView = findViewById(R.id.exercise_names);
 
-        FitnessAppHelper helper = new FitnessAppHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
-        cursor.moveToFirst();
-
+        Database db = Database.getDatabase();
+        QueryResult queryResult = db.query("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID);
+        queryResult.moveToFirst();
         String exercises = "";
         do {
-            exercises += (cursor.getString(1) + "\n" +
-                            "Reps: " + cursor.getInt(2) + "  -  " +
-                            "Sets: " + cursor.getInt(3) + "  -  " +
-                            "Weight: " + cursor.getInt(4) + "\n\n");
-        } while (cursor.moveToNext());
+            exercises += (queryResult.getString(1) + "\n" +
+                            "Reps: " + queryResult.getInt(2) + "  -  " +
+                            "Sets: " + queryResult.getInt(3) + "  -  " +
+                            "Weight: " + queryResult.getInt(4) + "\n\n");
+        } while (queryResult.moveToNext());
 
         exerciseNamesTextView.setText(exercises);
     }
@@ -80,11 +71,10 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
     private void deleteWorkout()
     {
-        FitnessAppHelper helper = new FitnessAppHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
+        Database db = Database.getDatabase();
 
-        db.delete("WORKOUT", "_id = " + workoutId, null);
-        db.delete("EXERCISE", "WORKOUT = " + workoutId, null);
+        db.delete("WORKOUT", "_id = " + workoutId);
+        db.delete("EXERCISE", "WORKOUT = " + workoutId);
 
         //Once the workout is deleted the user is returned to the mainActivity
         returnToMyWorkouts();
