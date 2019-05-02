@@ -23,15 +23,6 @@
         android:paddingRight="20dp"
         android:paddingLeft="20dp">
 
-        <ImageView
-            android:id="@+id/userPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:adjustViewBounds="false"
-            android:contentDescription="@string/profile_user_photo"
-
-            android:src="@drawable/u_fit_logo" />
-
         <TextView
             android:id="@+id/timer_text_view"
             android:layout_width="match_parent"
@@ -55,7 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColorHint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="10dp">
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/workout_name"

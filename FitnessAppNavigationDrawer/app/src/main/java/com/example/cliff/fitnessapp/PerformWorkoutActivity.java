@@ -4,9 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-<<<<<<< HEAD
+
 import android.os.Handler;
-=======
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.support.annotation.ColorInt;
->>>>>>> 3b7c891c8b53fccfff7bcc86b1fad04abc27c50b
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
