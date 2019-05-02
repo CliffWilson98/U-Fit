@@ -1,20 +1,13 @@
 package com.example.cliff.fitnessapp;
 
-
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-
-import javax.microedition.khronos.egl.EGLDisplay;
 
 
 /**
@@ -75,10 +68,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             System.out.println("AGE IS " + age);
 
             //pasted here
-            SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
-            SQLiteDatabase db = helper.getWritableDatabase();
+            Database db = Database.getDatabase();
 
-            ContentValues value = new ContentValues();
+            DatabaseValues value = db.newValues();
             value.put("NAME", userName);
             value.put("AGE", age);
             value.put("GENDER", gender);
@@ -93,39 +85,38 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
            // db.insert("PROFILE", null, value);
             db.update("PROFILE", value, null, null);
 
-            Cursor cursor = db.rawQuery("SELECT * FROM PROFILE ORDER BY _id DESC LIMIT 1;", null);
-            cursor.moveToFirst();
+            QueryResult queryResult = db.query("SELECT * FROM PROFILE ORDER BY _id DESC LIMIT 1;");
+            queryResult.moveToFirst();
 
-            String databaseUserName = cursor.getString(cursor.getColumnIndex("NAME"));
-            int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
-            String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
-            String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
-            String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
-            String databaseNeck = cursor.getString(cursor.getColumnIndex("NECK"));
-            String databaseChest = cursor.getString(cursor.getColumnIndex("CHEST"));
-            String databaseWaist = cursor.getString(cursor.getColumnIndex("WAIST"));
-            String databaseHips = cursor.getString(cursor.getColumnIndex("HIPS"));
+            String databaseUserName = queryResult.getString("NAME");
+            int databaseAge = queryResult.getInt("AGE");
+            String databaseGender = queryResult.getString("GENDER");
+            String databaseHeight = queryResult.getString("HEIGHT");
+            String databaseWeight = queryResult.getString("WEIGHT");
+            String databaseNeck = queryResult.getString("NECK");
+            String databaseChest = queryResult.getString("CHEST");
+            String databaseWaist = queryResult.getString("WAIST");
+            String databaseHips = queryResult.getString("HIPS");
 
         }
     }
 
     private void updateEditText()
     {
-        SQLiteOpenHelper helper = new FitnessAppHelper(getActivity());
-        SQLiteDatabase db = helper.getWritableDatabase();
+        Database db = Database.getDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM PROFILE ORDER BY _id DESC LIMIT 1;", null);
-        cursor.moveToFirst();
+        QueryResult queryResult = db.query("SELECT * FROM PROFILE ORDER BY _id DESC LIMIT 1;");
+        queryResult.moveToFirst();
 
-        String databaseUserName = cursor.getString(cursor.getColumnIndex("NAME"));
-        int databaseAge = cursor.getInt(cursor.getColumnIndex("AGE"));
-        String databaseGender = cursor.getString(cursor.getColumnIndex("GENDER"));
-        String databaseHeight = cursor.getString(cursor.getColumnIndex("HEIGHT"));
-        String databaseWeight = cursor.getString(cursor.getColumnIndex("WEIGHT"));
-        String databaseNeck = cursor.getString(cursor.getColumnIndex("NECK"));
-        String databaseChest = cursor.getString(cursor.getColumnIndex("CHEST"));
-        String databaseWaist = cursor.getString(cursor.getColumnIndex("WAIST"));
-        String databaseHips = cursor.getString(cursor.getColumnIndex("HIPS"));
+        String databaseUserName = queryResult.getString("NAME");
+        int databaseAge = queryResult.getInt("AGE");
+        String databaseGender = queryResult.getString("GENDER");
+        String databaseHeight = queryResult.getString("HEIGHT");
+        String databaseWeight = queryResult.getString("WEIGHT");
+        String databaseNeck = queryResult.getString("NECK");
+        String databaseChest = queryResult.getString("CHEST");
+        String databaseWaist = queryResult.getString("WAIST");
+        String databaseHips = queryResult.getString("HIPS");
 
         userNameText.setText((databaseUserName));
         ageText.setText(Integer.toString(databaseAge));

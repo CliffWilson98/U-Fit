@@ -4,12 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.SymbolTable;
-import android.os.Build;
 import android.os.Handler;
-import android.os.VibrationEffect;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -93,27 +88,26 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     {
         int workoutID = getIntent().getIntExtra("workoutID", 0);
 
-        FitnessAppHelper helper = new FitnessAppHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
+        Database db = Database.getDatabase();
 
         //getting the workout name
-        Cursor cursor = db.rawQuery("SELECT * FROM WORKOUT WHERE _id = " + workoutID, null);
-        cursor.moveToFirst();
-        workoutName = cursor.getString(cursor.getColumnIndex("NAME"));
+        QueryResult queryResult = db.query("SELECT * FROM WORKOUT WHERE _id = " + workoutID);
+        queryResult.moveToFirst();
+        workoutName = queryResult.getString("NAME");
 
         //populating the exercise ArrayList
-        cursor = db.rawQuery("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID, null);
-        cursor.moveToFirst();
+        queryResult = db.query("SELECT * FROM EXERCISE WHERE WORKOUT = " + workoutID);
+        queryResult.moveToFirst();
         do
         {
-            String exerciseName = cursor.getString(cursor.getColumnIndex("NAME"));
-            int reps = cursor.getInt(cursor.getColumnIndex("REPS"));
-            int sets = cursor.getInt(cursor.getColumnIndex("SETS"));
-            int weight = cursor.getInt(cursor.getColumnIndex("WEIGHT"));
+            String exerciseName = queryResult.getString("NAME");
+            int reps = queryResult.getInt("REPS");
+            int sets = queryResult.getInt("SETS");
+            int weight = queryResult.getInt("WEIGHT");
 
             Exercise exercise = new Exercise(exerciseName, reps, sets, weight);
             exerciseList.add(exercise);
-        }while (cursor.moveToNext());
+        } while (queryResult.moveToNext());
 
        setSizeOfWasExerciseSkippedArray();
     }
@@ -198,21 +192,15 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         else
         {
             isWorkoutFinished = true;
-            updateDatabaseWithCompletedExercises(getDatabase());
+            updateDatabaseWithCompletedExercises();
             returnToMainActivity();
         }
     }
 
-    private SQLiteDatabase getDatabase()
-    {
-        FitnessAppHelper helper = new FitnessAppHelper(this);
-        return helper.getReadableDatabase();
-    }
-
-    private void updateDatabaseWithCompletedExercises(SQLiteDatabase db)
+    private void updateDatabaseWithCompletedExercises()
     {
         getCompletedExercises();
-        addCompletedExercisesToDatabase(getCompletedExercises(), db);
+        addCompletedExercisesToDatabase(getCompletedExercises());
     }
 
     private ArrayList<Exercise> getCompletedExercises()
@@ -230,13 +218,14 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         return completedExerciseList;
     }
 
-    private void addCompletedExercisesToDatabase(ArrayList<Exercise> exercisesToAdd, SQLiteDatabase db)
+    private void addCompletedExercisesToDatabase(ArrayList<Exercise> exercisesToAdd)
     {
-        ContentValues exerciseResults = new ContentValues();
+        Database db = Database.getDatabase();
+        DatabaseValues exerciseResults = Database.getDatabase().newValues();
 
         for (Exercise e : exercisesToAdd)
         {
-            int id = findCorrespondingIdOfExercise(e, db);
+            int id = findCorrespondingIdOfExercise(e);
 
             exerciseResults.put("NAME", e.getName());
             exerciseResults.put("WEIGHT", e.getWeight());
@@ -244,16 +233,17 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             exerciseResults.put("SETS", e.getSets());
             exerciseResults.put("DEFINEDEXERCISEID", id);
 
-            db.insert("EXERCISERESULTS", null, exerciseResults);
+            db.insert("EXERCISERESULTS", exerciseResults);
             exerciseResults.clear();
         }
     }
 
-    private int findCorrespondingIdOfExercise(Exercise e, SQLiteDatabase db)
+    private int findCorrespondingIdOfExercise(Exercise e)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ? ", new String[]{e.getName()});
-        cursor.moveToFirst();
-        return cursor.getInt(0);
+        Database db = Database.getDatabase();
+        QueryResult queryResult = db.query("SELECT * FROM DEFINEDEXERCISE WHERE NAME = ? ", new String[]{e.getName()});
+        queryResult.moveToFirst();
+        return queryResult.getInt(0);
     }
 
     private boolean exerciseWasCompleted(int exerciseIndex)

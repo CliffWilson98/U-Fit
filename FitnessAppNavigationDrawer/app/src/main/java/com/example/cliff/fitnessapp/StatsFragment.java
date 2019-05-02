@@ -1,8 +1,5 @@
 package com.example.cliff.fitnessapp;
 
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,12 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**
@@ -119,7 +112,7 @@ public class StatsFragment extends Fragment {
     private void retrieveDatabaseInformationForExerciseAndUpdateGraph(int exerciseID)
     {
         clearValuesFromInformationArrays();
-        populateExerciseInformationArrays(getCursorFromExerciseId(getDatabase(), exerciseID));
+        populateExerciseInformationArrays(getQueryResultFromExerciseId(exerciseID));
         updateEveryGraph();
     }
 
@@ -130,27 +123,21 @@ public class StatsFragment extends Fragment {
         }
     }
 
-    private SQLiteDatabase getDatabase()
+    private QueryResult getQueryResultFromExerciseId(int id)
     {
-        FitnessAppHelper helper = new FitnessAppHelper(getActivity());
-        return helper.getReadableDatabase();
+        return Database.getDatabase().query("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id);
     }
 
-    private Cursor getCursorFromExerciseId(SQLiteDatabase db, int id)
+    private void populateExerciseInformationArrays(QueryResult queryResult)
     {
-        return db.rawQuery("SELECT * FROM EXERCISERESULTS WHERE DEFINEDEXERCISEID = " + id,null);
-    }
-
-    private void populateExerciseInformationArrays(Cursor cursor)
-    {
-        if (cursor.getCount() != 0)
+        if (queryResult.getCount() != 0)
         {
-            cursor.moveToFirst();
+            queryResult.moveToFirst();
             do {
                 for(Graph graph : graphs) {
-                    graph.addDataFromCursor(cursor);
+                    graph.addDataFromQueryResult(queryResult);
                 }
-            }while(cursor.moveToNext());
+            }while(queryResult.moveToNext());
         }
     }
 
