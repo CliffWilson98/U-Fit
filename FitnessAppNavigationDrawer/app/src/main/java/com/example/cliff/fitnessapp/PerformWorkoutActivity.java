@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.icu.text.SymbolTable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.VibrationEffect;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,6 +66,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     {
         final TextView timerTextView = findViewById(R.id.timer_text_view);
         final Handler handler = new Handler();
+        timerTextView.setTextColor(Color.BLACK);
         handler.post(new Runnable() {
             int seconds = 0;
 
@@ -126,11 +129,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     private void updateTextViews()
     {
         TextView nameTextView = findViewById(R.id.workout_name);
+        nameTextView.setTextColor(Color.rgb(156, 160, 163));
         nameTextView.setText(workoutName);
 
         Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
         TextView exerciseTextView = findViewById(R.id.exercise_instructions);
+        exerciseTextView.setTextColor(Color.WHITE);
         String exerciseInstructions = String.format("%dx%d %s at %d lbs", currentExercise.getSets(), currentExercise.getReps(), currentExercise.getName(), currentExercise.getWeight());
         exerciseTextView.setText(exerciseInstructions);
     }
@@ -156,6 +161,8 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
             String buttonText = String.format("Finished set %d\n with %d reps!", setCounter, repCounter);
             setCounterButtonText(buttonText);
+            button.setTextSize(14);
+            button.setTextColor(Color.WHITE);
             button.setText(buttonText);
         }
 
@@ -375,6 +382,8 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         final Button counterButton = findViewById(R.id.counter_button);
         final Handler handler = new Handler();
+        counterButton.setTextSize(20);
+        counterButton.setTextColor(Color.RED);
         handler.post(new Runnable() {
 
             final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -412,6 +421,8 @@ public class PerformWorkoutActivity extends AppCompatActivity {
             isResting = false;
         }
         Button b = findViewById(R.id.counter_button);
+        b.setTextSize(14);
+        b.setTextColor(Color.WHITE);
         if (counterButtonText != null)
         {
             b.setText(counterButtonText);
