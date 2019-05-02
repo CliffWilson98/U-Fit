@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/workout_toolbar"
@@ -14,71 +12,78 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <ImageView
-        android:id="@+id/userPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:adjustViewBounds="false"
-        android:contentDescription="@string/profile_user_photo"
-        android:padding="10dp"
-        android:src="@drawable/u_fit_logo" />
-
-    <TextView
-        android:id="@+id/workout_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/colorDarkBlue"
-        android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:text="workout names"/>
-
     <LinearLayout
-        android:layout_weight="4"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp">
+
+        <ImageView
+            android:id="@+id/userPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:adjustViewBounds="false"
+            android:contentDescription="@string/profile_user_photo"
+            android:padding="10dp"
+            android:src="@drawable/u_fit_logo" />
 
         <TextView
-            android:id="@+id/exercise_names"
+            android:id="@+id/workout_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:background="@color/colorLightBlue"
-            android:textSize="18sp"
-            android:textColor="@color/colorWhite"
-            android:text="exercise text" />
+            android:gravity="center"
+            android:background="@color/colorDarkBlue"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="workout names"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:paddingBottom="20dp"
-        android:weightSum="2"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/delete_workout_button"
-            android:onClick="checkForDeleteConfirmation"
-            android:text="Delete Workout"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_weight="4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorSilver"
-            android:textStyle="bold"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/perform_workout_button"
-            android:onClick="goToPerformWorkout"
-            android:text="Perform Workout"
-            android:layout_weight="1"
+            <TextView
+                android:id="@+id/exercise_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/colorLightBlue"
+                android:textSize="18sp"
+                android:textColor="@color/colorWhite"
+                android:text="exercise text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingBottom="20dp"
+            android:weightSum="2"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorSilver"
-            android:textStyle="bold"/>
+            android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/delete_workout_button"
+                android:onClick="checkForDeleteConfirmation"
+                android:text="Delete Workout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSilver"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/perform_workout_button"
+                android:onClick="goToPerformWorkout"
+                android:text="Perform Workout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSilver"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
