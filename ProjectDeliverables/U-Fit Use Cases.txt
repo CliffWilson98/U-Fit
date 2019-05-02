@@ -1,0 +1,12 @@
+Main Scenarios 
+1. A user creates a workout composed of different exercises
+2. A user views their profile to view their measurements and weight 
+3. A user updates their profile with new information regarding their measurements or weight
+4. A user views the workouts that they have created 
+5. A user deletes a workout that they have created
+6. A user performs a workout that they have created
+7. A user views statistics regarding exercises that they have performed
+
+Extensions
+6a. While performing a workout the user has to stop to take a rest
+6b. While performing a workout a user decides that a particular exercise is too much and decides to skip it 
