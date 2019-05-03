@@ -10,6 +10,7 @@
             android:title="View Profile" />
         <item
             android:id="@+id/nav_stats_screen"
+            android:icon="@drawable/ic_filter_black_24dp"
             android:title="View Stats"/>
         <item
             android:id="@+id/nav_create_workouts"
