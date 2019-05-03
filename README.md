@@ -21,7 +21,12 @@ The Create Workout screen allows the user to create their own custom workouts. A
  ## Performing a Workout 
  The perform workout screen allows the user to keep track of their reps, sets, and time while performing a workout and features buttons for manual rests if the user wishes to keep track of their time spent resting during the workout. The Perform Workout screen displays the name of the workout along with information regarding the current exercise that the user is on. The blue counter button in the middle of the screen should be pressed after the completion of each set. Upon completion of an exercise within the workout the app will automatically present the user with the next exercise to perform. At any point the user can skip an exercise or cancel the workout completely.
  
+ <img src="https://user-images.githubusercontent.com/20459629/57150876-14ead600-6d95-11e9-8fcf-b0fa2b446c27.png" width="300">
+ 
  ## Viewing Stats 
  The View Stats screen allows the user to view information regarding a specific exercise that they have completed at least once. Multiple line graphs are presented to the user showing how their reps, sets, and weight for the given exercise have changed over time. 
 
-<img src="https://user-images.githubusercontent.com/40970928/57051092-6d12c280-6c45-11e9-8dcb-03d0e8a6109f.png" width="300">
+<img src="https://user-images.githubusercontent.com/20459629/57150799-d7864880-6d94-11e9-9e56-1e1e1d36bb70.png" width="300">
+
+
+
