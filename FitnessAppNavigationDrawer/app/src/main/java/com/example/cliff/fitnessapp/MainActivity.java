@@ -47,20 +47,20 @@ public class MainActivity extends AppCompatActivity
                 String intentFragment = getIntent().getExtras().getString("fragmentToLoad");
                 if (intentFragment.equals(MY_WORKOUT_FRAGMENT))
                 {
-                    fragmentTransactionManager(new MyWorkoutsFragment());
+                    manageFragmentTransaction(new MyWorkoutsFragment());
                 }
             }catch (NullPointerException e)
             {
                 //If there is a null pointer exception then that means the profile
                 //fragment should just be loaded since it is the default fragment
-                fragmentTransactionManager(new ProfileFragment());
+                manageFragmentTransaction(new ProfileFragment());
                 currentFragment = R.id.nav_profile;
             }
         }
         else
         {
             //If there was no intent then the profile fragment can be loaded
-            fragmentTransactionManager(new ProfileFragment());
+            manageFragmentTransaction(new ProfileFragment());
         }
 
         if (savedInstanceState != null)
@@ -120,23 +120,23 @@ public class MainActivity extends AppCompatActivity
     {
         if (id == R.id.nav_profile)
         {
-            fragmentTransactionManager(new ProfileFragment());
+            manageFragmentTransaction(new ProfileFragment());
         }
         else if (id == R.id.nav_create_workouts)
         {
-            fragmentTransactionManager(new CreateWorkoutFragment());
+            manageFragmentTransaction(new CreateWorkoutFragment());
         }
         else if (id == R.id.nav_my_workouts)
         {
-            fragmentTransactionManager(new MyWorkoutsFragment());
+            manageFragmentTransaction(new MyWorkoutsFragment());
         }
         else if (id == R.id.nav_stats_screen)
         {
-            fragmentTransactionManager(new StatsFragment());
+            manageFragmentTransaction(new StatsFragment());
         }
     }
 
-    private void fragmentTransactionManager(Fragment fragmentToSwap)
+    private void manageFragmentTransaction(Fragment fragmentToSwap)
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_placeholder, fragmentToSwap);
