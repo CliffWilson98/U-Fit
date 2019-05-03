@@ -131,13 +131,13 @@ public class PerformWorkoutActivity extends AppCompatActivity {
     {
         TextView nameTextView = findViewById(R.id.workout_name);
         nameTextView.setTextColor(Color.rgb(156, 160, 163));
-        nameTextView.setText(workoutName);
+        nameTextView.setText("Workout: " + workoutName);
 
         Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
         TextView exerciseTextView = findViewById(R.id.exercise_instructions);
         exerciseTextView.setTextColor(Color.WHITE);
-        String exerciseInstructions = String.format("%dx%d %s at %d lbs", currentExercise.getSets(), currentExercise.getReps(), currentExercise.getName(), currentExercise.getWeight());
+        String exerciseInstructions = String.format("%s\n\n%dx%d %s at %d lbs", "Exercise details:", currentExercise.getSets(), currentExercise.getReps(), currentExercise.getName(), currentExercise.getWeight());
         exerciseTextView.setText(exerciseInstructions);
     }
 
@@ -160,7 +160,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
                 repCounter = currentExercise.getReps();
             }
 
-            String buttonText = String.format("Finished set %d\n with %d reps!", setCounter, repCounter);
+            String buttonText = String.format("Finished!\nset: %d\t\t\treps: %d", setCounter, repCounter);
             setCounterButtonText(buttonText);
             button.setTextSize(14);
             button.setTextColor(Color.WHITE);
