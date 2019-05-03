@@ -271,17 +271,8 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
     private void returnToMainActivity()
     {
-        //TODO remove this
-        String testString = "";
-        for (boolean exerciseBoolean : wasExerciseSkippedArray)
-        {
-            testString += exerciseBoolean;
-            testString += " ";
-        }
-        System.out.println("EXERCISE IS FINISHED!");
-        System.out.println(testString);
-
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
