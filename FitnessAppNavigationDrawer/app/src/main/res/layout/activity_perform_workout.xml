@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="6"
+    android:layout_weight="5"
     tools:context=".PerformWorkoutActivity">
 
     <android.support.v7.widget.Toolbar
@@ -16,124 +16,174 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <TextView
-        android:id="@+id/timer_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="placeholder"
-        android:gravity="center"/>
-
-    <TextView
-        android:id="@+id/workout_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"/>
-
-    <TextView
-        android:id="@+id/exercise_instructions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"/>
-
-    <Button
-        android:id="@+id/counter_button"
-        android:onClick="incrementCounter"
-        android:text="Counter"
-        android:textColor="@color/colorSilver"
-        android:background="@drawable/circle_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp">
 
         <TextView
-            android:gravity="center"
+            android:id="@+id/timer_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/rest"/>
+            android:text="placeholder"
+            android:gravity="center"
+            android:textSize="42sp"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp">
+
+            <Button
+                android:id="@+id/counter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/perform_workout_button"
+                android:onClick="incrementCounter"
+                android:text="Counter"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/workout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/colorDarkBlue"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/exercise_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@color/colorLightBlue"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/colorLightBlue">
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rest"
+                android:background="@color/colorDarkBlue"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:background="@color/colorLightBlue">
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rest_15"
+                    android:onClick="restTimer"
+                    android:text="15"
+                    android:backgroundTint="@color/colorSilver"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rest_30"
+                    android:onClick="restTimer"
+                    android:text="30"
+                    android:backgroundTint="@color/colorSilver"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rest_45"
+                    android:onClick="restTimer"
+                    android:text="45"
+                    android:backgroundTint="@color/colorSilver"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rest_60"
+                    android:onClick="restTimer"
+                    android:text="60"
+                    android:backgroundTint="@color/colorSilver"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
             <Button
-                android:layout_weight="1"
+                android:id="@+id/cancel_rest_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rest_15"
-                android:onClick="restTimer"
-                android:text="15"/>
-
-            <Button
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rest_30"
-                android:onClick="restTimer"
-                android:text="30"/>
-
-            <Button
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rest_45"
-                android:onClick="restTimer"
-                android:text="45"/>
-
-            <Button
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rest_60"
-                android:onClick="restTimer"
-                android:text="60"/>
+                android:layout_gravity="center"
+                android:text="@string/cancel_rest"
+                android:onClick="cancelRest"
+                android:backgroundTint="@color/colorSilver"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/cancel_rest_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_gravity="center"
-            android:text="@string/cancel_rest"
-            android:onClick="cancelRest"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:weightSum="2">
-
-        <Button
-            android:text="Cancel Workout"
-            android:onClick="confirmCancelWorkout"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:weightSum="2">
 
-        <Button
+            <Button
+                android:text="Cancel Workout"
+                android:onClick="confirmCancelWorkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorSilver"
+                android:textStyle="bold"/>
 
-            android:text="Skip Exercise"
-            android:onClick="skipExercise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            <Button
 
+                android:text="Skip Exercise"
+                android:onClick="skipExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorSilver"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
