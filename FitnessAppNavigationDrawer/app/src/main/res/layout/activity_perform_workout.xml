@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:background="@color/colorDarkBlue"
+                android:background="@color/colorLightBlue"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="@color/colorLightBlue"
+                android:background="@color/colorDarkBlue"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -84,14 +84,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/colorLightBlue">
+            android:background="@color/colorDarkBlue">
 
             <TextView
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/rest"
-                android:background="@color/colorDarkBlue"
+                android:background="@color/colorLightBlue"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="4"
                 android:orientation="horizontal"
-                android:background="@color/colorLightBlue">
+                android:background="@color/colorDarkBlue">
 
                 <Button
                     android:layout_weight="1"
