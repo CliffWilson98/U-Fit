@@ -137,7 +137,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
 
         TextView exerciseTextView = findViewById(R.id.exercise_instructions);
         exerciseTextView.setTextColor(Color.WHITE);
-        String exerciseInstructions = String.format("%s\n\n%dx%d %s at %d lbs", "Exercise details:", currentExercise.getSets(), currentExercise.getReps(), currentExercise.getName(), currentExercise.getWeight());
+        String exerciseInstructions = String.format("%s\n\n%dx%d %s at %d lbs", "Exercise Details:", currentExercise.getSets(), currentExercise.getReps(), currentExercise.getName(), currentExercise.getWeight());
         exerciseTextView.setText(exerciseInstructions);
     }
 
@@ -380,7 +380,7 @@ public class PerformWorkoutActivity extends AppCompatActivity {
         final Button counterButton = findViewById(R.id.counter_button);
         final Handler handler = new Handler();
         counterButton.setTextSize(20);
-        counterButton.setTextColor(Color.RED);
+        counterButton.setTextColor(Color.YELLOW);
         handler.post(new Runnable() {
 
             final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
